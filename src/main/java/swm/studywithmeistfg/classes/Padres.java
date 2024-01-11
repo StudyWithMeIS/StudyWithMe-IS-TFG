@@ -1,6 +1,16 @@
 package swm.studywithmeistfg.classes;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Padres {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     // ATRIBUTOS.
     private String nif_padres;
     private String nombre_padres;
@@ -9,6 +19,9 @@ public class Padres {
 
 
     // CONSTRUCTOR
+
+    public Padres() {}
+
     public Padres(String nif_padres, String nombre_padres, String telefono_padres, String email_padres) {
         this.nif_padres = nif_padres;
         this.nombre_padres = nombre_padres;

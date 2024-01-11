@@ -1,6 +1,16 @@
 package swm.studywithmeistfg.classes;
 
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Administrador {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     // ATRIBUTOS.
     private String nif_administrador;
     private String nombre_administrador;
@@ -10,12 +20,14 @@ public class Administrador {
 
 
     // CONSTRUCTOR
+    public Administrador() {}
     public Administrador(String nif_administrador, String nombre_administrador, String telefono_administrador, String email_administrador) {
         this.nif_administrador = nif_administrador;
         this.nombre_administrador = nombre_administrador;
         this.telefono_administrador = telefono_administrador;
         this.email_administrador = email_administrador;
     }
+
 
 
 

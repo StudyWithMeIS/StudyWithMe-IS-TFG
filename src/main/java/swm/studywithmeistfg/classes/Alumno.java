@@ -1,6 +1,16 @@
 package swm.studywithmeistfg.classes;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Alumno {
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     // ATRIBUTOS.
     private String nif_alumno;
     private String nombre_alumno;
@@ -9,12 +19,16 @@ public class Alumno {
 
 
     // CONSTRUCTOR.
+    public Alumno() {}
+
     public Alumno(String nif_alumno, String nombre_alumno, int edad_alumno, String email_alumno) {
         this.nif_alumno = nif_alumno;
         this.nombre_alumno = nombre_alumno;
         this.edad_alumno = edad_alumno;
         this.email_alumno = email_alumno;
     }
+
+
 
 
     // GETTERS & SETTERS
