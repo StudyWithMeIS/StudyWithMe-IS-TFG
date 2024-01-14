@@ -1,30 +1,35 @@
 package swm.studywithmeistfg.classes;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table
 public class Administrador {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // ATRIBUTOS.
+
+    @Column(name = "nif_administrador", unique = true, nullable = false)
     private String nif_administrador;
+
+    @Column(name = "nombre_administrador", nullable = false)
     private String nombre_administrador;
-    private String telefono_administrador;
+
+    @Column(name = "edad_administrador")
+    private int edad_administrador;
+
+    @Column(name = "email_administrador", nullable = false)
     private String email_administrador;
 
 
 
     // CONSTRUCTOR
     public Administrador() {}
-    public Administrador(String nif_administrador, String nombre_administrador, String telefono_administrador, String email_administrador) {
+    public Administrador(String nif_administrador, String nombre_administrador, int edad_administrador, String email_administrador) {
         this.nif_administrador = nif_administrador;
         this.nombre_administrador = nombre_administrador;
-        this.telefono_administrador = telefono_administrador;
+        this.edad_administrador = edad_administrador;
         this.email_administrador = email_administrador;
     }
 
@@ -48,12 +53,12 @@ public class Administrador {
         this.nombre_administrador = nombre_administrador;
     }
 
-    public String getTelefono_administrador() {
-        return telefono_administrador;
+    public int getEdad_administrador() {
+        return edad_administrador;
     }
 
     public void setTelefono_administrador(String telefono_administrador) {
-        this.telefono_administrador = telefono_administrador;
+        this.edad_administrador = edad_administrador;
     }
 
     public String getEmail_administrador() {
@@ -64,14 +69,4 @@ public class Administrador {
         this.email_administrador = email_administrador;
     }
 
-
-
-
-    // METODOS
-
-
-    @Override
-    public String toString() {
-        return "Administrador: NIF - " + nif_administrador + '\'' + ", NOMBRE - " + nombre_administrador + '\'' + ", TELEFONO - " + telefono_administrador + '\'' + ", EMAIL - " + email_administrador + '\'' + '}';
-    }
 }//CLOSE CLASS ADMINISTRADOR

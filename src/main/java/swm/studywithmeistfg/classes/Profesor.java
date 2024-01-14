@@ -1,27 +1,28 @@
 package swm.studywithmeistfg.classes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table
 public class Profesor {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     // ATRIBUTOS.
+    @Column(name = "nif_profesor", nullable = false, unique = true)
     private String nif_profesor;
+
+    @Column(name = "nombre_profesor", nullable = false)
     private String nombre_profesor;
+
+    @Column(name = "edad_profesor", nullable = false)
     private int edad_profesor;
+
+    @Column(name = "email_profesor", nullable = false)
     private String email_profesor;
 
 
     // CONSTRUCTOR
-
-
     public Profesor() {}
 
     public Profesor(String nif_profesor, String nombre_profesor, int edad_profesor, String email_profesor) {
@@ -64,13 +65,5 @@ public class Profesor {
 
     public void setEmail_profesor(String email_profesor) {
         this.email_profesor = email_profesor;
-    }
-
-    // METODOS
-
-
-    @Override
-    public String toString() {
-        return "Profesor: NIF - " + nif_profesor + '\'' + ", NOMBRE - " + nombre_profesor + '\'' + ", EDAD - " + edad_profesor + ", EMAIL - " + email_profesor + '\'';
     }
 }//CLOSE CLASS PROFESOR
