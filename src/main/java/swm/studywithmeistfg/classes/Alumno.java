@@ -1,20 +1,24 @@
 package swm.studywithmeistfg.classes;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table
 public class Alumno {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // ATRIBUTOS.
+
+    @Column(name = "nif_alumno", unique = true, nullable = false)
     private String nif_alumno;
+
+    @Column(name = "nombre_alumno", nullable = false)
     private String nombre_alumno;
+
+    @Column(name = "edad_alumno", nullable = false)
     private int edad_alumno;
+
+    @Column(name = "email_alumno", nullable = false)
     private String email_alumno;
 
 
@@ -66,13 +70,4 @@ public class Alumno {
         this.email_alumno = email_alumno;
     }
 
-
-
-    // METODOS
-
-
-    @Override
-    public String toString() {
-        return "Alumno: NIF - "+ nif_alumno + '\'' + ", NOMBRE - ='" + nombre_alumno + '\'' + ", EDAD - " + edad_alumno + ", EMAIL -" + email_alumno + '\'';
-    }
 }//CIERRA CLASS ALUMNO
