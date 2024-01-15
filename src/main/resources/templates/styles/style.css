@@ -1,3 +1,36 @@
 .custom-margin-top {
     margin-top: 6rem ; /* Puedes ajustar el valor según tus necesidades */
 }
+
+#video-welcome {
+    position: relative;
+}
+
+#video-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* Puedes ajustar el color del texto según tu diseño */
+    text-align: center;
+}
+
+
+#video-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+}
+
+#video-text h2 {
+    font-size: 4vw; /* Ajusta el tamaño del texto en relación con el ancho de la ventana */
+}
+
+@media (max-width: 768px) {
+    #video-text h2 {
+        font-size: 6vw; /* Ajusta el tamaño del texto para pantallas más pequeñas */
+    }
+}
