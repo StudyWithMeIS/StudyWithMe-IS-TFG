@@ -34,3 +34,31 @@
         font-size: 6vw; /* Ajusta el tamaño del texto para pantallas más pequeñas */
     }
 }
+
+
+.calendar-event {
+    margin-bottom: 30px;
+    padding: 15px;
+}
+
+.calendar-event img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.image-space {
+    height: 100px; /* Ajusta la altura según sea necesario */
+    width: 100%; /* O ajusta el ancho según sea necesario */
+    margin-bottom: 30px;
+}
+
+.image-left {
+    float: left;
+    margin-right: 20px;
+}
+
+.image-right {
+    float: right;
+    margin-left: 20px;
+}
