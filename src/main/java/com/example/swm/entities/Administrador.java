@@ -1,4 +1,4 @@
-package swm.studywithmeistfg.classes;
+package com.example.swm.entities;
 
 
 import jakarta.persistence.*;

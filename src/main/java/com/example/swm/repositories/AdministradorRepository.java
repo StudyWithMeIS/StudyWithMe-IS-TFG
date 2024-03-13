@@ -1,7 +1,7 @@
-package swm.studywithmeistfg.repositories;
+package com.example.swm.repositories;
 
+import com.example.swm.entities.Administrador;
 import org.springframework.data.jpa.repository.JpaRepository;
-import swm.studywithmeistfg.classes.Administrador;
 
 public interface AdministradorRepository extends JpaRepository<Administrador, Long> {
     // Puedes agregar métodos personalizados si es necesario
