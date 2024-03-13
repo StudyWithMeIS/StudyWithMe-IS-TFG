@@ -1,4 +1,4 @@
-package swm.studywithmeistfg;
+package com.example.swm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

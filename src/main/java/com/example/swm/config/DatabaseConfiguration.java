@@ -1,4 +1,4 @@
-package swm.studywithmeistfg.database_connection;
+package com.example.swm.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
