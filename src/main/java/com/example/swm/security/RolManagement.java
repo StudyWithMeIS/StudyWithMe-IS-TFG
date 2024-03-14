@@ -37,15 +37,15 @@ public class RolManagement {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/img/**", "/scss/**", "/vendor/**").permitAll()
-                        .requestMatchers("/", "/login", "/signup").permitAll()
-                        .requestMatchers("/profesor/**").hasAuthority("ROLE_PROFESOR")
-                        .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
-                        .requestMatchers("/alumno/**").hasAuthority("ROLE_ALUMNO")
-                        .anyRequest().authenticated())
-                .formLogin(formLogin -> formLogin.loginPage("/login").permitAll())
-                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/").permitAll())
-                .exceptionHandling((exception) -> exception.accessDeniedPage("/denegado"));
+               .requestMatchers("/css/**", "/js/**", "/img/**", "/scss/**", "/vendor/**").permitAll()
+               .requestMatchers("/", "/login", "/signup").permitAll()
+               .requestMatchers("/profesor/**").hasAuthority("ROLE_PROFESOR")
+               .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+               .requestMatchers("/alumno/**").hasAuthority("ROLE_ALUMNO")
+               .anyRequest().authenticated())
+            .formLogin(formLogin -> formLogin.loginPage("/login").permitAll())
+            .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/").permitAll())
+            .exceptionHandling((exception) -> exception.accessDeniedPage("/denegado"));
 
         return http.build();
     }
