@@ -5,6 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
@@ -12,6 +14,7 @@ import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -31,7 +34,28 @@ public class RolManagement {
         userDetailsManager.setAuthoritiesByUsernameQuery("SELECT nif_admin AS username, 'ROLE_ADMIN' AS authority FROM administradores WHERE nif_admin=? UNION " +
                 "SELECT nif_profesor AS username, 'ROLE_PROFESOR' AS authority FROM profesores WHERE nif_profesor=? UNION " +
                 "SELECT nif_alumno AS username, 'ROLE_ALUMNO' AS authority FROM alumnos WHERE nif_alumno=?");
+
+        List<Usuario> usuearios = obtenerUsuarios();
+        for (Usuario usuario : usuarios) {
+            String username = usuario.getNif();
+            String password = usuario.getPassword();
+            List<String> roles = obtenerRolesDeUsuario(usuario);
+
+            // Crear el usuario con sus roles correspondientes
+            userDetailsManager.createUser(new User(username, password, AuthorityUtils.createAuthorityList(roles.toArray(new String[0]))));
+        }
+
         return userDetailsManager;
+    }
+
+    private List<Usuario> obtenerUsuarios() {
+        // Aquí se debería hacer la consulta a la base de datos para obtener los usuarios
+        return null;
+    }
+
+    private List<String> obtenerRolesDeUsuario(Usuario usuario) {
+        // Aquí se debería hacer la consulta a la base de datos para obtener los roles de un usuario
+        return null;
     }
 
     @Bean
