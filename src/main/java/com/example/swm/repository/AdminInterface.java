@@ -1,4 +1,8 @@
 package com.example.swm.repository;
 
-public interface AdminInterface {
+
+import com.example.swm.entity.Admin;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AdminInterface extends JpaRepository<Admin, String> {
 }
