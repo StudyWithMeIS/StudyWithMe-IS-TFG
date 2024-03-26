@@ -1,13 +1,18 @@
 package com.example.swm.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import org.springframework.web.bind.annotation.GetMapping;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 
 @Entity
-@NamedQuery(name = "Administrador.findAll", query = "SELECT admin FROM administradores admin")
+@NamedQuery(name = "Administrador.findAll", query = "SELECT admin FROM Admin admin")
 public class Admin implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -58,5 +63,15 @@ public class Admin implements Serializable {
 
     public void setPassword_admin(String password_admin) {
         this.password_admin = password_admin;
+    }
+
+    @Override
+    public String toString() {
+        return "Admin{" +
+                "nif_admin='" + nif_admin + '\'' +
+                ", nombre_admin='" + nombre_admin + '\'' +
+                ", email_admin='" + email_admin + '\'' +
+                ", password_admin='" + password_admin + '\'' +
+                '}';
     }
 }

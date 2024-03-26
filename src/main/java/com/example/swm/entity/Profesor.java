@@ -1,13 +1,18 @@
 package com.example.swm.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 
+import java.io.Serial;
 import java.io.Serializable;
-import java.util.Objects;
+import java.util.List;
 
 @Entity
-@NamedQuery(name="Profesor.findAll", query="SELECT p FROM Profesor p")
+@NamedQuery(name = "Profesor.findAll", query = "SELECT p FROM Profesor p")
 public class Profesor implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -15,6 +20,9 @@ public class Profesor implements Serializable {
     private String nombre_profesor;
     private String email_profesor;
     private String password_profesor;
+
+    @OneToMany(mappedBy = "profesor")
+    private List<Asignatura> asignaturas;
 
     public Profesor() {
     }
@@ -56,5 +64,24 @@ public class Profesor implements Serializable {
 
     public void setPassword_profesor(String password_profesor) {
         this.password_profesor = password_profesor;
+    }
+
+    public List<Asignatura> getAsignaturas() {
+        return asignaturas;
+    }
+
+    public void setAsignaturas(List<Asignatura> asignaturas) {
+        this.asignaturas = asignaturas;
+    }
+
+    @Override
+    public String toString() {
+        return "Profesor{" +
+                "nif_profesor='" + nif_profesor + '\'' +
+                ", nombre_profesor='" + nombre_profesor + '\'' +
+                ", email_profesor='" + email_profesor + '\'' +
+                ", password_profesor='" + password_profesor + '\'' +
+                ", asignaturas=" + asignaturas +
+                '}';
     }
 }

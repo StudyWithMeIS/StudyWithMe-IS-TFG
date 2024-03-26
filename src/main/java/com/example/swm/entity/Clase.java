@@ -2,12 +2,14 @@ package com.example.swm.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
 @NamedQuery(name="Clase.findAll", query="SELECT c FROM Clase c")
 public class Clase implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -18,7 +20,6 @@ public class Clase implements Serializable {
     }
 
     public Clase(String id_clase, String nombre_clase) {
-        super();
         this.id_clase = id_clase;
         this.nombre_clase = nombre_clase;
     }
@@ -37,5 +38,13 @@ public class Clase implements Serializable {
 
     public void setNombre_clase(String nombre_clase) {
         this.nombre_clase = nombre_clase;
+    }
+
+    @Override
+    public String toString() {
+        return "Clase{" +
+                "id_clase='" + id_clase + '\'' +
+                ", nombre_clase='" + nombre_clase + '\'' +
+                '}';
     }
 }
