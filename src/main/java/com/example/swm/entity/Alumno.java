@@ -1,12 +1,16 @@
 package com.example.swm.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.NamedQuery;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@NamedQuery(name="Alumno.findAll", query="SELECT a FROM Alumno a")
+@NamedQuery(name = "Alumno.findAll", query = "SELECT a FROM Alumno a")
 public class Alumno implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -82,4 +86,17 @@ public class Alumno implements Serializable {
     public void setNombre_madre_alumno(String nombre_madre_alumno) {
         this.nombre_madre_alumno = nombre_madre_alumno;
     }
+
+    @Override
+    public String toString() {
+        return "Alumno{" +
+                "nif_alumno='" + nif_alumno + '\'' +
+                ", nombre_alumno='" + nombre_alumno + '\'' +
+                ", email_alumno='" + email_alumno + '\'' +
+                ", password_alumno='" + password_alumno + '\'' +
+                ", nombre_padre_alumno='" + nombre_padre_alumno + '\'' +
+                ", nombre_madre_alumno='" + nombre_madre_alumno + '\'' +
+                '}';
+    }
+
 }
