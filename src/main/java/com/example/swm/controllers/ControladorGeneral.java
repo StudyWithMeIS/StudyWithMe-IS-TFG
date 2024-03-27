@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorGeneral {
     @RequestMapping("/")
-    public String index() {
+    public ModelAndView index() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
         return mv;
