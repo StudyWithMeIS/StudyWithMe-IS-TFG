@@ -1,16 +1,16 @@
 package com.example.swm.controllers;
 
 
-import com.example.swm.repository.AlumnoInterface;
+import com.example.swm.repository.AdministradoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/alumnos")
-public class ControladorAlumno {
-
+@RequestMapping("/adminnisrador")
+public class AdministradoresController {
     @Autowired
-    private AlumnoInterface alumnos;
+    private AdministradoresRepository administradoresRepository;
+
 
 }

@@ -29,7 +29,7 @@ public class SecurityConfig {
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
         userDetailsManager.setUsersByUsernameQuery("SELECT nif_admin AS username, password_admin AS password, true AS enabled FROM administradores WHERE nif_admin=?");
         userDetailsManager.setAuthoritiesByUsernameQuery(
-                "SELECT nif_admin AS username, 'ROLE_ADMIN' AS authority FROM administradores WHERE nif_admin=? UNION " +
+                "SELECT nif_admin AS username, 'ROLE_ADMINISTRADOR' AS authority FROM administradores WHERE nif_admin=? UNION " +
                 "SELECT nif_profesor AS username, 'ROLE_PROFESOR' AS authority FROM profesores WHERE nif_profesor=? UNION " +
                 "SELECT nif_alumno AS username, 'ROLE_ALUMNO' AS authority FROM alumnos WHERE nif_alumno=?");
 
@@ -42,7 +42,7 @@ public class SecurityConfig {
                .requestMatchers("/css/**", "/js/**", "/img/**", "/scss/**", "/vendor/**").permitAll()
                .requestMatchers("/", "/login", "/signup").permitAll()
                .requestMatchers("/profesor/**").hasAuthority("ROLE_PROFESOR")
-               .requestMatchers("/admin/**").hasAuthority("ROLE_ADMIN")
+               .requestMatchers("/administrador/**").hasAuthority("ROLE_ADMINISTRADOR")
                .requestMatchers("/alumno/**").hasAuthority("ROLE_ALUMNO")
                .anyRequest().authenticated())
             .formLogin(formLogin -> formLogin.loginPage("/login").permitAll())
