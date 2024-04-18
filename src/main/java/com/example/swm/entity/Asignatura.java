@@ -16,6 +16,9 @@ public class Asignatura implements Serializable {
     private String id_asignatura;
     private String nombre_asignatura;
     private String id_clase_asignatura;
+
+    @Column(name = "nif_profesor", insertable = false, updatable = false)
+
     private String nif_profesor;
 
     public Asignatura() {

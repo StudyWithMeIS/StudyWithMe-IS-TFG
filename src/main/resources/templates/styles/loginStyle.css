@@ -1,0 +1,26 @@
+body, html {
+    height: 100% !important;
+    margin: 0 !important;
+}
+
+.container {
+    justify-content: center !important;
+    align-items: center !important;
+}
+
+.login-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    height: 100vh !important;
+    padding-top: 2vh !important;
+}
+
+.card {
+    width: 100% !important;
+    padding: 20px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 10px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    background-color: #fff !important;
+}

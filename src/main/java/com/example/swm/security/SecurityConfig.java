@@ -15,38 +15,36 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class SecurityConfig{
     @Autowired
     private DataSource dataSource;
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
 
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        userDetailsManager.setUsersByUsernameQuery("SELECT nif_admin AS username, password_admin AS password, true AS enabled FROM administradores WHERE nif_admin=?");
+        userDetailsManager.setUsersByUsernameQuery(
+                "SELECT nif_admin AS username, password_admin AS password, true AS enabled FROM administradores WHERE nif_admin = ?");
         userDetailsManager.setAuthoritiesByUsernameQuery(
-                "SELECT nif_admin AS username, 'ROLE_ADMINISTRADOR' AS authority FROM administradores WHERE nif_admin=? UNION " +
-                "SELECT nif_profesor AS username, 'ROLE_PROFESOR' AS authority FROM profesores WHERE nif_profesor=? UNION " +
-                "SELECT nif_alumno AS username, 'ROLE_ALUMNO' AS authority FROM alumnos WHERE nif_alumno=?");
-
+                "SELECT nif_admin AS username, 'ROLE_ADMINISTRADOR' AS authority FROM administradores WHERE nif_admin=?" );
         return userDetailsManager;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(auth -> auth
-               .requestMatchers("/css/**", "/js/**", "/img/**", "/scss/**", "/vendor/**").permitAll()
+               .requestMatchers("/styles/**", "/scripts/**", "/images/**", "/pages/**", "/vendor/**").permitAll()
                .requestMatchers("/", "/login", "/signup").permitAll()
                .requestMatchers("/profesor/**").hasAuthority("ROLE_PROFESOR")
                .requestMatchers("/administrador/**").hasAuthority("ROLE_ADMINISTRADOR")
                .requestMatchers("/alumno/**").hasAuthority("ROLE_ALUMNO")
                .anyRequest().authenticated())
-            .formLogin(formLogin -> formLogin.loginPage("/login").permitAll())
-            .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/").permitAll())
+            .formLogin(formLogin -> formLogin.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
+            .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll())
             .exceptionHandling((exception) -> exception.accessDeniedPage("/denegado"));
 
         return http.build();
