@@ -31,7 +31,7 @@
                     <a class="nav-link" th:href="@{/enroll}">Mátriculate</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/login}">Iniciar Sesión</a>
+                    <a class="nav-link" th:if="${(user==null)}" th:href="@{/login}">Iniciar Sesión</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:if="${!(user==null)}" th:href="@{/logout}"}>Cerrar Sesión</a>

@@ -4,6 +4,9 @@ package com.example.swm.controllers;
 import com.example.swm.entity.Administradores;
 import com.example.swm.repository.AdministradoresRepository;
 import com.example.swm.services.LoginService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -43,8 +46,16 @@ public class ControladorGeneral {
     }
 
     @RequestMapping("/logout")
-    public String logout() {
-        return "redirect:/";
+    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        response.setHeader("Refresh", "1;url=/");
+        return null;
     }
 
 }
