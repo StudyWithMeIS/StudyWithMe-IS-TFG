@@ -2,7 +2,11 @@ package com.example.swm.controllers;
 
 
 import com.example.swm.entity.Administradores;
+import com.example.swm.entity.Alumno;
+import com.example.swm.entity.Profesor;
 import com.example.swm.repository.AdministradoresRepository;
+import com.example.swm.repository.AlumnoRepository;
+import com.example.swm.repository.ProfesorRepository;
 import com.example.swm.services.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -21,25 +25,16 @@ public class ControladorGeneral {
     @Autowired
     private AdministradoresRepository adminRepo;
 
+
+
+
     //Representa al cliente  que ha iniciado sesion.
     private Administradores admin_user;
 
 
-    @RequestMapping("/")
-    public ModelAndView peticionRaiz(Authentication auth) {
-        ModelAndView mv = new ModelAndView();
-        if(auth!=null){
-            admin_user = adminRepo.findById(auth.getName()).get();
-            mv.addObject("user",admin_user);
-            System.out.println("USUARIO INICIO SESION");
-        }
-        mv.setViewName("index");
-        return mv;
-    }
-
 
     @RequestMapping("/login")
-    public ModelAndView peticionSesion() {
+    public ModelAndView login() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("pages/login");
         return mv;
@@ -56,6 +51,35 @@ public class ControladorGeneral {
         }
         response.setHeader("Refresh", "1;url=/");
         return null;
+    }
+
+    @RequestMapping("/login-error")
+    public ModelAndView loginError() {
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("error", true);
+        mv.setViewName("pages/login");
+        return mv;
+    }
+
+    @RequestMapping("/enrroll")
+    public ModelAndView enrroll() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/enrroll");
+        return mv;
+    }
+
+    @RequestMapping("/knowUs")
+    public ModelAndView knowUs() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/knowUs");
+        return mv;
+    }
+
+    @RequestMapping("/error")
+    public ModelAndView error() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("error/errorGeneral");
+        return mv;
     }
 
 }
