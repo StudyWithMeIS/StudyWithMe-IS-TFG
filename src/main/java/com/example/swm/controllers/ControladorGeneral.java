@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,12 +40,30 @@ public class ControladorGeneral {
 
 
     @RequestMapping("/")
-    public ModelAndView index() {
+    public ModelAndView index(Authentication auth) {
         ModelAndView mv = new ModelAndView();
+        mv.addObject("userAuthenticated", isAuthenticated(auth));
         mv.setViewName("index");
         return mv;
     }
 
+    private boolean isAuthenticated(Authentication authentication) {
+        return authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails;
+    }
+
+    @RequestMapping("/join")
+    public ModelAndView join() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("join");
+        return mv;
+    }
+
+    @RequestMapping("/knowUs")
+    public ModelAndView knowUs() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("knowUs");
+        return mv;
+    }
 
     @RequestMapping("/login")
     public ModelAndView login(Authentication auth) {
@@ -89,25 +108,6 @@ public class ControladorGeneral {
         return mv;
     }
 
-    @RequestMapping("/enrroll")
-    public ModelAndView enrroll() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("pages/enrroll");
-        return mv;
-    }
 
-    @RequestMapping("/knowUs")
-    public ModelAndView knowUs() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("pages/knowUs");
-        return mv;
-    }
-
-    @RequestMapping("/error")
-    public ModelAndView error() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("error/errorGeneral");
-        return mv;
-    }
 
 }

@@ -13,6 +13,4 @@ public class ProfesorController {
     @Autowired
     private ProfesorRepository profesorRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
 }
