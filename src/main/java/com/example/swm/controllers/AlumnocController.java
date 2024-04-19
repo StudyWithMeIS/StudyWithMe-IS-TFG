@@ -23,8 +23,6 @@ public class AlumnocController {
     @Autowired
     private ClaseRepository claseRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
     @GetMapping("/home")
     public String mostrarClases(Model model) {

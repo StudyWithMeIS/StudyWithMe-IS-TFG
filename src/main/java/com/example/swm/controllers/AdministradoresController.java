@@ -13,7 +13,4 @@ public class AdministradoresController {
     @Autowired
     private AdministradoresRepository administradoresRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
 }
