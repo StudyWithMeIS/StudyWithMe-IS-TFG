@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../styles/calendar.css" rel="stylesheet">
 </head>
 <body>
-<!-- Calendario donde se marcan todas las tareas del alumno o profesor (me gustaria que se pudiera filtrar po hechas y por hacer)-->
+<div class="container">
+    <div class="calendar mt-5">
+        <div class="row">
+            <div class="col text-center">
+                <h2 id="month-year"></h2><br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col day text-center">Lunes</div>
+            <div class="col day text-center">Martes</div>
+            <div class="col day text-center">Miércoles</div>
+            <div class="col day text-center">Jueves</div>
+            <div class="col day text-center">Viernes</div>
+            <div class="col day text-center">Sábado</div>
+            <div class="col day text-center">Domingo</div>
+        </div>
+        <div class="days-container"></div>
+    </div>
+</div>
+
+<script src="../../scripts/calendar.js"></script>
 </body>
 </html>

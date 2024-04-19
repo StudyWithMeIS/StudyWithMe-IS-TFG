@@ -1,0 +1,12 @@
+.calendar {
+    max-width: 800px;
+    margin: 0 auto;
+}
+.day {
+    height: 80px;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
+.today {
+    background-color: #f0f0f0;
+}
