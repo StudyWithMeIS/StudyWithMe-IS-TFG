@@ -25,17 +25,45 @@ public class ControladorGeneral {
     @Autowired
     private AdministradoresRepository adminRepo;
 
+    @Autowired
+    private AlumnoRepository alumnoRepo;
 
+    @Autowired
+    private ProfesorRepository profesorRepo;
 
 
     //Representa al cliente  que ha iniciado sesion.
     private Administradores admin_user;
+    private Alumno alumno_user;
+    private Profesor profesor_user;
 
+
+    @RequestMapping("/")
+    public ModelAndView index() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("index");
+        return mv;
+    }
 
 
     @RequestMapping("/login")
-    public ModelAndView login() {
+    public ModelAndView login(Authentication auth) {
         ModelAndView mv = new ModelAndView();
+        if(auth != null) {
+            String username = auth.getName();
+            admin_user = adminRepo.findById(username).orElse(null);
+            alumno_user = alumnoRepo.findById(username).orElse(null);
+            profesor_user = profesorRepo.findById(username).orElse(null);
+
+            if (admin_user != null) {
+                mv.addObject("user", admin_user);
+            } else if (alumno_user != null) {
+                mv.addObject("user", alumno_user);
+            } else if (profesor_user != null) {
+                mv.addObject("user", profesor_user);
+            }
+            System.out.println("USUARIO INICIÓ SESIÓN: " + username);
+        }
         mv.setViewName("pages/login");
         return mv;
     }
