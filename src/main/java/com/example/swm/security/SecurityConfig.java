@@ -37,7 +37,7 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests(auth -> auth
-               .requestMatchers("/styles/**", "/scripts/**", "/images/**", "/pages/**", "/vendor/**").permitAll()
+               .requestMatchers("/styles/**", "/scripts/**", "/images/**", "/pages/**", "/vendor/**", "/join", "knowUs").permitAll()
                .requestMatchers("/", "/login", "/signup").permitAll()
                .requestMatchers("/profesor/**").hasAuthority("ROLE_PROFESOR")
                .requestMatchers("/administrador/**").hasAuthority("ROLE_ADMINISTRADOR")
