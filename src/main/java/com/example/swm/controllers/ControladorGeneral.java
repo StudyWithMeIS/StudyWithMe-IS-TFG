@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,15 +35,34 @@ public class ControladorGeneral {
     private ProfesorRepository profesorRepo;
 
 
-    //Representa al cliente  que ha iniciado sesion.
-    private Administradores admin_user;
-    private Alumno alumno_user;
-    private Profesor profesor_user;
-
-
     @RequestMapping("/")
-    public ModelAndView index(Authentication auth) {
+    public ModelAndView index(Authentication auth, Model model) {
         ModelAndView mv = new ModelAndView();
+
+        String imgConcursoTalento = "src/main/resources/templates/images/index/concursoTalento.webp";
+        model.addAttribute("imgConcursoTalento", imgConcursoTalento);
+
+        String imgConferenciaEducativa = "src/main/resources/templates/images/index/conferenciaEducativa.webp";
+        model.addAttribute("imgConferenciaEducativa", imgConferenciaEducativa);
+
+        String imgDiaDeporte = "src/main/resources/templates/images/index/diaDeporte.webp";
+        model.addAttribute("imgDiaDeporte", imgDiaDeporte);
+
+        String imgEntregaCertificados = "src/main/resources/templates/images/index/entregaCertificados.webp";
+        model.addAttribute("imgEntregaCertificados", imgEntregaCertificados);
+
+        String imgExploracionCientifica = "src/main/resources/templates/images/index/exploracionCientifica.webp";
+        model.addAttribute("imgExploracionCientifica", imgExploracionCientifica);
+
+        String imgFestivalCultural = "src/main/resources/templates/images/index/festivalCultural.webp";
+        model.addAttribute("imgFestivalCultural", imgFestivalCultural);
+
+        String imgInfantil = "templates/images/infantil.webp";
+        model.addAttribute("imgInfantil", imgInfantil);
+
+        String imgTallerArte = "templates/images/index/tallerArte.webp";
+        model.addAttribute("imgTallerArte", imgTallerArte);
+
         mv.addObject("userAuthenticated", isAuthenticated(auth));
         mv.setViewName("index");
         return mv;
@@ -50,6 +71,7 @@ public class ControladorGeneral {
     private boolean isAuthenticated(Authentication authentication) {
         return authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails;
     }
+
 
     @RequestMapping("/join")
     public ModelAndView join() {
@@ -70,9 +92,10 @@ public class ControladorGeneral {
         ModelAndView mv = new ModelAndView();
         if(auth != null) {
             String username = auth.getName();
-            admin_user = adminRepo.findById(username).orElse(null);
-            alumno_user = alumnoRepo.findById(username).orElse(null);
-            profesor_user = profesorRepo.findById(username).orElse(null);
+            //Representa al cliente  que ha iniciado sesion.
+            Administradores admin_user = adminRepo.findById(username).orElse(null);
+            Alumno alumno_user = alumnoRepo.findById(username).orElse(null);
+            Profesor profesor_user = profesorRepo.findById(username).orElse(null);
 
             if (admin_user != null) {
                 mv.addObject("user", admin_user);
@@ -107,7 +130,4 @@ public class ControladorGeneral {
         mv.setViewName("pages/login");
         return mv;
     }
-
-
-
 }

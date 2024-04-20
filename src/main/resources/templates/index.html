@@ -32,7 +32,7 @@
                     <a class="nav-link" href="join">Mátriculate</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"  th:href="@{/login}">Iniciar sesión</a>
+                    <a class="nav-link" th:if="${!(userAuthenticated == null)}" th:href="@{/login}">Iniciar sesión</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:if="${userAuthenticated == null}" th:href="@{/logout}">Cerrar sesión</a>
@@ -48,7 +48,7 @@
 
 <!-- GIF de bienvenida -->
 <section id="video-welcome" class="container-fluid mt-lg-5">
-    <img src="/templates/images/index/infantil.webp" alt="Bienvenida a Study With Me" class="w-100">
+    <img src="images/infantil.webp" alt="Bienvenida a Study With Me" class="w-100">
     <div id="video-text">
         <h2>Bienvenido a StudyWithMe</h2>
     </div>
@@ -116,7 +116,7 @@
                         </p>
                     </div>
                     <div class="col-md-6 order-md-4">
-                        <img src="images/index/diaDeporte.webp" alt="Dia del deporte" class="img-fluid">
+                        <img th:src="${imgDiaDeporte}" alt="Dia del deporte" class="img-fluid">
                     </div>
                 </div>
 
@@ -182,7 +182,7 @@
                         </p>
                     </div>
                     <div class="col-md-6 order-md-6">
-                        <img src="images/index/exploracionCientifica.webp" alt="Exploración Científica"
+                        <img th:src="${imgExploracionCientifica}" alt="Exploración Científica"
                              class="img-fluid">
                     </div>
                 </div>
