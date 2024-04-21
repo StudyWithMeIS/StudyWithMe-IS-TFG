@@ -34,12 +34,12 @@ public class SecurityConfig{
                 "SELECT nif_admin AS username, 'ROLE_ADMINISTRADOR' AS authority FROM administradores WHERE nif_admin=?" );
         return userDetailsManager;
     }
-
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers("/styles/**", "/scripts/**", "/images/**", "/pages/**");
-    }
+//
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring()
+//                .antMatchers("/styles/**", "/scripts/**", "/images/**", "/pages/**");
+//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
