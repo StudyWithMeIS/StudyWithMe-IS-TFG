@@ -32,7 +32,7 @@
                     <a class="nav-link" href="join">Mátriculate</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:if="${!(userAuthenticated == null)}" th:href="@{/login}">Iniciar sesión</a>
+                    <a class="nav-link" th:if="${!(userAuthenticated == null)}" th:href="@{/pages/login.html}">Iniciar sesión</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:if="${userAuthenticated == null}" th:href="@{/logout}">Cerrar sesión</a>
