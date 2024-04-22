@@ -1,10 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Study With Me</title>
+    <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+
 </head>
+
 <body>
+
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/homeAdmin">Study With Me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/readStudientAdmin">Alumno</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/readTeacherAdmin">Profesor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/readGradeAdmin">Clases</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/readCourseAdmin">Cursos</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<section class="container-fluid lg-5">
+    <!-- Home -->
+    <div class="container mt-3">
+        <div class="container-fluid custom-margin-top">
+            <h3>Añadir Nuevo Alumno</h3>
+
+            <!-- Formulario para añadir nuevo alumno -->
+            <form th:action="@{/admin/alumnos/nuevo}" method="post">
+                <div class="mb-3">
+                    <label for="nombre" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del alumno" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email del alumno" required>
+                </div>
+                <div class="mb-3">
+                    <label for="edad" class="form-label">Edad</label>
+                    <input type="number" class="form-control" id="edad" name="edad" placeholder="Edad del alumno" required>
+                </div>
+                <div class="mb-3">
+                    <label for="curso" class="form-label">Curso</label>
+                    <input type="text" class="form-control" id="curso" name="curso" placeholder="Curso del alumno" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nombrePadre" class="form-label">Nombre del Padre</label>
+                    <input type="text" class="form-control" id="nombrePadre" name="nombrePadre" placeholder="Nombre del padre del alumno">
+                </div>
+                <div class="mb-3">
+                    <label for="nombreMadre" class="form-label">Nombre de la Madre</label>
+                    <input type="text" class="form-control" id="nombreMadre" name="nombreMadre" placeholder="Nombre de la madre del alumno">
+                </div>
+                <button type="submit" class="btn btn-primary">Añadir Alumno</button>
+            </form>
+        </div>
+    </div>
+</section>
+
 
 </body>
 </html>
