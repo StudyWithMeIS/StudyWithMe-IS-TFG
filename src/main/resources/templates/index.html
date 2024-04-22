@@ -32,13 +32,13 @@
                     <a class="nav-link" href="join">Mátriculate</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:if="${!(userAuthenticated == null)}" th:href="@{/pages/login.html}">Iniciar sesión</a>
+                    <a class="nav-link" th:href="@{/pages/login.html}">Iniciar sesión</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:if="${userAuthenticated == null}" th:href="@{/logout}">Cerrar sesión</a>
+                    <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:if="${userAuthenticated == null}"  th:href="@{/perfil}">Perfil</a>
+                    <a class="nav-link" th:href="@{/templates/pages/administradores/alumnos/addAlumnosAdmin.html}">Crear alumnos</a>
                 </li>
             </ul>
         </div>

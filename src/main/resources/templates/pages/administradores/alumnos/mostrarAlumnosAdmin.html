@@ -49,12 +49,12 @@
 
             <!-- Filtro de búsqueda -->
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Buscar alumno" aria-label="Buscar alumno" aria-describedby="button-addon2">
+                <input type="text" class="form-control" placeholder="Buscar alumnos" aria-label="Buscar alumnos" aria-describedby="button-addon2">
                 <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
             </div>
 
-            <!-- Botón para añadir nuevo alumno -->
-            <a href="/admin/alumnos/nuevo" class="btn btn-primary mb-3"><i class="bi bi-person-plus"></i> Añadir nuevo alumno</a>
+            <!-- Botón para añadir nuevo alumnos -->
+            <a href="/admin/alumnos/nuevo" class="btn btn-primary mb-3"><i class="bi bi-person-plus"></i> Añadir nuevo alumnos</a>
 
             <table class="table table-striped">
                 <thead>
@@ -69,16 +69,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="alumno : ${alumnos}">
-                    <td th:text="${alumno.nombre}"></td>
-                    <td th:text="${alumno.email}"></td>
-                    <td th:text="${alumno.edad}"></td>
-                    <td th:text="${alumno.curso}"></td>
-                    <td th:text="${alumno.nombrePadre}"></td>
-                    <td th:text="${alumno.nombreMadre}"></td>
+                <tr th:each="alumnos : ${alumnos}">
+                    <td th:text="${alumnos.nombre}"></td>
+                    <td th:text="${alumnos.email}"></td>
+                    <td th:text="${alumnos.edad}"></td>
+                    <td th:text="${alumnos.curso}"></td>
+                    <td th:text="${alumnos.nombrePadre}"></td>
+                    <td th:text="${alumnos.nombreMadre}"></td>
                     <td>
-                        <a th:href="@{/admin/alumnos/edit/{id}(id=${alumno.id})}" class="btn btn-primary"><i class="bi bi-pen"></i></a>
-                        <a th:href="@{/admin/alumnos/delete/{id}(id=${alumno.id})}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
+                        <a th:href="@{/admin/alumnos/edit/{id}(id=${alumnos.id})}" class="btn btn-primary"><i class="bi bi-pen"></i></a>
+                        <a th:href="@{/admin/alumnos/delete/{id}(id=${alumnos.id})}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>
                     </td>
                 </tr>
                 </tbody>

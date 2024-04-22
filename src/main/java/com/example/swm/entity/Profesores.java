@@ -10,28 +10,39 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@NamedQuery(name = "Profesor.findAll", query = "SELECT p FROM Profesor p")
-public class Profesor implements Serializable {
+@NamedQuery(name = "Profesor.findAll", query = "SELECT p FROM Profesores p")
+public class Profesores implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
+    private int id_profesor;
+
     private String nif_profesor;
     private String nombre_profesor;
     private String email_profesor;
     private String password_profesor;
 
-    @OneToMany(mappedBy = "profesor")
-    private List<Asignatura> asignaturas;
+    @OneToMany(mappedBy = "profesores")
+    private List<Asignaturas> asignaturas;
 
-    public Profesor() {
+    public Profesores() {
     }
 
-    public Profesor(String nif_profesor, String nombre_profesor, String email_profesor, String password_profesor) {
+    public Profesores(int id_profesor, String nif_profesor, String nombre_profesor, String email_profesor, String password_profesor) {
+        this.id_profesor = id_profesor;
         this.nif_profesor = nif_profesor;
         this.nombre_profesor = nombre_profesor;
         this.email_profesor = email_profesor;
         this.password_profesor = password_profesor;
+    }
+
+    public int getId_profesor() {
+        return id_profesor;
+    }
+
+    public void setId_profesor(int id_profesor) {
+        this.id_profesor = id_profesor;
     }
 
     public String getNif_profesor() {
@@ -66,18 +77,19 @@ public class Profesor implements Serializable {
         this.password_profesor = password_profesor;
     }
 
-    public List<Asignatura> getAsignaturas() {
+    public List<Asignaturas> getAsignaturas() {
         return asignaturas;
     }
 
-    public void setAsignaturas(List<Asignatura> asignaturas) {
+    public void setAsignaturas(List<Asignaturas> asignaturas) {
         this.asignaturas = asignaturas;
     }
 
     @Override
     public String toString() {
         return "Profesor{" +
-                "nif_profesor='" + nif_profesor + '\'' +
+                "id_profesor=" + id_profesor +
+                ", nif_profesor='" + nif_profesor + '\'' +
                 ", nombre_profesor='" + nombre_profesor + '\'' +
                 ", email_profesor='" + email_profesor + '\'' +
                 ", password_profesor='" + password_profesor + '\'' +

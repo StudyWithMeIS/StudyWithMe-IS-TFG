@@ -47,31 +47,31 @@
         <div class="container-fluid custom-margin-top">
             <h3>Añadir Nuevo Alumno</h3>
 
-            <!-- Formulario para añadir nuevo alumno -->
-            <form th:action="@{/administradores/alumnos/nuevo}" method="post">
+            <!-- Formulario para añadir nuevo alumnos -->
+            <form th:action="@{/administradores/alumnos/nuevo}" th:object="${alumno}" method="post">
                 <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del alumno" required>
+                    <label for="nif_alumno" class="form-label">NIF del alumnos:</label>
+                    <input type="text" class="form-control" id="nif_alumno" th:field="*{nif_alumno}" placeholder="NIF del alumnos" required>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email del alumno" required>
+                    <label for="nombre_alumno" class="form-label">Nombre del alumnos:</label>
+                    <input type="text" class="form-control" id="nombre_alumno" th:field="*{nombre_alumno}" placeholder="Nombre del alumnos" required>
                 </div>
                 <div class="mb-3">
-                    <label for="edad" class="form-label">Edad</label>
-                    <input type="number" class="form-control" id="edad" name="edad" placeholder="Edad del alumno" required>
+                    <label for="email_alumno" class="form-label">Email del alumnos:</label>
+                    <input type="email" class="form-control" id="email_alumno" th:field="*{email_alumno}" placeholder="Email del alumnos" required>
                 </div>
                 <div class="mb-3">
-                    <label for="curso" class="form-label">Curso</label>
-                    <input type="text" class="form-control" id="curso" name="curso" placeholder="Curso del alumno" required>
+                    <label for="password_alumno" class="form-label">Contraseña del alumnos:</label>
+                    <input type="password" class="form-control" id="password_alumno" th:field="*{password_alumno}" placeholder="Contraseña del alumnos" required>
                 </div>
                 <div class="mb-3">
-                    <label for="nombrePadre" class="form-label">Nombre del Padre</label>
-                    <input type="text" class="form-control" id="nombrePadre" name="nombrePadre" placeholder="Nombre del padre del alumno">
+                    <label for="nombre_padre_alumno" class="form-label">Nombre completo del padre:</label>
+                    <input type="text" class="form-control" id="nombre_padre_alumno" th:field="*{nombre_padre_alumno}" placeholder="Nombre completo del padre del alumnos" required>
                 </div>
                 <div class="mb-3">
-                    <label for="nombreMadre" class="form-label">Nombre de la Madre</label>
-                    <input type="text" class="form-control" id="nombreMadre" name="nombreMadre" placeholder="Nombre de la madre del alumno">
+                    <label for="nombre_madre_alumno" class="form-label">Nombre completo de la Madre:</label>
+                    <input type="text" class="form-control" id="nombre_madre_alumno" th:field="*{nombre_madre_alumno}" placeholder="Nombre completo de la madre del alumnos">
                 </div>
                 <button type="submit" class="btn btn-primary">Añadir Alumno</button>
             </form>

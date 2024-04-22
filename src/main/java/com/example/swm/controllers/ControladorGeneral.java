@@ -1,12 +1,10 @@
 package com.example.swm.controllers;
 
 
-import com.example.swm.entity.Administradores;
-import com.example.swm.entity.Alumno;
-import com.example.swm.entity.Profesor;
+import com.example.swm.entity.Alumnos;
 import com.example.swm.repository.AdministradoresRepository;
-import com.example.swm.repository.AlumnoRepository;
-import com.example.swm.repository.ProfesorRepository;
+import com.example.swm.repository.AlumnosRepository;
+import com.example.swm.repository.ProfesoresRepository;
 import com.example.swm.services.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,14 +26,14 @@ public class ControladorGeneral {
     private AdministradoresRepository adminRepo;
 
     @Autowired
-    private AlumnoRepository alumnoRepo;
+    private AlumnosRepository alumnoRepo;
 
     @Autowired
-    private ProfesorRepository profesorRepo;
+    private ProfesoresRepository profesorRepo;
 
 
     @RequestMapping("/")
-    public ModelAndView index(Authentication auth) {
+    public ModelAndView peticionIndex(Authentication auth) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("userAuthenticated", isAuthenticated(auth));
         mv.setViewName("index");
@@ -42,7 +41,7 @@ public class ControladorGeneral {
     }
 
     @RequestMapping("/join")
-    public ModelAndView join(Authentication auth) {
+    public ModelAndView peticionJoin(Authentication auth) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("userAuthenticated", isAuthenticated(auth));
         mv.setViewName("join");
@@ -50,7 +49,7 @@ public class ControladorGeneral {
     }
 
     @RequestMapping("/knowUs")
-    public ModelAndView knowUs(Authentication auth) {
+    public ModelAndView peticionKnowUs(Authentication auth) {
         ModelAndView mv = new ModelAndView();
         mv.addObject("userAuthenticated", isAuthenticated(auth));
         mv.setViewName("knowUs");
@@ -62,30 +61,30 @@ public class ControladorGeneral {
     }
 
     @RequestMapping("/login")
-    public ModelAndView login(Authentication auth) {
+    public ModelAndView peticionLogin(Authentication auth) {
         ModelAndView mv = new ModelAndView();
-        if(auth != null) {
-            String username = auth.getName();
-            //Representa al cliente  que ha iniciado sesion.
-            Administradores admin_user = adminRepo.findById(username).orElse(null);
-            Alumno alumno_user = alumnoRepo.findById(username).orElse(null);
-            Profesor profesor_user = profesorRepo.findById(username).orElse(null);
-
-            if (admin_user != null) {
-                mv.addObject("user", admin_user);
-            } else if (alumno_user != null) {
-                mv.addObject("user", alumno_user);
-            } else if (profesor_user != null) {
-                mv.addObject("user", profesor_user);
-            }
-            System.out.println("USUARIO INICIÓ SESIÓN: " + username);
-        }
+//        if(auth != null) {
+//            String username = auth.getName();
+//            //Representa al cliente  que ha iniciado sesion.
+//            Administradores admin_user = adminRepo.findById(username).orElse(null);
+//            Alumnos alumnos_user = alumnoRepo.findById(username).orElse(null);
+//            Profesores profesores_user = profesorRepo.findById(username).orElse(null);
+//
+//            if (admin_user != null) {
+//                mv.addObject("user", admin_user);
+//            } else if (alumnos_user != null) {
+//                mv.addObject("user", alumnos_user);
+//            } else if (profesores_user != null) {
+//                mv.addObject("user", profesores_user);
+//            }
+//            System.out.println("USUARIO INICIÓ SESIÓN: " + username);
+//        }
         mv.setViewName("pages/login");
         return mv;
     }
 
     @RequestMapping("/logout")
-    public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
+    public ModelAndView peticionLogout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         session.invalidate();
         try {
@@ -98,10 +97,11 @@ public class ControladorGeneral {
     }
 
     @RequestMapping("/login-error")
-    public ModelAndView loginError() {
+    public ModelAndView peticionLoginError() {
         ModelAndView mv = new ModelAndView();
         mv.addObject("error", true);
         mv.setViewName("pages/login");
         return mv;
     }
+
 }
