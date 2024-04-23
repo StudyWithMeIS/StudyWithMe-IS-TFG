@@ -13,6 +13,8 @@ public class Administradores implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
+    private int id_admin;
+
     private String nif_admin;
     private String nombre_admin;
     private String email_admin;
@@ -21,11 +23,20 @@ public class Administradores implements Serializable {
     public Administradores() {
     }
 
-    public Administradores(String nif_admin, String nombre_admin, String email_admin, String password_admin) {
+    public Administradores(int id_admin, String nif_admin, String nombre_admin, String email_admin, String password_admin) {
+        this.id_admin = id_admin;
         this.nif_admin = nif_admin;
         this.nombre_admin = nombre_admin;
         this.email_admin = email_admin;
         this.password_admin = password_admin;
+    }
+
+    public int getId_admin() {
+        return id_admin;
+    }
+
+    public void setId_admin(int id_admin) {
+        this.id_admin = id_admin;
     }
 
     public String getNif_admin() {
@@ -58,5 +69,17 @@ public class Administradores implements Serializable {
 
     public void setPassword_admin(String password_admin) {
         this.password_admin = password_admin;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Administradores{" +
+                "id_admin=" + id_admin +
+                ", nif_admin='" + nif_admin + '\'' +
+                ", nombre_admin='" + nombre_admin + '\'' +
+                ", email_admin='" + email_admin + '\'' +
+                ", password_admin='" + password_admin + '\'' +
+                '}';
     }
 }

@@ -1,8 +1,7 @@
 package com.example.swm.controllers;
 
-import com.example.swm.repository.ProfesorRepository;
+import com.example.swm.repository.ProfesoresRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,6 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProfesorController {
 
     @Autowired
-    private ProfesorRepository profesorRepository;
+    private ProfesoresRepository profesoresRepository;
 
 }

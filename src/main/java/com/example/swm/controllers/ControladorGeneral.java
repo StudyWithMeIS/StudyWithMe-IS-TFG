@@ -2,11 +2,10 @@ package com.example.swm.controllers;
 
 
 import com.example.swm.entity.Administradores;
-import com.example.swm.entity.Alumno;
-import com.example.swm.entity.Profesor;
+import com.example.swm.entity.Alumnos;
 import com.example.swm.repository.AdministradoresRepository;
-import com.example.swm.repository.AlumnoRepository;
-import com.example.swm.repository.ProfesorRepository;
+import com.example.swm.repository.AlumnosRepository;
+import com.example.swm.repository.ProfesoresRepository;
 import com.example.swm.services.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,10 +26,10 @@ public class ControladorGeneral {
     private AdministradoresRepository adminRepo;
 
     @Autowired
-    private AlumnoRepository alumnoRepo;
+    private AlumnosRepository alumnosRepo;
 
     @Autowired
-    private ProfesorRepository profesorRepo;
+    private ProfesoresRepository profesoresRepo;
 
 
     @RequestMapping("/")
@@ -68,8 +67,8 @@ public class ControladorGeneral {
             String username = auth.getName();
             //Representa al cliente  que ha iniciado sesion.
             Administradores admin_user = adminRepo.findById(username).orElse(null);
-            Alumno alumno_user = alumnoRepo.findById(username).orElse(null);
-            Profesor profesor_user = profesorRepo.findById(username).orElse(null);
+            Alumnos alumno_user = alumnosRepo.findById(username).orElse(null);
+            ProfesoresRepository profesor_user = profesoresRepo.findById(username).orElse(null);
 
             if (admin_user != null) {
                 mv.addObject("user", admin_user);

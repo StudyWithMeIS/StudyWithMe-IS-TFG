@@ -8,12 +8,14 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@NamedQuery(name = "Alumno.findAll", query = "SELECT a FROM Alumno a")
-public class Alumno implements Serializable {
+@NamedQuery(name = "Alumnos.findAll", query = "SELECT a FROM Alumnos a")
+public class Alumnos implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
+    private int id_alumno;
+
     private String nif_alumno;
 
     private String nombre_alumno;
@@ -26,17 +28,26 @@ public class Alumno implements Serializable {
 
     private String nombre_madre_alumno;
 
-    public Alumno() {
+    public Alumnos() {
     }
 
-    public Alumno(String nif_alumno, String nombre_alumno, String email_alumno, String password_alumno, String nombre_padre_alumno, String nombre_madre_alumno) {
+    public Alumnos(int id_alumno, String nif_alumno, String nombre_alumno, String email_alumno, String password_alumno, String nombre_padre_alumno, String nombre_madre_alumno) {
         super();
+        this.id_alumno = id_alumno;
         this.nif_alumno = nif_alumno;
         this.nombre_alumno = nombre_alumno;
         this.email_alumno = email_alumno;
         this.password_alumno = password_alumno;
         this.nombre_padre_alumno = nombre_padre_alumno;
         this.nombre_madre_alumno = nombre_madre_alumno;
+    }
+
+    public int getId_alumno() {
+        return id_alumno;
+    }
+
+    public void setId_alumno(int id_alumno) {
+        this.id_alumno = id_alumno;
     }
 
     public String getNif_alumno() {
@@ -87,10 +98,12 @@ public class Alumno implements Serializable {
         this.nombre_madre_alumno = nombre_madre_alumno;
     }
 
+
     @Override
     public String toString() {
         return "Alumno{" +
-                "nif_alumno='" + nif_alumno + '\'' +
+                "id_alumno=" + id_alumno +
+                ", nif_alumno='" + nif_alumno + '\'' +
                 ", nombre_alumno='" + nombre_alumno + '\'' +
                 ", email_alumno='" + email_alumno + '\'' +
                 ", password_alumno='" + password_alumno + '\'' +
@@ -98,5 +111,4 @@ public class Alumno implements Serializable {
                 ", nombre_madre_alumno='" + nombre_madre_alumno + '\'' +
                 '}';
     }
-
 }
