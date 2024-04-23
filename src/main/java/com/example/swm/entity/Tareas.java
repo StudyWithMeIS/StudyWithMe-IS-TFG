@@ -6,8 +6,8 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@NamedQuery(name="Tarea.findAll", query="SELECT t FROM Tarea t")
-public class Tarea implements Serializable {
+@NamedQuery(name="Tarea.findAll", query="SELECT t FROM Tareas t")
+public class Tareas implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -21,28 +21,28 @@ public class Tarea implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "nif_profesor_tarea")
-    private Profesor profesor;
+    private Profesores profesores;
 
     @ManyToOne
     @JoinColumn(name = "nif_alumno_calificacion")
-    private Alumno alumno;
+    private Alumnos alumnos;
 
     @ManyToOne
     @JoinColumn(name = "id_asignatura")
-    private Asignatura asignatura;
+    private Asignaturas asignaturas;
 
-    public Tarea() {
+    public Tareas() {
     }
 
-    public Tarea(int id_tarea, String tipo_tarea, String titulo_tarea, String descripcion_tarea, double calificacion_tarea, Profesor profesor, Alumno alumno, Asignatura asignatura) {
+    public Tareas(int id_tarea, String tipo_tarea, String titulo_tarea, String descripcion_tarea, double calificacion_tarea, Profesores profesores, Alumnos alumnos, Asignaturas asignaturas) {
         this.id_tarea = id_tarea;
         this.tipo_tarea = tipo_tarea;
         this.titulo_tarea = titulo_tarea;
         this.descripcion_tarea = descripcion_tarea;
         this.calificacion_tarea = calificacion_tarea;
-        this.profesor = profesor;
-        this.alumno = alumno;
-        this.asignatura = asignatura;
+        this.profesores = profesores;
+        this.alumnos = alumnos;
+        this.asignaturas = asignaturas;
     }
 
     public int getId_tarea() {
@@ -85,28 +85,28 @@ public class Tarea implements Serializable {
         this.calificacion_tarea = calificacion_tarea;
     }
 
-    public Profesor getProfesor() {
-        return profesor;
+    public Profesores getProfesor() {
+        return profesores;
     }
 
-    public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
+    public void setProfesor(Profesores profesores) {
+        this.profesores = profesores;
     }
 
-    public Alumno getAlumno() {
-        return alumno;
+    public Alumnos getAlumno() {
+        return alumnos;
     }
 
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
+    public void setAlumno(Alumnos alumnos) {
+        this.alumnos = alumnos;
     }
 
-    public Asignatura getAsignatura() {
-        return asignatura;
+    public Asignaturas getAsignatura() {
+        return asignaturas;
     }
 
-    public void setAsignatura(Asignatura asignatura) {
-        this.asignatura = asignatura;
+    public void setAsignatura(Asignaturas asignaturas) {
+        this.asignaturas = asignaturas;
     }
 
     @Override
@@ -117,9 +117,9 @@ public class Tarea implements Serializable {
                 ", titulo_tarea='" + titulo_tarea + '\'' +
                 ", descripcion_tarea='" + descripcion_tarea + '\'' +
                 ", calificacion_tarea=" + calificacion_tarea +
-                ", profesor=" + profesor +
-                ", alumno=" + alumno +
-                ", asignatura=" + asignatura +
+                ", profesor=" + profesores +
+                ", alumno=" + alumnos +
+                ", asignatura=" + asignaturas +
                 '}';
     }
 }

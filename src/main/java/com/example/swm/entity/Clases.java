@@ -6,8 +6,8 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@NamedQuery(name="Clase.findAll", query="SELECT c FROM Clase c")
-public class Clase implements Serializable {
+@NamedQuery(name="Clase.findAll", query="SELECT c FROM Clases c")
+public class Clases implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -16,10 +16,10 @@ public class Clase implements Serializable {
     private String id_clase;
     private String nombre_clase;
 
-    public Clase() {
+    public Clases() {
     }
 
-    public Clase(String id_clase, String nombre_clase) {
+    public Clases(String id_clase, String nombre_clase) {
         this.id_clase = id_clase;
         this.nombre_clase = nombre_clase;
     }

@@ -1,11 +1,10 @@
 package com.example.swm.controllers;
 
 
-import com.example.swm.entity.Clase;
-import com.example.swm.repository.AlumnoRepository;
-import com.example.swm.repository.ClaseRepository;
+import com.example.swm.entity.Clases;
+import com.example.swm.repository.AlumnosRepository;
+import com.example.swm.repository.ClasesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,15 +17,15 @@ import java.util.List;
 public class AlumnocController {
 
     @Autowired
-    private AlumnoRepository alumnoRepository;
+    private AlumnosRepository alumnosRepository;
 
     @Autowired
-    private ClaseRepository claseRepository;
+    private ClasesRepository clasesRepository;
 
 
     @GetMapping("/home")
     public String mostrarClases(Model model) {
-        List<Clase> clases = claseRepository.findAll();
+        List<Clases> clases = clasesRepository.findAll();
         if (clases.isEmpty()) {
             model.addAttribute("mensaje", "Aun no te has unido a ninguna clase.");
         } else {
