@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Study With Me</title>
+<!--    <link rel="stylesheet" th:href="@{/styles/style.css}">-->
+    <link rel="stylesheet" href="../../../../static/scripts/script.js">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar bg-body-tertiary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="homeStudient.html">Study With Me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-house"></i> Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#"> <i class="bi bi-calendar-check"></i>
+                            Calendario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#"> <i class="bi bi-journal-bookmark"></i>
+                            Asignaturas </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <!-- Iterar sobre las asignaturas del usuario -->
+                            <li th:each="asignatura : ${asignaturas}">
+                                <a class="dropdown-item" href="#" th:text="${asignatura.nombre}"></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-gear"></i> Ajustes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid justify-content-center">
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Tabón</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Trabajo de clase</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Personas</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+<section class="container-fluid lg-5">
+    <div class="container mt-3">
+        <div class="container-fluid custom-margin-top">
+
+            <div class="card text-bg-dark">
+                <img src="../../../../static/images/index/entregaCertifiados.webp" class="card-img" alt="...">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Titulo clase</h5>
+                </div>
+            </div>
+
+
+
+<!--            <section id="video-welcome" class="container-fluid mt-lg-5">-->
+<!--                <div class="card" style="width: 18rem;">-->
+<!--                    <img  class="card-img-top" alt="Bienvenida a Study With Me">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">Bienvenido a StudyWithMe</h5>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
+
+
+            <div class="row">
+                <!-- Columna para las próximas entregas de tareas -->
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-header">
+                            Próximas Entregas
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <!-- Iterar sobre las próximas tareas -->
+                            <li class="list-group-item" th:each="task : ${upcomingTasks}"
+                                th:text="${task.name + ' - ' + task.dueDate}"></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Columna para los anuncios de la clase (tareas) -->
+                <div class="col-md-9">
+
+                    <div class="card-body">
+                        <!-- Iterar sobre los anuncios de la clase -->
+                        <div class="card" th:each="announcement : ${announcements}">
+                            <div class="card-body">
+                                <img th:src="@{ruta_a_la_foto_del_profesor.jpg}" alt="Foto de perfil del profesor"
+                                     class="img-fluid" style="width: 50px; height: 50px;">
+                                <h5 class="card-title" th:text="${announcement.professorName}"></h5>
+                                <p class="card-text" th:text="'Fecha de entrega: ' + ${announcement.dueDate}"></p>
+                                <p class="card-text" th:text="${announcement.taskName}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
