@@ -62,6 +62,13 @@
                     <td th:text="${profesor.nombre_profesor}"></td>
                     <td th:text="${profesor.email_profesor}"></td>
                     <td>
+                        <ul>
+                            <li th:each="asignatura : ${profesor.asignaturas}">
+                                <span th:text="${asignatura.nombre_asignatura}"></span>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
                         <a th:href="@{/administradores/profesores/edit/{id}(id=${profesor.id})}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
                         <a th:href="@{/administradores/profesores/eliminar/{id}(id=${profesor.id})}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
                     </td>

@@ -67,3 +67,7 @@
     height: 50% !important;
     width: auto;
 }
+
+.content-container {
+    margin-top: 70px;
+}
