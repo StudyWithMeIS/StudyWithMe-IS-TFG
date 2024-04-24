@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/alumno")
-public class AlumnocController {
+public class AlumnosController {
 
     @Autowired
     private AlumnosRepository alumnosRepository;
