@@ -1,12 +1,7 @@
 package com.example.swm.controllers;
 
-import com.example.swm.entity.Alumnos;
-import com.example.swm.entity.Asignaturas;
-import com.example.swm.entity.Clases;
-import com.example.swm.repository.AdministradoresRepository;
-import com.example.swm.repository.AlumnosRepository;
-import com.example.swm.repository.AsignaturasRepository;
-import com.example.swm.repository.ClasesRepository;
+import com.example.swm.entity.*;
+import com.example.swm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +26,9 @@ public class AdministradoresController {
 
     @Autowired
     private AsignaturasRepository asignaturasRepository;
+
+    @Autowired
+    private ProfesoresRepository profesoresRepository;
 
 
 
@@ -93,6 +91,7 @@ public class AdministradoresController {
         Clases clases = new Clases();
         System.out.println(clase.getNombre_clase());
         clases.setNombre_clase(clase.getNombre_clase());
+        clasesRepository.save(clases);
         modelAndView.addObject("mensaje", "Clase creada correctamente");
         modelAndView.setViewName("redirect:/addClaseAdmin");
         return modelAndView;
@@ -126,6 +125,7 @@ public class AdministradoresController {
         System.out.println(asignatura.getProfesor());
         asignaturas.setNombre_asignatura(asignatura.getNombre_asignatura());
         asignaturas.setProfesor(asignatura.getProfesor());
+        asignaturasRepository.save(asignaturas);
         modelAndView.addObject("mensaje", "Asignatura creada correctamente");
         modelAndView.setViewName("redirect:/addAsignaturaAdmin");
         return modelAndView;
@@ -142,5 +142,77 @@ public class AdministradoresController {
     }
 
     //-----------------PROFESOR----------------------
+    // PRIMERO CARGA LA VISTA PARA CREAR PROFESOR.
+    @GetMapping("/vistaCrearProfesorAdmin")
+    public ModelAndView mostrarPaginaAddProfesor() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/teacher/addTeacherAdmin");
+        return mv;
+    }
+
+    // SEGUNDO CARGA EL METODO QUE LLAMA DESDE EL FORMULARIO DE LA VISTA DE CREAR PROFESOR.
+    @RequestMapping("/guardarProfesor")
+    public ModelAndView guardarProfesor(@ModelAttribute Profesores profesor) {
+        ModelAndView modelAndView = new ModelAndView();
+        Profesores profesores = new Profesores();
+        System.out.println(profesor.getNif_profesor());
+        System.out.println(profesor.getNombre_profesor());
+        System.out.println(profesor.getEmail_profesor());
+        profesores.setNif_profesor(profesor.getNif_profesor());
+        profesores.setNombre_profesor(profesor.getNombre_profesor());
+        profesores.setEmail_profesor(profesor.getEmail_profesor());
+        profesores.setPassword_profesor(profesor.getPassword_profesor());
+        profesoresRepository.save(profesores);
+        modelAndView.addObject("mensaje", "Profesor creado correctamente");
+        modelAndView.setViewName("redirect:/addProfesorAdmin");
+        return modelAndView;
+    }
+
+    // TERCERO CARGA LA VISTA PARA LISTAR PROFESORES.
+    @GetMapping("/listarProfesoresAdmin")
+    public ModelAndView listarProfesores() {
+        ModelAndView mv = new ModelAndView();
+        List<Profesores> profesores = profesoresRepository.findAll();
+        mv.addObject("profesores", profesores);
+        mv.setViewName("pages/administrador/teacher/readTeacherAdmin");
+        return mv;
+    }
+
+
+    //---------------ADMINISTRADOR----------------------
+    // PRIMERO CARGA LA VISTA PARA CREAR ADMINISTRADOR.
+    @GetMapping("/vistaCrearAdministradorAdmin")
+    public ModelAndView mostrarPaginaAddAdministrador() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/administrator/addAdministratorAdmin");
+        return mv;
+    }
+
+    // SEGUNDO CARGA EL METODO QUE LLAMA DESDE EL FORMULARIO DE LA VISTA DE CREAR ADMINISTRADOR.
+    @RequestMapping("/guardarAdministrador")
+    public ModelAndView guardarAdministrador(@ModelAttribute Administradores administrador) {
+        ModelAndView modelAndView = new ModelAndView();
+        Administradores administradores = new Administradores();
+        System.out.println(administrador.getNombre_admin());
+        System.out.println(administrador.getEmail_admin());
+        System.out.println(administrador.getPassword_admin());
+        administradores.setNombre_admin(administrador.getNombre_admin());
+        administradores.setEmail_admin(administrador.getEmail_admin());
+        administradores.setPassword_admin(administrador.getPassword_admin());
+        administradoresRepository.save(administradores);
+        modelAndView.addObject("mensaje", "Administrador creado correctamente");
+        modelAndView.setViewName("redirect:/addAdministradorAdmin");
+        return modelAndView;
+    }
+
+    // TERCERO CARGA LA VISTA PARA LISTAR ADMINISTRADORES.
+    @GetMapping("/listarAdministradoresAdmin")
+    public ModelAndView listarAdministradores() {
+        ModelAndView mv = new ModelAndView();
+        List<Administradores> administradores = administradoresRepository.findAll();
+        mv.addObject("administradores", administradores);
+        mv.setViewName("pages/administrador/administrator/readAdministratorAdmin");
+        return mv;
+    }
 }
 
