@@ -3,6 +3,7 @@ package com.example.swm.controllers;
 
 import com.example.swm.entity.Administradores;
 import com.example.swm.entity.Alumnos;
+import com.example.swm.entity.Profesores;
 import com.example.swm.repository.AdministradoresRepository;
 import com.example.swm.repository.AlumnosRepository;
 import com.example.swm.repository.ProfesoresRepository;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ControladorGeneral {
+
     @Autowired
     private LoginService loginService;
 
@@ -63,12 +65,12 @@ public class ControladorGeneral {
     @RequestMapping("/login")
     public ModelAndView login(Authentication auth) {
         ModelAndView mv = new ModelAndView();
-        if(auth != null) {
+        if (auth != null) {
             String username = auth.getName();
             //Representa al cliente  que ha iniciado sesion.
-            Administradores admin_user = adminRepo.findById(username).orElse(null);
-            Alumnos alumno_user = alumnosRepo.findById(username).orElse(null);
-            ProfesoresRepository profesor_user = profesoresRepo.findById(username).orElse(null);
+            Administradores admin_user = adminRepo.findById(Integer.valueOf(username)).orElse(null);
+            Alumnos alumno_user = alumnosRepo.findById(Integer.valueOf(username)).orElse(null);
+            Profesores profesor_user = profesoresRepo.findById(Integer.valueOf(username)).orElse(null);
 
             if (admin_user != null) {
                 mv.addObject("user", admin_user);
