@@ -64,16 +64,24 @@ public class AdministradoresController {
         return modelAndView;
     }
 
-    // TERCERO CARGA LA VISTA PARA LISTAR ALUMNOS.
-    @GetMapping("/listarAlumnosAdmin")
+
+    @GetMapping("/vistaListarAlumnosAdmin")
+    public ModelAndView vistaListarAlumnos() {
+        ModelAndView mv = new ModelAndView();
+
+        mv.setViewName("pages/administrador/student/readStudientAdmin");
+        mv.addObject("alumnos", listarAlumnos().getModel().get("alumnos"));
+        return mv;
+    }
+
+    @GetMapping("/listarAlumnos")
     public ModelAndView listarAlumnos() {
         ModelAndView mv = new ModelAndView();
         List<Alumnos> alumnos = alumnosRepository.findAll();
         mv.addObject("alumnos", alumnos);
-        mv.setViewName("pages/administrador/student/readStudientAdmin");
+        mv.setViewName("redirect:/vistaListarAlumnosAdmin");
         return mv;
     }
-
 
     //-----------------CURSO----------------------
     // PRIMERO CARGA LA VISTA PARA CREAR CLASE.

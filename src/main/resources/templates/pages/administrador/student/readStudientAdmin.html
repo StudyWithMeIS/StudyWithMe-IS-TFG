@@ -67,32 +67,28 @@
                     <a th:href="@{/administradores/vistaCrearAlumnoAdmin}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Nuevo alumno</a>
                 </div>
             </div>
-            <table class="table table-striped">
+
+            <table th:method="@{/administradores/listarAlumnos}" class="table table-striped">
                 <thead>
                 <tr>
                     <th>NIF</th>
                     <th>Nombre</th>
                     <th>Email</th>
-                    <th>Curso</th>
                     <th>Nombre Padre</th>
                     <th>Nombre Madre</th>
-                    <th>Acciones</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="alumno : ${alumnos}">
-                    <td th:text="${alumno.nif}"></td>
-                    <td th:text="${alumno.nombre}"></td>
-                    <td th:text="${alumno.email}"></td>
-                    <td th:text="${alumno.curso}"></td>
-                    <td th:text="${alumno.nombrePadre}"></td>
-                    <td th:text="${alumno.nombreMadre}"></td>
-                    <td>
-                        <a th:href="@{/administradores/alumnos/add/{id}(id=${alumno.id})}"
-                           class="btn btn-primary"><i class="bi bi-pen"></i></a>
-                        <a th:href="@{/administradores/alumnos/delete/{id}(id=${alumno.id})}"
-                           class="btn btn-danger"><i class="bi bi-trash3"></i></a>
-                    </td>
+                    <td th:text="${alumno.nif_alumno}"></td>
+                    <td th:text="${alumno.nombre_alumno}"></td>
+                    <td th:text="${alumno.email_alumno}"></td>
+                    <td th:text="${alumno.nombre_padre_alumno}"></td>
+                    <td th:text="${alumno.nombre_madre_alumno}"></td>
+<!--                    <td>-->
+<!--                        <a th:href="@{/administradores/alumnos/add/{nif}(id=${alumno.nif_alumno})}" class="btn btn-primary"><i class="bi bi-pen"></i></a>-->
+<!--                        <a th:href="@{/administradores/alumnos/delete/{id}(id=${alumno.id})}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>-->
+<!--                    </td>-->
                 </tr>
                 </tbody>
             </table>
