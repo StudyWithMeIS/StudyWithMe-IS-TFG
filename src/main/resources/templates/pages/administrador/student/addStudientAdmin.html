@@ -46,10 +46,7 @@
     <!-- Home -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-
             <h3>Formulario Alumno</h3>
-
-            <!-- Formulario para añadir/editar alumno -->
             <form id="alumnoForm" th:action="@{/guardarAlumno}" method="post" onsubmit="return validarFormulario()"
                   class="needs-validation" novalidate>
                 <input type="hidden" id="id" name="id" th:value="${alumno != null ? alumno.id : ''}">

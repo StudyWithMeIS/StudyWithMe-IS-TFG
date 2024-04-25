@@ -14,8 +14,8 @@ DROP TABLE IF EXISTS administradores;
 
 -- Crear la tabla para Administradores
 CREATE TABLE IF NOT EXISTS administradores (
-                                               id_admin INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
-                                               nif_admin CHAR(9) NOT NULL UNIQUE,
+    id_admin INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
+    nif_admin CHAR(9) NOT NULL UNIQUE,
     nombre_admin VARCHAR(50) NOT NULL,
     email_admin VARCHAR(100) UNIQUE NOT NULL,
     password_admin VARCHAR(100) NOT NULL

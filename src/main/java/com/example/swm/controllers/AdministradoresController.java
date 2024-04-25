@@ -64,7 +64,7 @@ public class AdministradoresController {
         return modelAndView;
     }
 
-
+    // PRIRMERO CARGAR LA VISYA DE TODOS LOS ALUMNOS
     @GetMapping("/vistaListarAlumnosAdmin")
     public ModelAndView vistaListarAlumnos() {
         ModelAndView mv = new ModelAndView();
@@ -74,6 +74,7 @@ public class AdministradoresController {
         return mv;
     }
 
+    // SEGUNDO LLAMAR A LISTAR ALUMNOS.
     @GetMapping("/listarAlumnos")
     public ModelAndView listarAlumnos() {
         ModelAndView mv = new ModelAndView();
@@ -105,15 +106,25 @@ public class AdministradoresController {
         return modelAndView;
     }
 
-    // TERCERO CARGA LA VISTA PARA LISTAR CLASES.
-    @GetMapping("/listarClasesAdmin")
+    //PRINTERO CARGA LA VISTA PARA LISTAR CLASES.
+    @GetMapping("/vistaListarClasesAdmin")
+    public ModelAndView vistaListarClases() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/grade/readGradeAdmin");
+        mv.addObject("clases", listarClases().getModel().get("clases"));
+        return mv;
+    }
+
+    // SEGUNDO LLAMAR A LISTAR CLASES.
+    @GetMapping("/listarClases")
     public ModelAndView listarClases() {
         ModelAndView mv = new ModelAndView();
         List<Clases> clases = clasesRepository.findAll();
         mv.addObject("clases", clases);
-        mv.setViewName("pages/administrador/grade/readGradeAdmin");
+        mv.setViewName("redirect:/vistaListarClasesAdmin");
         return mv;
     }
+
 
     //-----------------ASIGNATURA----------------------
     // PRIMERO CARGA LA VISTA PARA CREAR ASIGNATURA.
