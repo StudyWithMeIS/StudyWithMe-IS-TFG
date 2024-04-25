@@ -48,8 +48,7 @@
             <form id="cursoForm" th:action="@{/guardarCurso}" method="post" onsubmit="return validarFormulario()"
                   class="needs-validation" novalidate>
                 <div class="mb-3">
-                    <label for="nombre_curso" class="form-label
-                    ">Nombre del Curso:</label>
+                    <label for="nombre_curso" class="form-label">Nombre del Curso:</label>
                     <input type="text" class="form-control" id="nombre_curso" name="nombre_curso"
                            placeholder="Nombre del Curso" th:value="${clase != null ? curso.nombre_clase : ''}"
                            required>

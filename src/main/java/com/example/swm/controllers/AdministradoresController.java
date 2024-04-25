@@ -126,6 +126,16 @@ public class AdministradoresController {
     }
 
 
+//  ---> [NO FUNCIONNA] ELIMINAR CLASE  <---
+    @PostMapping("/eliminarClase")
+    public ModelAndView eliminarClase(@RequestParam("id_clase") int id_clase) {
+        ModelAndView modelAndView = new ModelAndView();
+        clasesRepository.deleteById(String.valueOf(id_clase));
+        modelAndView.setViewName("redirect:/administradores/vistaListarClasesAdmin");
+        return modelAndView;
+    }
+
+
     //-----------------ASIGNATURA----------------------
     // PRIMERO CARGA LA VISTA PARA CREAR ASIGNATURA.
     @GetMapping("/vistaCrearAsignaturaAdmin")
