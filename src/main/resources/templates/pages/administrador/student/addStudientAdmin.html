@@ -50,7 +50,7 @@
             <h3>Formulario Alumno</h3>
 
             <!-- Formulario para añadir/editar alumno -->
-            <form id="alumnoForm" th:action="@{/guardarAlumno}" method="post" onsubmit="return validarFormulario()"
+            <form id="alumnoForm" th:action="@{/administradores/guardarAlumno}" method="post" onsubmit="return validarFormulario()"
                   class="needs-validation" novalidate>
                 <input type="hidden" id="id" name="id" th:value="${alumno != null ? alumno.id : ''}">
                 <div class="mb-3">
@@ -98,6 +98,9 @@
                     <input type="text" class="form-control" id="nombre_madre_alumno" name="nombre_madre_alumno"
                            placeholder="Nombre completo de la madre del alumno"
                            th:value="${alumno != null ? alumno.nombreMadre : ''}">
+                <div th:if="${not #strings.isEmpty(error)}">
+                    <div class="alert alert-danger" role="alert" th:text="${error}"></div>
+                </div>
                 </div>
                 <div class="justify-content-center d-flex">
                     <input type="submit" class="btn btn-primary btn-lg"

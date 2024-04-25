@@ -3,7 +3,6 @@ package com.example.swm.controllers;
 import com.example.swm.entity.*;
 import com.example.swm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,6 +32,7 @@ public class AdministradoresController {
 
 
     //---------------ALUMNO----------------------
+    // ------------CREAR ALUMNO------------------
     // PRIMERO CARGA LA VISTA PARA CREAR ALUMNO.
     @GetMapping("/vistaCrearAlumnoAdmin")
     public ModelAndView mostrarPaginaAddAlumnos() {
@@ -44,31 +44,36 @@ public class AdministradoresController {
     // SEGUNDO CARGA EL METODO QUE LLAMA DESDE EL FORMULARIO DE LA VISTA DE CREAR ALUMNO.
     @RequestMapping("/guardarAlumno")
     public ModelAndView guardarAlumno(@ModelAttribute Alumnos alumno) {
-        ModelAndView modelAndView = new ModelAndView();
-        Alumnos alumnos = new Alumnos();
-        System.out.println(alumno.getNif_alumno());
-        System.out.println(alumno.getNombre_madre_alumno());
-        System.out.println(alumno.getEmail_alumno());
-        System.out.println(alumno.getPassword_alumno());
-        System.out.println(alumno.getNombre_padre_alumno());
-        System.out.println(alumno.getNombre_madre_alumno());
-        alumnos.setNif_alumno(alumno.getNif_alumno());
-        alumnos.setNombre_alumno(alumno.getNombre_alumno());
-        alumnos.setEmail_alumno(alumno.getEmail_alumno());
-        alumnos.setPassword_alumno(alumno.getPassword_alumno());
-        alumnos.setNombre_padre_alumno(alumno.getNombre_padre_alumno());
-        alumnos.setNombre_madre_alumno(alumno.getNombre_madre_alumno());
-        alumnosRepository.save(alumnos);
-        modelAndView.addObject("mensaje", "Alumno creado correctamente");
-        modelAndView.setViewName("redirect:/addAlumnosAdmin");
-        return modelAndView;
+        ModelAndView mv = new ModelAndView();
+        Optional<Alumnos> existingAlumno = alumnosRepository.findAlumnosByNif(alumno.getNif_alumno());
+        if (existingAlumno != null) {
+            mv.addObject("error", "El alumno ya existe en la base de datos");
+        } else {
+            Alumnos alumnos = new Alumnos();
+            alumnos.setNif_alumno(alumno.getNif_alumno());
+            alumnos.setNombre_alumno(alumno.getNombre_alumno());
+            alumnos.setEmail_alumno(alumno.getEmail_alumno());
+            alumnos.setPassword_alumno(alumno.getPassword_alumno());
+            alumnos.setNombre_padre_alumno(alumno.getNombre_padre_alumno());
+            alumnos.setNombre_madre_alumno(alumno.getNombre_madre_alumno());
+            alumnosRepository.save(alumnos);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        mv.setViewName("redirect:/administradores/vistaCrearAlumnoAdmin");
+        return mv;
     }
 
 
+
+
+    // ------------MOSTRAR ALUMNO------------------
     @GetMapping("/vistaListarAlumnosAdmin")
     public ModelAndView vistaListarAlumnos() {
         ModelAndView mv = new ModelAndView();
-
         mv.setViewName("pages/administrador/student/readStudientAdmin");
         mv.addObject("alumnos", listarAlumnos().getModel().get("alumnos"));
         return mv;
@@ -79,9 +84,27 @@ public class AdministradoresController {
         ModelAndView mv = new ModelAndView();
         List<Alumnos> alumnos = alumnosRepository.findAll();
         mv.addObject("alumnos", alumnos);
-        mv.setViewName("redirect:/vistaListarAlumnosAdmin");
+        mv.setViewName("redirect:/administradores/vistaListarAlumnosAdmin");
         return mv;
     }
+
+
+    // ------------BORRAR ALUMNO------------------
+    @PostMapping("/borrarAlumno/{id_alumno}")
+    public ModelAndView borrarAlumno(@PathVariable("id_alumno") int id_alumno) {
+        ModelAndView mv = new ModelAndView();
+        Alumnos alumno = alumnosRepository.findById(id_alumno).orElse(null);
+        if (alumno != null) {
+            alumnosRepository.delete(alumno);
+        } else {
+            System.out.println("ERROR AL ELIMINAR EL ALUMNO");
+        }
+        mv.setViewName("redirect:/administradores/vistaListarAlumnosAdmin");
+        return mv;
+    }
+
+
+
 
     //-----------------CURSO----------------------
     // PRIMERO CARGA LA VISTA PARA CREAR CLASE.

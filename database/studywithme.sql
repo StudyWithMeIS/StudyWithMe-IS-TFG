@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS studywithme;
+
 -- Crear la base de datos 'studywithme'
 CREATE DATABASE IF NOT EXISTS studywithme;
 
