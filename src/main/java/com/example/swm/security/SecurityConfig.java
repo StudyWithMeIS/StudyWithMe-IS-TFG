@@ -30,6 +30,15 @@ public class SecurityConfig{
                 "SELECT nif_admin AS username, password_admin AS password, true AS enabled FROM administradores WHERE nif_admin = ?");
         userDetailsManager.setAuthoritiesByUsernameQuery(
                 "SELECT nif_admin AS username, 'ROLE_ADMINISTRADOR' AS authority FROM administradores WHERE nif_admin=?" );
+        userDetailsManager.setUsersByUsernameQuery(
+                "SELECT nif_profesor AS username, password_profesor AS password, true AS enabled FROM profesores WHERE nif_profesor = ?");
+        userDetailsManager.setAuthoritiesByUsernameQuery(
+                "SELECT nif_profesor AS username, 'ROLE_PROFESOR' AS authority FROM profesores WHERE nif_profesor=?" );
+        userDetailsManager.setUsersByUsernameQuery(
+                "SELECT nif_alumno AS username, password_alumno AS password, true AS enabled FROM alumnos WHERE nif_alumno = ?");
+        userDetailsManager.setAuthoritiesByUsernameQuery(
+                "SELECT nif_alumno AS username, 'ROLE_ALUMNO' AS authority FROM alumnos WHERE nif_alumno=?"
+        );
         return userDetailsManager;
     }
 

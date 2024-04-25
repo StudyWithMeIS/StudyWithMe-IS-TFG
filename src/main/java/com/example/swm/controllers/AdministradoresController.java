@@ -3,6 +3,8 @@ package com.example.swm.controllers;
 import com.example.swm.entity.*;
 import com.example.swm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -160,13 +162,23 @@ public class AdministradoresController {
         return modelAndView;
     }
 
-    // TERCERO CARGA LA VISTA PARA LISTAR ASIGNATURAS.
-    @GetMapping("/listarAsignaturasAdmin")
+
+    //PRIMER CARGA LA VISTA PARA LISTAR ASIGNATURAS.
+    @GetMapping("/vistaListarAsignaturasAdmin")
+    public ModelAndView vistaListarAsignaturas() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/subject/readSubjectAdmin");
+        mv.addObject("asignaturas", listarAsignaturas().getModel().get("asignaturas"));
+        return mv;
+    }
+
+    // SEGUNDO LLAMAR A LISTAR ASIGNATURAS.
+    @GetMapping("/listarAsignaturas")
     public ModelAndView listarAsignaturas() {
         ModelAndView mv = new ModelAndView();
         List<Asignaturas> asignaturas = asignaturasRepository.findAll();
         mv.addObject("asignaturas", asignaturas);
-        mv.setViewName("pages/administrador/subject/readSubjectAdmin");
+        mv.setViewName("redirect:/vistaListarAsignaturasAdmin");
         return mv;
     }
 
@@ -197,13 +209,22 @@ public class AdministradoresController {
         return modelAndView;
     }
 
-    // TERCERO CARGA LA VISTA PARA LISTAR PROFESORES.
-    @GetMapping("/listarProfesoresAdmin")
+    //PRIMER CARGA LA VISTA PARA LISTAR PROFESORES.
+    @GetMapping("/vistaListarProfesoresAdmin")
+    public ModelAndView vistaListarProfesores() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/teacher/readTeacherAdmin");
+        mv.addObject("profesores", listarProfesores().getModel().get("profesores"));
+        return mv;
+    }
+
+    // SEGUNDO LLAMAR A LISTAR PROFESORES.
+    @GetMapping("/listarProfesores")
     public ModelAndView listarProfesores() {
         ModelAndView mv = new ModelAndView();
         List<Profesores> profesores = profesoresRepository.findAll();
         mv.addObject("profesores", profesores);
-        mv.setViewName("pages/administrador/teacher/readTeacherAdmin");
+        mv.setViewName("redirect:/vistaListarProfesoresAdmin");
         return mv;
     }
 
@@ -213,7 +234,7 @@ public class AdministradoresController {
     @GetMapping("/vistaCrearAdministradorAdmin")
     public ModelAndView mostrarPaginaAddAdministrador() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("pages/administrador/administrator/addAdministratorAdmin");
+        mv.setViewName("pages/administrador/addAdministrador");
         return mv;
     }
 
@@ -234,14 +255,33 @@ public class AdministradoresController {
         return modelAndView;
     }
 
-    // TERCERO CARGA LA VISTA PARA LISTAR ADMINISTRADORES.
-    @GetMapping("/listarAdministradoresAdmin")
+    //PRIMER CARGA LA VISTA PARA LISTAR ADMINISTRADORES.
+    @GetMapping("/vistaListarAdministradoresAdmin")
+    public ModelAndView vistaListarAdministradores() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/readAdmin");
+        mv.addObject("administradores", listarAdministradores().getModel().get("administradores"));
+        return mv;
+    }
+
+    // SEGUNDO LLAMAR A LISTAR ADMINISTRADORES.
+    @GetMapping("/listarAdministradores")
     public ModelAndView listarAdministradores() {
         ModelAndView mv = new ModelAndView();
         List<Administradores> administradores = administradoresRepository.findAll();
         mv.addObject("administradores", administradores);
-        mv.setViewName("pages/administrador/administrator/readAdministratorAdmin");
+        mv.setViewName("redirect:/vistaListarAdministradoresAdmin");
         return mv;
+    }
+
+    @RequestMapping("/vistaHomeAdmin")
+    public ModelAndView homeAdmin() {
+        ModelAndView modelAndView = new ModelAndView();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        modelAndView.addObject("username", currentPrincipalName);
+        modelAndView.setViewName("pages/administrador/homeAdmin");
+        return modelAndView;
     }
 }
 
