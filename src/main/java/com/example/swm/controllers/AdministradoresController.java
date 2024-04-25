@@ -44,22 +44,27 @@ public class AdministradoresController {
     // SEGUNDO CARGA EL METODO QUE LLAMA DESDE EL FORMULARIO DE LA VISTA DE CREAR ALUMNO.
     @RequestMapping("/guardarAlumno")
     public ModelAndView guardarAlumno(@ModelAttribute Alumnos alumno) {
-        ModelAndView modelAndView = new ModelAndView();
-        Alumnos alumnos = new Alumnos();
-        alumnos.setNif_alumno(alumno.getNif_alumno());
-        alumnos.setNombre_alumno(alumno.getNombre_alumno());
-        alumnos.setEmail_alumno(alumno.getEmail_alumno());
-        alumnos.setPassword_alumno(alumno.getPassword_alumno());
-        alumnos.setNombre_padre_alumno(alumno.getNombre_padre_alumno());
-        alumnos.setNombre_madre_alumno(alumno.getNombre_madre_alumno());
-        alumnosRepository.save(alumnos);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        ModelAndView mv = new ModelAndView();
+        Optional<Alumnos> existingAlumno = alumnosRepository.findAlumnosByNif(alumno.getNif_alumno());
+        if (existingAlumno != null) {
+            mv.addObject("error", "El alumno ya existe en la base de datos");
+        } else {
+            Alumnos alumnos = new Alumnos();
+            alumnos.setNif_alumno(alumno.getNif_alumno());
+            alumnos.setNombre_alumno(alumno.getNombre_alumno());
+            alumnos.setEmail_alumno(alumno.getEmail_alumno());
+            alumnos.setPassword_alumno(alumno.getPassword_alumno());
+            alumnos.setNombre_padre_alumno(alumno.getNombre_padre_alumno());
+            alumnos.setNombre_madre_alumno(alumno.getNombre_madre_alumno());
+            alumnosRepository.save(alumnos);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        modelAndView.setViewName("redirect:/administradores/vistaCrearAlumnoAdmin");
-        return modelAndView;
+        mv.setViewName("redirect:/administradores/vistaCrearAlumnoAdmin");
+        return mv;
     }
 
 
