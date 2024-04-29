@@ -3,16 +3,10 @@ package com.example.swm.controllers;
 import com.example.swm.entity.*;
 import com.example.swm.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< HEAD
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.ui.Model;
-=======
->>>>>>> main
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,14 +67,8 @@ public class AdministradoresController {
         return mv;
     }
 
-<<<<<<< HEAD
     // PRIRMERO CARGAR LA VISYA DE TODOS LOS ALUMNOS
-=======
-
-
-
     // ------------MOSTRAR ALUMNO------------------
->>>>>>> main
     @GetMapping("/vistaListarAlumnosAdmin")
     public ModelAndView vistaListarAlumnos() {
         ModelAndView mv = new ModelAndView();

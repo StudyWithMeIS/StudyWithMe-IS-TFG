@@ -68,7 +68,7 @@
                 <div class="mb-3">
                     <label for="asignatura" class="form-label">Asignatura</label>
                     <select class="form-select" id="asignatura" name="asignatura" required>
-                        <option value="">Selecciona una asignatura</option>
+                        <option value="">Seecciona una asignatura</option>
                         <option th:each="asignatura : ${asignaturas}" th:value="${asignatura.id}"
                                 th:text="${asignatura.nombre}"></option>
                     </select>
