@@ -15,34 +15,7 @@
 
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/administradores/vistaHomeAdmin">Study With Me</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/administradores/vistaCrearAlumnoAdmin">Alumno</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/administradores/vistaCrearProfesorAdmin">Profesor</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/administradores/vistaCrearAsignaturaAdmin">Asignatura</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/administradores/vistaCrearClaseAdmin">Cursos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/administradores/vistaCrearAdministradorAdmin">Administradores</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:replace="navbarAdmin :: navbarAdmin"></div>
 
 
 <section class="container-fluid lg-5">
@@ -62,8 +35,8 @@
                 </thead>
                 <tbody>
                 <tr th:each="admin : ${administradores}">
-                    <td th:text="${admin.nombre}"></td>
-                    <td th:text="${admin.email}"></td>
+                    <td th:text="${admin.nombre_admin}"></td>
+                    <td th:text="${admin.email_admin}"></td>
                     <td>
                         <a th:href="@{/administradores/administradores/edit/{id}(id=${admin.id})}" class="btn btn-primary"><i class="bi bi-pen"></i></a>
 <!--                        <a th:href="@{/admin/administradores/delete/{id}(id=${admin.id})}" class="btn btn-danger"><i class="bi bi-trash3"></i></a>-->
