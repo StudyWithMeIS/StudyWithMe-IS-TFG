@@ -2,11 +2,12 @@ package com.example.swm.controllers;
 
 import com.example.swm.entity.*;
 import com.example.swm.repository.*;
+import com.example.swm.services.AlumnosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,13 +22,16 @@ public class AdministradoresController {
     private AlumnosRepository alumnosRepository;
 
     @Autowired
-    private ClasesRepository clasesRepository;
+    private CursosRepository cursosRepository;
 
     @Autowired
     private AsignaturasRepository asignaturasRepository;
 
     @Autowired
     private ProfesoresRepository profesoresRepository;
+
+    @Autowired
+    private AlumnosService alumnosService;
 
 
 
@@ -93,13 +97,14 @@ public class AdministradoresController {
     @PostMapping("/borrarAlumno/{id_alumno}")
     public ModelAndView borrarAlumno(@PathVariable("id_alumno") int id_alumno) {
         ModelAndView mv = new ModelAndView();
-        Alumnos alumno = alumnosRepository.findById(id_alumno).orElse(null);
-        if (alumno != null) {
-            alumnosRepository.delete(alumno);
-        } else {
-            System.out.println("ERROR AL ELIMINAR EL ALUMNO");
+        try {
+            alumnosService.eliminarAlumno(id_alumno);
+            mv.setViewName("redirect:/administradores/vistaListarAlumnosAdmin");
+        } catch (DataAccessException e) {
+            System.out.println("Error al eliminar el alumno: " + e.getMessage());
+            mv.addObject("error", "Error al eliminar el alumno");
+            mv.setViewName("redirect:/administradores/vistaListarAlumnosAdmin");
         }
-        mv.setViewName("redirect:/administradores/vistaListarAlumnosAdmin");
         return mv;
     }
 
@@ -117,13 +122,13 @@ public class AdministradoresController {
 
     // SEGUNDO CARGA EL METODO QUE LLAMA DESDE EL FORMULARIO DE LA VISTA DE CREAR CLASE.
     @RequestMapping("/guardarClase")
-    public ModelAndView guardarClase(@ModelAttribute Clases clase) {
+    public ModelAndView guardarClase(@ModelAttribute Cursos curso) {
         ModelAndView modelAndView = new ModelAndView();
-        Clases clases = new Clases();
-        System.out.println(clase.getNombre_clase());
-        clases.setNombre_clase(clase.getNombre_clase());
-        clasesRepository.save(clases);
-        modelAndView.addObject("mensaje", "Clase creada correctamente");
+        Cursos cursos = new Cursos();
+        System.out.println(curso.getNombre_curso());
+        cursos.setNombre_curso(curso.getNombre_curso());
+        cursosRepository.save(cursos);
+        modelAndView.addObject("mensaje", "Curso creada correctamente");
         modelAndView.setViewName("redirect:/addClaseAdmin");
         return modelAndView;
     }
@@ -132,8 +137,8 @@ public class AdministradoresController {
     @GetMapping("/listarClasesAdmin")
     public ModelAndView listarClases() {
         ModelAndView mv = new ModelAndView();
-        List<Clases> clases = clasesRepository.findAll();
-        mv.addObject("clases", clases);
+        List<Cursos> cursos = cursosRepository.findAll();
+        mv.addObject("cursos", cursos);
         mv.setViewName("pages/administrador/grade/readGradeAdmin");
         return mv;
     }
@@ -153,9 +158,9 @@ public class AdministradoresController {
         ModelAndView modelAndView = new ModelAndView();
         Asignaturas asignaturas = new Asignaturas();
         System.out.println(asignatura.getNombre_asignatura());
-        System.out.println(asignatura.getProfesor());
+        System.out.println(asignatura.getProfesores());
         asignaturas.setNombre_asignatura(asignatura.getNombre_asignatura());
-        asignaturas.setProfesor(asignatura.getProfesor());
+        asignaturas.setProfesores(asignatura.getProfesores());
         asignaturasRepository.save(asignaturas);
         modelAndView.addObject("mensaje", "Asignatura creada correctamente");
         modelAndView.setViewName("redirect:/addAsignaturaAdmin");

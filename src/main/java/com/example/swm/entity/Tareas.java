@@ -20,29 +20,28 @@ public class Tareas implements Serializable {
     private double calificacion_tarea;
 
     @ManyToOne
-    @JoinColumn(name = "nif_profesor_tarea")
-    private Profesores profesores;
+    @JoinColumn(name = "id_profesor_tarea")
+    private Profesores profesor_tarea;
 
     @ManyToOne
-    @JoinColumn(name = "nif_alumno_calificacion")
-    private Alumnos alumnos;
+    @JoinColumn(name = "id_alumno_tarea")
+    private Alumnos alumno_tarea;
 
     @ManyToOne
-    @JoinColumn(name = "id_asignatura")
-    private Asignaturas asignaturas;
+    @JoinColumn(name = "id_asignatura_tarea")
+    private Asignaturas asignatura_tarea;
 
-    public Tareas() {
-    }
+    public Tareas() {}
 
-    public Tareas(int id_tarea, String tipo_tarea, String titulo_tarea, String descripcion_tarea, double calificacion_tarea, Profesores profesores, Alumnos alumnos, Asignaturas asignaturas) {
+    public Tareas(int id_tarea, String tipo_tarea, String titulo_tarea, String descripcion_tarea, double calificacion_tarea, Profesores profesor_tarea, Alumnos alumno_tarea, Asignaturas asignatura_tarea) {
         this.id_tarea = id_tarea;
         this.tipo_tarea = tipo_tarea;
         this.titulo_tarea = titulo_tarea;
         this.descripcion_tarea = descripcion_tarea;
         this.calificacion_tarea = calificacion_tarea;
-        this.profesores = profesores;
-        this.alumnos = alumnos;
-        this.asignaturas = asignaturas;
+        this.profesor_tarea = profesor_tarea;
+        this.alumno_tarea = alumno_tarea;
+        this.asignatura_tarea = asignatura_tarea;
     }
 
     public int getId_tarea() {
@@ -85,41 +84,41 @@ public class Tareas implements Serializable {
         this.calificacion_tarea = calificacion_tarea;
     }
 
-    public Profesores getProfesor() {
-        return profesores;
+    public Profesores getProfesor_tarea() {
+        return profesor_tarea;
     }
 
-    public void setProfesor(Profesores profesores) {
-        this.profesores = profesores;
+    public void setProfesor_tarea(Profesores profesor_tarea) {
+        this.profesor_tarea = profesor_tarea;
     }
 
-    public Alumnos getAlumno() {
-        return alumnos;
+    public Alumnos getAlumno_tarea() {
+        return alumno_tarea;
     }
 
-    public void setAlumno(Alumnos alumnos) {
-        this.alumnos = alumnos;
+    public void setAlumno_tarea(Alumnos alumno_tarea) {
+        this.alumno_tarea = alumno_tarea;
     }
 
-    public Asignaturas getAsignatura() {
-        return asignaturas;
+    public Asignaturas getAsignatura_tarea() {
+        return asignatura_tarea;
     }
 
-    public void setAsignatura(Asignaturas asignaturas) {
-        this.asignaturas = asignaturas;
+    public void setAsignatura_tarea(Asignaturas asignatura_tarea) {
+        this.asignatura_tarea = asignatura_tarea;
     }
 
     @Override
     public String toString() {
-        return "Tarea{" +
+        return "Tareas{" +
                 "id_tarea=" + id_tarea +
                 ", tipo_tarea='" + tipo_tarea + '\'' +
                 ", titulo_tarea='" + titulo_tarea + '\'' +
                 ", descripcion_tarea='" + descripcion_tarea + '\'' +
                 ", calificacion_tarea=" + calificacion_tarea +
-                ", profesor=" + profesores +
-                ", alumno=" + alumnos +
-                ", asignatura=" + asignaturas +
+                ", profesor=" + profesor_tarea +
+                ", alumno=" + alumno_tarea +
+                ", asignatura=" + asignatura_tarea +
                 '}';
     }
 }

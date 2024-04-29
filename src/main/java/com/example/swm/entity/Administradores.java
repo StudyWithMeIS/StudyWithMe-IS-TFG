@@ -20,8 +20,7 @@ public class Administradores implements Serializable {
     private String email_admin;
     private String password_admin;
 
-    public Administradores() {
-    }
+    public Administradores() {}
 
     public Administradores(int id_admin, String nif_admin, String nombre_admin, String email_admin, String password_admin) {
         this.id_admin = id_admin;

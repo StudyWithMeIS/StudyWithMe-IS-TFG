@@ -15,25 +15,22 @@ public class Asignaturas implements Serializable {
     @Id
     private String id_asignatura;
     private String nombre_asignatura;
-    private String id_clase_asignatura;
 
-    @Column(name = "nif_profesor", insertable = false, updatable = false)
-
-    private String nif_profesor;
-
-    public Asignaturas() {
-    }
+    @ManyToOne
+    @JoinColumn(name = "id_curso_asignatura")
+    private Cursos curso;
 
     @ManyToOne
     @JoinColumn(name = "nif_profesor")
     private Profesores profesores;
 
-    public Asignaturas(String id_asignatura, String nombre_asignatura, String id_clase_asignatura, String nif_) {
-        super();
+    public Asignaturas() {}
+
+    public Asignaturas(String id_asignatura, String nombre_asignatura, Cursos curso, Profesores profesores) {
         this.id_asignatura = id_asignatura;
         this.nombre_asignatura = nombre_asignatura;
-        this.id_clase_asignatura = id_clase_asignatura;
-        this.nif_profesor = nif_profesor;
+        this.curso = curso;
+        this.profesores = profesores;
     }
 
     public String getId_asignatura() {
@@ -52,37 +49,29 @@ public class Asignaturas implements Serializable {
         this.nombre_asignatura = nombre_asignatura;
     }
 
-    public String getId_clase_asignatura() {
-        return id_clase_asignatura;
+    public Cursos getCurso() {
+        return curso;
     }
 
-    public void setId_clase_asignatura(String id_clase_asignatura) {
-        this.id_clase_asignatura = id_clase_asignatura;
+    public void setCurso(Cursos curso) {
+        this.curso = curso;
     }
 
-    public String getNif_profesor() {
-        return nif_profesor;
-    }
-
-    public void setNif_profesor(String nif_profesor) {
-        this.nif_profesor = nif_profesor;
-    }
-
-    public Profesores getProfesor() {
+    public Profesores getProfesores() {
         return profesores;
     }
 
-    public void setProfesor(Profesores profesores) {
+    public void setProfesores(Profesores profesores) {
         this.profesores = profesores;
     }
 
     @Override
     public String toString() {
-        return "Asignatura{" +
+        return "Asignaturas{" +
                 "id_asignatura='" + id_asignatura + '\'' +
                 ", nombre_asignatura='" + nombre_asignatura + '\'' +
-                ", id_clase_asignatura='" + id_clase_asignatura + '\'' +
-                ", nif_profesor='" + nif_profesor + '\'' +
+                ", curso=" + curso +
+                ", profesores=" + profesores +
                 '}';
     }
 }
