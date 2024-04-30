@@ -15,55 +15,38 @@
 
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/homeAdmin">Study With Me</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/readStudientAdmin">Alumno</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/readTeacherAdmin">Profesor</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/readGradeAdmin">Clases</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/readCourseAdmin">Cursos</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:replace="navbarAdmin :: navbarAdmin"></div>
 
-<section class="container-fluid lg-5">
-    <!-- Formulario para agregar/editar curso -->
+<section class="container-fluid lg-5 content-container">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
             <h3>Añadir/Editar Curso</h3>
-            <form th:action="@{/administradores/cursos/save}" method="post">
-                <!-- Campo oculto para el ID del curso -->
-                <input type="hidden" id="id" name="id" th:value="${curso.id}">
+            <form id="cursoForm" th:action="@{/guardarCurso}" method="post" onsubmit="return validarFormulario()"
+                  class="needs-validation" novalidate>
                 <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" th:value="${curso.nombre_curso}">
+                    <label for="nombre_curso" class="form-label">Nombre del Curso:</label>
+                    <input type="text" class="form-control" id="nombre_curso" name="nombre_curso"
+                           placeholder="Nombre del Curso" th:value="${clase != null ? curso.nombre_clase : ''}"
+                           required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa el nombre del curso.
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
+                <div class="justify-content-center d-flex">
+                    <button type="submit" class="btn btn-primary" th:value="${clase != null ? 'Editar Alumno' : 'Añadir Alumno'}">Guardar</button>
+                </div>
             </form>
         </div>
     </div>
 </section>
 
 
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
+
+<script src="../../../../static/scripts/validatorForm.js"></script>
+
 
 </body>
 
