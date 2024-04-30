@@ -27,7 +27,7 @@ public class Alumnos implements Serializable {
 
     private String nombre_madre_alumno;
 
-    @OneToMany(mappedBy = "alumnos", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id_alumno_tarea", cascade = CascadeType.ALL)
     private List<Tareas> tareas;
 
     public Alumnos() {}

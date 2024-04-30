@@ -95,10 +95,15 @@ public class AdministradoresController {
 
     // ------------BORRAR ALUMNO------------------
     @PostMapping("/borrarAlumno/{id_alumno}")
-    public ModelAndView borrarAlumno(@PathVariable("id_alumno") int id_alumno) {
+    public ModelAndView borrarAlumno(@PathVariable("id_alumno") int id_alumno_tarea) {
         ModelAndView mv = new ModelAndView();
         try {
-            alumnosService.eliminarAlumno(id_alumno);
+            alumnosService.eliminarAlumno(id_alumno_tarea);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             mv.setViewName("redirect:/administradores/vistaListarAlumnosAdmin");
         } catch (DataAccessException e) {
             System.out.println("Error al eliminar el alumno: " + e.getMessage());

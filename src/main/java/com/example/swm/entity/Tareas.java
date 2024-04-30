@@ -19,29 +19,26 @@ public class Tareas implements Serializable {
     private String descripcion_tarea;
     private double calificacion_tarea;
 
-    @ManyToOne
-    @JoinColumn(name = "id_profesor_tarea")
-    private Profesores profesor_tarea;
+    @Column(name = "id_profesor_tarea")
+    private int id_profesor_tarea;
 
-    @ManyToOne
-    @JoinColumn(name = "id_alumno_tarea")
-    private Alumnos alumno_tarea;
+    @Column(name = "id_alumno_tarea")
+    private int id_alumno_tarea;
 
-    @ManyToOne
-    @JoinColumn(name = "id_asignatura_tarea")
-    private Asignaturas asignatura_tarea;
+    @Column(name = "id_asignatura_tarea")
+    private int id_asignatura_tarea;
 
     public Tareas() {}
 
-    public Tareas(int id_tarea, String tipo_tarea, String titulo_tarea, String descripcion_tarea, double calificacion_tarea, Profesores profesor_tarea, Alumnos alumno_tarea, Asignaturas asignatura_tarea) {
+    public Tareas(int id_tarea, String tipo_tarea, String titulo_tarea, String descripcion_tarea, double calificacion_tarea, int id_profesor_tarea, int id_alumno_tarea, int id_asignatura_tarea) {
         this.id_tarea = id_tarea;
         this.tipo_tarea = tipo_tarea;
         this.titulo_tarea = titulo_tarea;
         this.descripcion_tarea = descripcion_tarea;
         this.calificacion_tarea = calificacion_tarea;
-        this.profesor_tarea = profesor_tarea;
-        this.alumno_tarea = alumno_tarea;
-        this.asignatura_tarea = asignatura_tarea;
+        this.id_profesor_tarea = id_profesor_tarea;
+        this.id_alumno_tarea = id_alumno_tarea;
+        this.id_asignatura_tarea = id_asignatura_tarea;
     }
 
     public int getId_tarea() {
@@ -84,28 +81,28 @@ public class Tareas implements Serializable {
         this.calificacion_tarea = calificacion_tarea;
     }
 
-    public Profesores getProfesor_tarea() {
-        return profesor_tarea;
+    public int getId_profesor_tarea() {
+        return id_profesor_tarea;
     }
 
-    public void setProfesor_tarea(Profesores profesor_tarea) {
-        this.profesor_tarea = profesor_tarea;
+    public void setId_profesor_tarea(int id_profesor_tarea) {
+        this.id_profesor_tarea = id_profesor_tarea;
     }
 
-    public Alumnos getAlumno_tarea() {
-        return alumno_tarea;
+    public int getId_alumno_tarea() {
+        return id_alumno_tarea;
     }
 
-    public void setAlumno_tarea(Alumnos alumno_tarea) {
-        this.alumno_tarea = alumno_tarea;
+    public void setId_alumno_tarea(int id_alumno_tarea) {
+        this.id_alumno_tarea = id_alumno_tarea;
     }
 
-    public Asignaturas getAsignatura_tarea() {
-        return asignatura_tarea;
+    public int getId_asignatura_tarea() {
+        return id_asignatura_tarea;
     }
 
-    public void setAsignatura_tarea(Asignaturas asignatura_tarea) {
-        this.asignatura_tarea = asignatura_tarea;
+    public void setId_asignatura_tarea(int id_asignatura_tarea) {
+        this.id_asignatura_tarea = id_asignatura_tarea;
     }
 
     @Override
@@ -116,9 +113,9 @@ public class Tareas implements Serializable {
                 ", titulo_tarea='" + titulo_tarea + '\'' +
                 ", descripcion_tarea='" + descripcion_tarea + '\'' +
                 ", calificacion_tarea=" + calificacion_tarea +
-                ", profesor=" + profesor_tarea +
-                ", alumno=" + alumno_tarea +
-                ", asignatura=" + asignatura_tarea +
+                ", profesor=" + id_profesor_tarea +
+                ", alumno=" + id_alumno_tarea +
+                ", asignatura=" + id_asignatura_tarea +
                 '}';
     }
 }

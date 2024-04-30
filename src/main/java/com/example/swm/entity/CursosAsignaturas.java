@@ -6,7 +6,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@NamedQuery(name = "Cursos.findAll", query = "SELECT c FROM Cursos c")
+@NamedQuery(name = "CursosAsignaturas.findAll", query = "SELECT ca FROM CursosAsignaturas ca")
 public class CursosAsignaturas implements Serializable {
 
     @Serial
