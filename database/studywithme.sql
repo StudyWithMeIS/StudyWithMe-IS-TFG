@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS asignaturas (
 
 -- Crear la tabla para tareas
 CREATE TABLE IF NOT EXISTS tareas (
-                                      id_tarea INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
-                                      tipo_tarea VARCHAR(50) NOT NULL,
+    id_tarea INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
+    tipo_tarea VARCHAR(50) NOT NULL,
     titulo_tarea VARCHAR(100) NOT NULL,
     descripcion_tarea VARCHAR(100) NOT NULL,
     calificacion_tarea DECIMAL(5, 3),
