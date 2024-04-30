@@ -22,27 +22,27 @@
             <form th:object="${alumno}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nif">NIF:</label>
-                    <input type="text" class="form-control" id="nif" th:value="*{alumno.nifAlumno}" readonly>
+                    <input type="text" class="form-control" id="nif" th:value="*{alumno.nif_alumno}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" th:value="*{alumno.nombreAlumno}" readonly>
+                    <input type="text" class="form-control" id="nombre" th:value="*{alumno.nombre_alumno}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" th:value="*{alumno.emailAlumno}" readonly>
+                    <input type="email" class="form-control" id="email" th:value="*{alumno.email_alumno}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
-                    <input type="password" class="form-control" id="password" th:value="*{alumno.passwordAlumno}">
+                    <input type="password" class="form-control" id="password" th:value="*{alumno.password_alumno}">
                 </div>
                 <div class="form-group">
                     <label for="nombrePadre">Nombre del Padre:</label>
-                    <input type="text" class="form-control" id="nombrePadre" th:value="*{alumno.nombrePadreAlumno}" readonly>
+                    <input type="text" class="form-control" id="nombrePadre" th:value="*{alumno.nombre_padre_alumno}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nombreMadre">Nombre de la Madre:</label>
-                    <input type="text" class="form-control" id="nombreMadre" th:value="*{alumno.nombreMadreAlumno}" readonly>
+                    <input type="text" class="form-control" id="nombreMadre" th:value="*{alumno.nombre_madre_alumno}" readonly>
                 </div>
                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </form>
