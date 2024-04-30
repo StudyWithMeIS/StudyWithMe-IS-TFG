@@ -24,17 +24,17 @@ public class Profesores implements Serializable {
     private String password_profesor;
 
     @OneToMany(mappedBy = "profesores")
-    private List<Asignaturas> asignaturas;
+    private List<Asignaturas> asignaturas_profesores;
 
-    public Profesores() {
-    }
+    public Profesores() {}
 
-    public Profesores(int id_profesor, String nif_profesor, String nombre_profesor, String email_profesor, String password_profesor) {
+    public Profesores(int id_profesor, String nif_profesor, String nombre_profesor, String email_profesor, String password_profesor, List<Asignaturas> asignaturas_profesores) {
         this.id_profesor = id_profesor;
         this.nif_profesor = nif_profesor;
         this.nombre_profesor = nombre_profesor;
         this.email_profesor = email_profesor;
         this.password_profesor = password_profesor;
+        this.asignaturas_profesores = asignaturas_profesores;
     }
 
     public int getId_profesor() {
@@ -78,22 +78,22 @@ public class Profesores implements Serializable {
     }
 
     public List<Asignaturas> getAsignaturas() {
-        return asignaturas;
+        return asignaturas_profesores;
     }
 
     public void setAsignaturas(List<Asignaturas> asignaturas) {
-        this.asignaturas = asignaturas;
+        this.asignaturas_profesores = asignaturas_profesores;
     }
 
     @Override
     public String toString() {
-        return "Profesor{" +
+        return "Profesores{" +
                 "id_profesor=" + id_profesor +
                 ", nif_profesor='" + nif_profesor + '\'' +
                 ", nombre_profesor='" + nombre_profesor + '\'' +
                 ", email_profesor='" + email_profesor + '\'' +
                 ", password_profesor='" + password_profesor + '\'' +
-                ", asignaturas=" + asignaturas +
+                ", asignaturas=" + asignaturas_profesores +
                 '}';
     }
 }
