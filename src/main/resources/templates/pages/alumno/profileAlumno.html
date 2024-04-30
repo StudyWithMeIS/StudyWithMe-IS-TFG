@@ -12,7 +12,8 @@
 <body>
 
 <!-- Navbar -->
-<div th:replace="navbarAlumno :: navbarStudient"></div>
+<div th:insert="~{navbarAlumno :: navbarAlumnoComonente}"></div>
+
 
 <section class="container-fluid lg-5">
     <!-- Perfil del Alumno -->
@@ -21,8 +22,8 @@
             <h2>Perfil del Alumno</h2>
             <form th:object="${alumno}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="nif">NIF:</label>
-                    <input type="text" class="form-control" id="nif" th:value="*{alumno.nif_alumno}" readonly>
+                    <label for="nif" disabled >NIF:</label>
+                    <input type="text" class="form-control" disabled id="nif" th:value="*{alumno.nif_alumno}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
@@ -38,12 +39,13 @@
                 </div>
                 <div class="form-group">
                     <label for="nombrePadre">Nombre del Padre:</label>
-                    <input type="text" class="form-control" id="nombrePadre" th:value="*{alumno.nombre_padre_alumno}" readonly>
+                    <input type="text" class="form-control" disabled id="nombrePadre" th:value="*{alumno.nombre_padre_alumno}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nombreMadre">Nombre de la Madre:</label>
-                    <input type="text" class="form-control" id="nombreMadre" th:value="*{alumno.nombre_madre_alumno}" readonly>
+                    <input type="text" class="form-control" disabled id="nombreMadre" th:value="*{alumno.nombre_madre_alumno}" readonly>
                 </div>
+                <br>
                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </form>
         </div>
