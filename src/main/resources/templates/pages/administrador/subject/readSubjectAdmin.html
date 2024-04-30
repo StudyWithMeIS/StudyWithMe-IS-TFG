@@ -52,9 +52,17 @@
                                 th:text="${alumno.nombre} + ' ' + ${alumno.apellidos}"></li>
                         </ul>
                     </td>-->
+                    <td>
+                        <a th:href="@{'/administradores/vistaEditarAsignaturaAdmin/' + ${asignatura.id_asignatura}}"
+                           class="btn btn-primary"><i class="bi bi-pencil"></i> </a>
+                        <a th:href="@{'/administradores/eliminarAsignaturaAdmin/' + ${asignatura.id_asignatura}}"
+                           class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
+                                class="bi bi-trash"></i> </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
+            <div th:replace="modalDeleteAdmin :: modalDeleteAdmin"></div>
         </div>
     </div>
 </section>
