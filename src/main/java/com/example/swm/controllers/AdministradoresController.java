@@ -49,17 +49,22 @@ public class AdministradoresController {
     @RequestMapping("/guardarAlumno")
     public ModelAndView guardarAlumno(@ModelAttribute Alumnos alumno) {
         ModelAndView mv = new ModelAndView();
+        String nifAlumno = alumno.getNif_alumno().toLowerCase();
+        String nombreAlumno = alumno.getNombre_alumno().toLowerCase();
+        String emailAlumno = alumno.getEmail_alumno().toLowerCase();
+        String nombrePadreAlumno = alumno.getNombre_padre_alumno().toLowerCase();
+        String nombreMadreAlumno = alumno.getNombre_madre_alumno().toLowerCase();
         Optional<Alumnos> existingAlumno = alumnosRepository.findAlumnosByNif(alumno.getNif_alumno());
-        if (existingAlumno != null) {
+        if (existingAlumno.isPresent()) {
             mv.addObject("error", "El alumno ya existe en la base de datos");
         } else {
             Alumnos alumnos = new Alumnos();
-            alumnos.setNif_alumno(alumno.getNif_alumno());
-            alumnos.setNombre_alumno(alumno.getNombre_alumno());
-            alumnos.setEmail_alumno(alumno.getEmail_alumno());
+            alumnos.setNif_alumno(nifAlumno);
+            alumnos.setNombre_alumno(nombreAlumno);
+            alumnos.setEmail_alumno(emailAlumno);
             alumnos.setPassword_alumno(alumno.getPassword_alumno());
-            alumnos.setNombre_padre_alumno(alumno.getNombre_padre_alumno());
-            alumnos.setNombre_madre_alumno(alumno.getNombre_madre_alumno());
+            alumnos.setNombre_padre_alumno(nombrePadreAlumno);
+            alumnos.setNombre_madre_alumno(nombreMadreAlumno);
             alumnosRepository.save(alumnos);
             try {
                 Thread.sleep(1000);
