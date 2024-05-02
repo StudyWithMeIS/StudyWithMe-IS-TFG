@@ -59,9 +59,9 @@
                                     </svg>
                                     <div class="d-flex flex-column">
                                         <p class="pb-3 mb-0 small lh-sm">
-                                            <strong class="d-block text-gray-dark" th:text="${tarea.getNombreProfesor}">a</strong>
+                                            <strong class="d-block text-gray-dark" th:text="${tarea.getNombreProfesor}"></strong>
                                         </p>
-                                        <div class="pb-3 mb-0 small lh-sm" th:text="${tarea.titulo_tarea}">ddddd</div>
+                                        <div class="pb-3 mb-0 small lh-sm" th:text="${tarea.titulo_tarea}"></div>
                                     </div>
                                     <div class="text-center ms-auto">
                                         <a th:href="@{/alumnos/verTareaAlumno/{idTarea}(idTarea=${tarea.id_tarea})}" class="btn btn-primary">Ver tarea</a>
