@@ -20,6 +20,29 @@
 <section class="container-fluid lg-5">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
+            <div class="row" th:each="tarea : ${tarea.id_tareas}">
+                <h2 th:text="${tarea.titulo_tarea}"></h2>
+                <p th:text="${tarea.tipo_tarea}"></p>
+                <hr>
+                <div class="col-md-9">
+                    <p th:text="${tarea.descripcion_tarea}"></p>
+                </div>
+                <div class="col-md-3">
+                    <div class="card-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Tu trabajo</h5>
+                                <form th:action="@{/alumno/subirTrabajo}" method="post" enctype="multipart/form-data">
+                                    <div class="mb-3">
+                                        <input type="file" class="form-control" id="file" name="file">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Entregar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </div>
