@@ -1,3 +1,4 @@
+-- Borrar la base de datos si existe
 DROP DATABASE IF EXISTS studywithme;
 
 -- Crear la base de datos 'studywithme'
@@ -43,23 +44,23 @@ CREATE TABLE IF NOT EXISTS alumnos (
     nombre_madre_alumno VARCHAR(100)
     );
 
--- Crear la tabla para clases
-CREATE TABLE IF NOT EXISTS clases (
-    id_clase INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY auto_increment,
-    nombre_clase VARCHAR(100) NOT NULL
+
+-- Crear tabla curso
+CREATE TABLE IF NOT EXISTS cursos (
+                                      id_curso INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
+                                      nombre_curso VARCHAR(100) NOT NULL
     );
 
 -- Crear la tabla para asignaturas
 CREATE TABLE IF NOT EXISTS asignaturas (
-    id_asignatura INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
-    nombre_asignatura VARCHAR(100) NOT NULL,
-    id_clase_asignatura INT NOT NULL,
-    nif_profesor CHAR(9) NOT NULL,
-    nif_alumno CHAR(9) NOT NULL,
-    FOREIGN KEY (id_clase_asignatura) REFERENCES clases(id_clase),
-    FOREIGN KEY (nif_profesor) REFERENCES profesores(nif_profesor),
-    FOREIGN KEY (nif_alumno) REFERENCES alumnos(nif_alumno)
+                                           id_asignatura INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
+                                           nombre_asignatura VARCHAR(100) NOT NULL,
+    id_curso_asignatura INT NOT NULL,
+    id_profesor INT NOT NULL,
+    FOREIGN KEY (id_curso_asignatura) REFERENCES cursos(id_curso),
+    FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor)
     );
+
 
 -- Crear la tabla para tareas
 CREATE TABLE IF NOT EXISTS tareas (
@@ -68,12 +69,12 @@ CREATE TABLE IF NOT EXISTS tareas (
     titulo_tarea VARCHAR(100) NOT NULL,
     descripcion_tarea VARCHAR(100) NOT NULL,
     calificacion_tarea DECIMAL(5, 3),
-    nif_profesor_tarea CHAR(9) NOT NULL,
-    nif_alumno_calificacion CHAR(9) NOT NULL,
-    id_asignatura INT NOT NULL,
-    FOREIGN KEY (nif_profesor_tarea) REFERENCES profesores(nif_profesor),
-    FOREIGN KEY (nif_alumno_calificacion) REFERENCES alumnos(nif_alumno),
-    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura)
+    id_profesor_tarea INT NOT NULL,
+    id_alumno_tarea INT NOT NULL,
+    id_asignatura_tarea INT NOT NULL,
+    FOREIGN KEY (id_profesor_tarea) REFERENCES profesores(id_profesor),
+    FOREIGN KEY (id_alumno_tarea) REFERENCES alumnos(id_alumno),
+    FOREIGN KEY (id_asignatura_tarea) REFERENCES asignaturas(id_asignatura)
     );
 
 -- Datos para la tabla administradores
@@ -126,270 +127,86 @@ INSERT INTO alumnos (nif_alumno, nombre_alumno, email_alumno, password_alumno, n
       ('23456789D', 'Elena Fernández Martínez', 'elena.fernandez@studywithme.com', '{noop}alum888pass', 'Luis Fernández', 'Sara Martínez');
 
 
--- Insertar clases
-INSERT INTO clases (nombre_clase) VALUES
-      ('1 de ESO'),
-      ('2 de ESO'),
-      ('3 de ESO'),
-      ('4 de ESO');
+
+-- Datos curso
+INSERT INTO cursos (nombre_curso) VALUES ('1 de ESO'), ('2 de ESO'), ('3 de ESO'), ('4 de ESO');
 
 -- Insertar asignaturas para 1º de ESO
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Matemáticas', id_clase, '87651234A' FROM clases WHERE nombre_clase = '1 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Lengua', id_clase, '76451235B' FROM clases WHERE nombre_clase = '1 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Ciencias Naturales', id_clase, '65482367C' FROM clases WHERE nombre_clase = '1 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Historia', id_clase, '34578901D' FROM clases WHERE nombre_clase = '1 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Inglés', id_clase, '56789012E' FROM clases WHERE nombre_clase = '1 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Educación Física', id_clase, '67890123F' FROM clases WHERE nombre_clase = '1 de ESO';
+INSERT INTO ASIGNATURAS (nombre_asignatura, id_curso_asignatura, id_profesor) VALUES
+                                                                                  -- 1 DE ESO
+                                                                                  ('Matematicas', 1, 1),
+                                                                                  ('Lengua', 1, 2),
+                                                                                  ('Ciencias Naturales', 1, 3),
+                                                                                  ('Historia', 1, 4),
+                                                                                  ('Ingles', 1, 5),
+                                                                                  ('Educacion Fisica', 1, 6),
+                                                                                  -- 2 DE ESO
+                                                                                  ('Matematicas', 2, 1),
+                                                                                  ('Lengua', 2, 2),
+                                                                                  ('Ciencias Naturales', 2, 3),
+                                                                                  ('Historia', 2, 4),
+                                                                                  ('Ingles', 2, 5),
+                                                                                  ('Educacion Fisica', 2, 6),
+                                                                                  -- 3 DE ESO
+                                                                                  ('Matematicas', 3, 1),
+                                                                                  ('Lengua', 3, 2),
+                                                                                  ('Ciencias Naturales', 3, 3),
+                                                                                  ('Historia', 3, 4),
+                                                                                  ('Ingles', 3, 5),
+                                                                                  ('Educacion Fisica', 3, 6),
+                                                                                  -- 4 DE ESO
+                                                                                  ('Matematicas', 4, 1),
+                                                                                  ('Lengua', 4, 2),
+                                                                                  ('Ciencias Naturales', 4, 3),
+                                                                                  ('Historia', 4, 4),
+                                                                                  ('Ingles', 4, 5),
+                                                                                  ('Educacion Fisica', 4, 6);
 
--- Insertar asignaturas para 2º de ESO
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Matemáticas', id_clase, '87651234A' FROM clases WHERE nombre_clase = '2 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Lengua', id_clase, '76451235B' FROM clases WHERE nombre_clase = '2 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Física y Química', id_clase, '65482367C' FROM clases WHERE nombre_clase = '2 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Geografía e Historia', id_clase, '34578901D' FROM clases WHERE nombre_clase = '2 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Inglés', id_clase, '56789012E' FROM clases WHERE nombre_clase = '2 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Educación Física', id_clase, '67890123F' FROM clases WHERE nombre_clase = '2 de ESO';
+SELECT * FROM ASIGNATURAS;
 
--- Insertar asignaturas para 3º de ESO
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Matemáticas', id_clase, '87651234A' FROM clases WHERE nombre_clase = '3 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Lengua', id_clase, '76451235B' FROM clases WHERE nombre_clase = '3 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Biología y Geología', id_clase, '65482367C' FROM clases WHERE nombre_clase = '3 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Geografía e Historia', id_clase, '34578901D' FROM clases WHERE nombre_clase = '3 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Inglés', id_clase, '56789012E' FROM clases WHERE nombre_clase = '3 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Educación Física', id_clase, '67890123F' FROM clases WHERE nombre_clase = '3 de ESO';
 
--- Insertar asignaturas para 4º de ESO
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Matemáticas', id_clase, '87651234A' FROM clases WHERE nombre_clase = '4 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Lengua', id_clase, '76451235B' FROM clases WHERE nombre_clase = '4 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Física y Química', id_clase, '65482367C' FROM clases WHERE nombre_clase = '4 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Historia', id_clase, '34578901D' FROM clases WHERE nombre_clase = '4 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Inglés', id_clase, '56789012E' FROM clases WHERE nombre_clase = '4 de ESO';
-INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
-SELECT 'Educación Física', id_clase, '67890123F' FROM clases WHERE nombre_clase = '4 de ESO';
+
+CREATE TABLE IF NOT EXISTS cursos_asignaturas (
+                                                  id_curso INT NOT NULL,
+                                                  id_asignatura INT NOT NULL,
+                                                  PRIMARY KEY (id_curso, id_asignatura),
+    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
+    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura)
+    );
+
+-- ASIGNATURAS
+INSERT INTO cursos_asignaturas (id_curso, id_asignatura)
+SELECT c.id_curso, a.id_asignatura
+FROM cursos c
+         CROSS JOIN asignaturas a;
 
 -- TAREAS
+INSERT INTO TAREAS (tipo_tarea, titulo_tarea, descripcion_tarea, calificacion_tarea,
+                    id_profesor_tarea, id_alumno_tarea, id_asignatura_tarea) VALUES
 -- 1 DE ESO
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea1', 'Tarea 1', 'Descripción de la tarea 1', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901K' OR alumnos.nif_alumno = '12345678L' OR alumnos.nif_alumno = '98765432M'
-    OR alumnos.nif_alumno = '34567890N' OR alumnos.nif_alumno = '54321678O')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '1 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea2', 'Tarea 2', 'Descripción de la tarea 2', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901K' OR alumnos.nif_alumno = '12345678L' OR alumnos.nif_alumno = '98765432M'
-    OR alumnos.nif_alumno = '34567890N' OR alumnos.nif_alumno = '54321678O')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '1 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea3', 'Tarea 3', 'Descripción de la tarea 3', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901K' OR alumnos.nif_alumno = '12345678L' OR alumnos.nif_alumno = '98765432M'
-    OR alumnos.nif_alumno = '34567890N' OR alumnos.nif_alumno = '54321678O')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '1 de ESO';
-
--- Exámenes
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen1', 'Examen 1', 'Descripción del examen 1', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901K' OR alumnos.nif_alumno = '12345678L' OR alumnos.nif_alumno = '98765432M'
-    OR alumnos.nif_alumno = '34567890N' OR alumnos.nif_alumno = '54321678O')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '1 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen2', 'Examen 2', 'Descripción del examen 2', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901K' OR alumnos.nif_alumno = '12345678L' OR alumnos.nif_alumno = '98765432M'
-    OR alumnos.nif_alumno = '34567890N' OR alumnos.nif_alumno = '54321678O')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '1 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen3', 'Examen 3', 'Descripción del examen 3', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901K' OR alumnos.nif_alumno = '12345678L' OR alumnos.nif_alumno = '98765432M'
-    OR alumnos.nif_alumno = '34567890N' OR alumnos.nif_alumno = '54321678O')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '1 de ESO';
-
-
+('Tarea', 'Tarea 1', 'Primera tarea', 1.000, 1, 1, 1),
+('Tarea', 'Tarea 2', 'Segunda tarea', 2.000, 1, 2, 1),
+('Tarea', 'Tarea 3', 'Tercera tarea', 3.000, 1, 3, 1),
+('Tarea', 'Tarea 4', 'Cuarta tarea', 4.000, 1, 4, 1),
+('Tarea', 'Tarea 5', 'Quinta tarea', 5.000, 1, 5, 1),
 -- 2 DE ESO
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea1', 'Tarea 1', 'Descripción de la tarea 1', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345P' OR alumnos.nif_alumno = '67890123Q' OR alumnos.nif_alumno = '78901234R'
-    OR alumnos.nif_alumno = '90123456S' OR alumnos.nif_alumno = '23456789T')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '2 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea2', 'Tarea 2', 'Descripción de la tarea 2', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345P' OR alumnos.nif_alumno = '67890123Q' OR alumnos.nif_alumno = '78901234R'
-    OR alumnos.nif_alumno = '90123456S' OR alumnos.nif_alumno = '23456789T')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '2 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea3', 'Tarea 3', 'Descripción de la tarea 3', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345P' OR alumnos.nif_alumno = '67890123Q' OR alumnos.nif_alumno = '78901234R'
-    OR alumnos.nif_alumno = '90123456S' OR alumnos.nif_alumno = '23456789T')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '2 de ESO';
-
--- Exámenes
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen1', 'Examen 1', 'Descripción del examen 1', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345P' OR alumnos.nif_alumno = '67890123Q' OR alumnos.nif_alumno = '78901234R'
-    OR alumnos.nif_alumno = '90123456S' OR alumnos.nif_alumno = '23456789T')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '2 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen2', 'Examen 2', 'Descripción del examen 2', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345P' OR alumnos.nif_alumno = '67890123Q' OR alumnos.nif_alumno = '78901234R'
-    OR alumnos.nif_alumno = '90123456S' OR alumnos.nif_alumno = '23456789T')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '2 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen3', 'Examen 3', 'Descripción del examen 3', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345P' OR alumnos.nif_alumno = '67890123Q' OR alumnos.nif_alumno = '78901234R'
-    OR alumnos.nif_alumno = '90123456S' OR alumnos.nif_alumno = '23456789T')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '2 de ESO';
-
+('Tarea', 'Tarea 1', 'Primera tarea', 1.000, 1, 6, 2),
+('Tarea', 'Tarea 2', 'Segunda tarea', 2.000, 1, 7, 2),
+('Tarea', 'Tarea 3', 'Tercera tarea', 3.000, 1, 8, 2),
+('Tarea', 'Tarea 4', 'Cuarta tarea', 4.000, 1, 9, 2),
+('Tarea', 'Tarea 5', 'Quinta tarea', 5.000, 1, 10, 2),
 -- 3 DE ESO
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea1', 'Tarea 1', 'Descripción de la tarea 1', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901U' OR alumnos.nif_alumno = '12345678V' OR alumnos.nif_alumno = '98765432W'
-    OR alumnos.nif_alumno = '34567890X' OR alumnos.nif_alumno = '54321678Y')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '3 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea2', 'Tarea 2', 'Descripción de la tarea 2', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901U' OR alumnos.nif_alumno = '12345678V' OR alumnos.nif_alumno = '98765432W'
-    OR alumnos.nif_alumno = '34567890X' OR alumnos.nif_alumno = '54321678Y')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '3 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea3', 'Tarea 3', 'Descripción de la tarea 3', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901U' OR alumnos.nif_alumno = '12345678V' OR alumnos.nif_alumno = '98765432W'
-    OR alumnos.nif_alumno = '34567890X' OR alumnos.nif_alumno = '54321678Y')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '3 de ESO';
-
--- Exámenes
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen1', 'Examen 1', 'Descripción del examen 1', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901U' OR alumnos.nif_alumno = '12345678V' OR alumnos.nif_alumno = '98765432W'
-    OR alumnos.nif_alumno = '34567890X' OR alumnos.nif_alumno = '54321678Y')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '3 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen2', 'Examen 2', 'Descripción del examen 2', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901U' OR alumnos.nif_alumno = '12345678V' OR alumnos.nif_alumno = '98765432W'
-    OR alumnos.nif_alumno = '34567890X' OR alumnos.nif_alumno = '54321678Y')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '3 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen3', 'Examen 3', 'Descripción del examen 3', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '45678901U' OR alumnos.nif_alumno = '12345678V' OR alumnos.nif_alumno = '98765432W'
-    OR alumnos.nif_alumno = '34567890X' OR alumnos.nif_alumno = '54321678Y')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '3 de ESO';
-
+('Tarea', 'Tarea 1', 'Primera tarea', 1.000, 1, 11, 3),
+('Tarea', 'Tarea 2', 'Segunda tarea', 2.000, 1, 12, 3),
+('Tarea', 'Tarea 3', 'Tercera tarea', 3.000, 1, 13, 3),
+('Tarea', 'Tarea 4', 'Cuarta tarea', 4.000, 1, 14, 3),
+('Tarea', 'Tarea 5', 'Quinta tarea', 5.000, 1, 15, 3),
 -- 4 DE ESO
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea1', 'Tarea 1', 'Descripción de la tarea 1', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345Z' OR alumnos.nif_alumno = '67890123A' OR alumnos.nif_alumno = '78901234B'
-    OR alumnos.nif_alumno = '90123456C' OR alumnos.nif_alumno = '23456789D')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '4 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea2', 'Tarea 2', 'Descripción de la tarea 2', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345Z' OR alumnos.nif_alumno = '67890123A' OR alumnos.nif_alumno = '78901234B'
-    OR alumnos.nif_alumno = '90123456C' OR alumnos.nif_alumno = '23456789D')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '4 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'tarea3', 'Tarea 3', 'Descripción de la tarea 3', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345Z' OR alumnos.nif_alumno = '67890123A' OR alumnos.nif_alumno = '78901234B'
-    OR alumnos.nif_alumno = '90123456C' OR alumnos.nif_alumno = '23456789D')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '4 de ESO';
-
--- Exámenes
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen1', 'Examen 1', 'Descripción del examen 1', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345Z' OR alumnos.nif_alumno = '67890123A' OR alumnos.nif_alumno = '78901234B'
-    OR alumnos.nif_alumno = '90123456C' OR alumnos.nif_alumno = '23456789D')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '4 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen2', 'Examen 2', 'Descripción del examen 2', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345Z' OR alumnos.nif_alumno = '67890123A' OR alumnos.nif_alumno = '78901234B'
-    OR alumnos.nif_alumno = '90123456C' OR alumnos.nif_alumno = '23456789D')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '4 de ESO';
-
-INSERT INTO tareas (tipo_tarea, titulo_tarea, descripcion_tarea, nif_profesor_tarea, nif_alumno_calificacion, id_asignatura)
-SELECT 'examen3', 'Examen 3', 'Descripción del examen 3', '87651234A', alumnos.nif_alumno, asignaturas.id_asignatura
-FROM alumnos, asignaturas, clases
-WHERE (alumnos.nif_alumno = '89012345Z' OR alumnos.nif_alumno = '67890123A' OR alumnos.nif_alumno = '78901234B'
-    OR alumnos.nif_alumno = '90123456C' OR alumnos.nif_alumno = '23456789D')
-  AND asignaturas.id_clase_asignatura = clases.id_clase
-  AND clases.nombre_clase = '4 de ESO';
+('Tarea', 'Tarea 1', 'Primera tarea', 1.000, 1, 16, 4),
+('Tarea', 'Tarea 2', 'Segunda tarea', 2.000, 1, 17, 4),
+('Tarea', 'Tarea 3', 'Tercera tarea', 3.000, 1, 18, 4),
+('Tarea', 'Tarea 4', 'Cuarta tarea', 4.000, 1, 19, 4),
+('Tarea', 'Tarea 5', 'Quinta tarea', 5.000, 1, 20, 4);
 
 
 
@@ -397,6 +214,7 @@ WHERE (alumnos.nif_alumno = '89012345Z' OR alumnos.nif_alumno = '67890123A' OR a
 SELECT * FROM administradores;
 SELECT * FROM profesores;
 SELECT * FROM alumnos;
-SELECT * FROM clases;
+SELECT * FROM cursos;
 SELECT * FROM asignaturas;
+SELECT * FROM cursos_asignaturas;
 SELECT * FROM tareas;

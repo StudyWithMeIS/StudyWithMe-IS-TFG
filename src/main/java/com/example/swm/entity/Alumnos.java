@@ -1,11 +1,10 @@
 package com.example.swm.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.NamedQuery;
+import jakarta.persistence.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @NamedQuery(name = "Alumnos.findAll", query = "SELECT a FROM Alumnos a")
@@ -28,10 +27,12 @@ public class Alumnos implements Serializable {
 
     private String nombre_madre_alumno;
 
-    public Alumnos() {
-    }
+    @OneToMany(mappedBy = "id_alumno_tarea", cascade = CascadeType.ALL)
+    private List<Tareas> tareas;
 
-    public Alumnos(int id_alumno, String nif_alumno, String nombre_alumno, String email_alumno, String password_alumno, String nombre_padre_alumno, String nombre_madre_alumno) {
+    public Alumnos() {}
+
+    public Alumnos(int id_alumno, String nif_alumno, String nombre_alumno, String email_alumno, String password_alumno, String nombre_padre_alumno, String nombre_madre_alumno, List<Tareas> tareas) {
         super();
         this.id_alumno = id_alumno;
         this.nif_alumno = nif_alumno;
@@ -40,6 +41,7 @@ public class Alumnos implements Serializable {
         this.password_alumno = password_alumno;
         this.nombre_padre_alumno = nombre_padre_alumno;
         this.nombre_madre_alumno = nombre_madre_alumno;
+        this.tareas = tareas;
     }
 
     public int getId_alumno() {
@@ -98,6 +100,13 @@ public class Alumnos implements Serializable {
         this.nombre_madre_alumno = nombre_madre_alumno;
     }
 
+    public List<Tareas> getTareas() {
+        return tareas;
+    }
+
+    public void setTareas(List<Tareas> tareas) {
+        this.tareas = tareas;
+    }
 
     @Override
     public String toString() {
