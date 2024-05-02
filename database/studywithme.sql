@@ -16,8 +16,8 @@ DROP TABLE IF EXISTS administradores;
 
 -- Crear la tabla para Administradores
 CREATE TABLE IF NOT EXISTS administradores (
-                                               id_admin INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
-                                               nif_admin CHAR(9) NOT NULL UNIQUE,
+    id_admin INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
+    nif_admin CHAR(9) NOT NULL UNIQUE,
     nombre_admin VARCHAR(50) NOT NULL,
     email_admin VARCHAR(100) UNIQUE NOT NULL,
     password_admin VARCHAR(100) NOT NULL
@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS administradores (
 
 -- Crear la tabla para Profesores
 CREATE TABLE IF NOT EXISTS profesores (
-                                          id_profesor INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
-                                          nif_profesor CHAR(9) NOT NULL UNIQUE,
+    id_profesor INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
+    nif_profesor CHAR(9) NOT NULL UNIQUE,
     nombre_profesor VARCHAR(50) NOT NULL,
     email_profesor VARCHAR(100) UNIQUE NOT NULL,
     password_profesor VARCHAR(100) NOT NULL
@@ -34,8 +34,8 @@ CREATE TABLE IF NOT EXISTS profesores (
 
 -- Crear la tabla para Alumnos
 CREATE TABLE IF NOT EXISTS alumnos (
-                                       id_alumno INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
-                                       nif_alumno CHAR(9) NOT NULL UNIQUE,
+    id_alumno INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
+    nif_alumno CHAR(9) NOT NULL UNIQUE,
     nombre_alumno VARCHAR(50) NOT NULL,
     email_alumno VARCHAR(100) UNIQUE NOT NULL,
     password_alumno VARCHAR(100) NOT NULL,
@@ -45,18 +45,20 @@ CREATE TABLE IF NOT EXISTS alumnos (
 
 -- Crear la tabla para clases
 CREATE TABLE IF NOT EXISTS clases (
-                                      id_clase INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY auto_increment,
-                                      nombre_clase VARCHAR(100) NOT NULL
+    id_clase INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY auto_increment,
+    nombre_clase VARCHAR(100) NOT NULL
     );
 
 -- Crear la tabla para asignaturas
 CREATE TABLE IF NOT EXISTS asignaturas (
-                                           id_asignatura INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
-                                           nombre_asignatura VARCHAR(100) NOT NULL,
+    id_asignatura INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
+    nombre_asignatura VARCHAR(100) NOT NULL,
     id_clase_asignatura INT NOT NULL,
     nif_profesor CHAR(9) NOT NULL,
+    nif_alumno CHAR(9) NOT NULL,
     FOREIGN KEY (id_clase_asignatura) REFERENCES clases(id_clase),
-    FOREIGN KEY (nif_profesor) REFERENCES profesores(nif_profesor)
+    FOREIGN KEY (nif_profesor) REFERENCES profesores(nif_profesor),
+    FOREIGN KEY (nif_alumno) REFERENCES alumnos(nif_alumno)
     );
 
 -- Crear la tabla para tareas
@@ -98,38 +100,38 @@ INSERT INTO profesores (nif_profesor, nombre_profesor, email_profesor, password_
 
 -- Datos actualizados para la tabla alumnos
 INSERT INTO alumnos (nif_alumno, nombre_alumno, email_alumno, password_alumno, nombre_padre_alumno, nombre_madre_alumno) VALUES
-                                                                                                                             -- 1 DE ESO
-                                                                                                                             ('45678901K', 'Sara García López', 'sara.garcia@studywithme.com', '{noop}studentpass123', 'Antonio García', 'María López'),
-                                                                                                                             ('12345678L', 'Carlos Martínez Sánchez', 'carlos.martinez@studywithme.com', '{noop}alum123pass', 'José Martínez', 'Ana Sánchez'),
-                                                                                                                             ('98765432M', 'Laura Pérez Martín', 'laura.perez@studywithme.com', '{noop}student456pass', 'Francisco Pérez', 'Sofía Martín'),
-                                                                                                                             ('34567890N', 'Sergio Rodríguez Gómez', 'sergio.rodriguez@studywithme.com', '{noop}alumpass789', 'Javier Rodríguez', 'Elena Gómez'),
-                                                                                                                             ('54321678O', 'Marta López García', 'marta.lopez.garcia@studywithme.com', '{noop}studentpass456', 'David López', 'Laura García'),
-                                                                                                                             -- 2 DE ESO
-                                                                                                                             ('89012345P', 'Lucía Sánchez Martín', 'lucia.sanchez.martinez@studywithme.com', '{noop}alum789pass', 'Juan Sánchez', 'Ana Martín'),
-                                                                                                                             ('67890123Q', 'David González Gómez', 'david.gonzalez.gomez@studywithme.com', '{noop}studentpass789', 'Manuel González', 'María Gómez'),
-                                                                                                                             ('78901234R', 'Ana Martínez Rodríguez', 'ana.martinez.rodriguez@studywithme.com', '{noop}alum666pass', 'Carlos Martínez', 'Sara Rodríguez'),
-                                                                                                                             ('90123456S', 'Pablo Ruiz García', 'pablo.ruiz.garcia@studywithme.com', '{noop}studentpass777', 'Francisco Ruiz', 'Elena García'),
-                                                                                                                             ('23456789T', 'Elena Fernández López', 'elena.fernandez.lopez@studywithme.com', '{noop}alum888pass', 'Luis Fernández', 'Lucía López'),
-                                                                                                                             -- 3 DE ESO
-                                                                                                                             ('45678901U', 'Laura García Martínez', 'laura.garcia@studywithme.com', '{noop}studentpass123', 'Antonio García', 'María Martínez'),
-                                                                                                                             ('12345678V', 'Javier Martínez Rodríguez', 'javier.martinez@studywithme.com', '{noop}alum123pass', 'José Martínez', 'Ana Rodríguez'),
-                                                                                                                             ('98765432W', 'Sofía Pérez López', 'sofia.perez@studywithme.com', '{noop}student456pass', 'Francisco Pérez', 'Sara López'),
-                                                                                                                             ('34567890X', 'Diego Rodríguez Sánchez', 'diego.rodriguez@studywithme.com', '{noop}alumpass789', 'Javier Rodríguez', 'María Sánchez'),
-                                                                                                                             ('54321678Y', 'Marta López Martínez', 'marta.lopez@studywithme.com', '{noop}studentpass456', 'David López', 'Lucía Martínez'),
-                                                                                                                             -- 4 DE ESO
-                                                                                                                             ('89012345Z', 'Lucía Sánchez Rodríguez', 'lucia.sanchez@studywithme.com', '{noop}alum789pass', 'Juan Sánchez', 'Sofía Rodríguez'),
-                                                                                                                             ('67890123A', 'David González García', 'david.gonzalez@studywithme.com', '{noop}studentpass789', 'Manuel González', 'Laura García'),
-                                                                                                                             ('78901234B', 'Ana Martínez Gómez', 'ana.martinez@studywithme.com', '{noop}alum666pass', 'Carlos Martínez', 'Marta Gómez'),
-                                                                                                                             ('90123456C', 'Pablo Ruiz Rodríguez', 'pablo.ruiz@studywithme.com', '{noop}studentpass777', 'Francisco Ruiz', 'Elena Rodríguez'),
-                                                                                                                             ('23456789D', 'Elena Fernández Martínez', 'elena.fernandez@studywithme.com', '{noop}alum888pass', 'Luis Fernández', 'Sara Martínez');
+      -- 1 DE ESO
+      ('45678901K', 'Sara García López', 'sara.garcia@studywithme.com', '{noop}studentpass123', 'Antonio García', 'María López'),
+      ('12345678L', 'Carlos Martínez Sánchez', 'carlos.martinez@studywithme.com', '{noop}alum123pass', 'José Martínez', 'Ana Sánchez'),
+      ('98765432M', 'Laura Pérez Martín', 'laura.perez@studywithme.com', '{noop}student456pass', 'Francisco Pérez', 'Sofía Martín'),
+      ('34567890N', 'Sergio Rodríguez Gómez', 'sergio.rodriguez@studywithme.com', '{noop}alumpass789', 'Javier Rodríguez', 'Elena Gómez'),
+      ('54321678O', 'Marta López García', 'marta.lopez.garcia@studywithme.com', '{noop}studentpass456', 'David López', 'Laura García'),
+      -- 2 DE ESO
+      ('89012345P', 'Lucía Sánchez Martín', 'lucia.sanchez.martinez@studywithme.com', '{noop}alum789pass', 'Juan Sánchez', 'Ana Martín'),
+      ('67890123Q', 'David González Gómez', 'david.gonzalez.gomez@studywithme.com', '{noop}studentpass789', 'Manuel González', 'María Gómez'),
+      ('78901234R', 'Ana Martínez Rodríguez', 'ana.martinez.rodriguez@studywithme.com', '{noop}alum666pass', 'Carlos Martínez', 'Sara Rodríguez'),
+      ('90123456S', 'Pablo Ruiz García', 'pablo.ruiz.garcia@studywithme.com', '{noop}studentpass777', 'Francisco Ruiz', 'Elena García'),
+      ('23456789T', 'Elena Fernández López', 'elena.fernandez.lopez@studywithme.com', '{noop}alum888pass', 'Luis Fernández', 'Lucía López'),
+      -- 3 DE ESO
+      ('45678901U', 'Laura García Martínez', 'laura.garcia@studywithme.com', '{noop}studentpass123', 'Antonio García', 'María Martínez'),
+      ('12345678V', 'Javier Martínez Rodríguez', 'javier.martinez@studywithme.com', '{noop}alum123pass', 'José Martínez', 'Ana Rodríguez'),
+      ('98765432W', 'Sofía Pérez López', 'sofia.perez@studywithme.com', '{noop}student456pass', 'Francisco Pérez', 'Sara López'),
+      ('34567890X', 'Diego Rodríguez Sánchez', 'diego.rodriguez@studywithme.com', '{noop}alumpass789', 'Javier Rodríguez', 'María Sánchez'),
+      ('54321678Y', 'Marta López Martínez', 'marta.lopez@studywithme.com', '{noop}studentpass456', 'David López', 'Lucía Martínez'),
+      -- 4 DE ESO
+      ('89012345Z', 'Lucía Sánchez Rodríguez', 'lucia.sanchez@studywithme.com', '{noop}alum789pass', 'Juan Sánchez', 'Sofía Rodríguez'),
+      ('67890123A', 'David González García', 'david.gonzalez@studywithme.com', '{noop}studentpass789', 'Manuel González', 'Laura García'),
+      ('78901234B', 'Ana Martínez Gómez', 'ana.martinez@studywithme.com', '{noop}alum666pass', 'Carlos Martínez', 'Marta Gómez'),
+      ('90123456C', 'Pablo Ruiz Rodríguez', 'pablo.ruiz@studywithme.com', '{noop}studentpass777', 'Francisco Ruiz', 'Elena Rodríguez'),
+      ('23456789D', 'Elena Fernández Martínez', 'elena.fernandez@studywithme.com', '{noop}alum888pass', 'Luis Fernández', 'Sara Martínez');
 
 
 -- Insertar clases
 INSERT INTO clases (nombre_clase) VALUES
-                                      ('1 de ESO'),
-                                      ('2 de ESO'),
-                                      ('3 de ESO'),
-                                      ('4 de ESO');
+      ('1 de ESO'),
+      ('2 de ESO'),
+      ('3 de ESO'),
+      ('4 de ESO');
 
 -- Insertar asignaturas para 1º de ESO
 INSERT INTO asignaturas (nombre_asignatura, id_clase_asignatura, nif_profesor)
