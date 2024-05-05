@@ -5,6 +5,8 @@ import com.example.swm.repository.*;
 import com.example.swm.services.AlumnosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -38,68 +40,133 @@ public class AdministradoresController {
     //---------------ALUMNO----------------------
     // ------------CREAR ALUMNO------------------
     // PRIMERO CARGA LA VISTA PARA CREAR ALUMNO.
-    @GetMapping("/vistaCrearAlumnoAdmin")
-    public ModelAndView mostrarPaginaAddAlumnos() {
+    @GetMapping("/alumnos/viewCrearAlumnoAdmin")
+    public ModelAndView viewAddAlumnosAdmin() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("pages/administrador/student/addStudientAdmin");
         return mv;
     }
 
     // SEGUNDO CARGA EL METODO QUE LLAMA DESDE EL FORMULARIO DE LA VISTA DE CREAR ALUMNO.
-    @RequestMapping("/guardarAlumno")
-    public ModelAndView guardarAlumno(@ModelAttribute Alumnos alumno) {
+    @RequestMapping("/alumnos/guardarAlumno")
+    public ModelAndView guardarAlumnosAdmin(@ModelAttribute Alumnos alumno, @Validated BindingResult result) {
         ModelAndView mv = new ModelAndView();
-        String nifAlumno = alumno.getNif_alumno().toLowerCase();
-        String nombreAlumno = alumno.getNombre_alumno().toLowerCase();
-        String emailAlumno = alumno.getEmail_alumno().toLowerCase();
-        String nombrePadreAlumno = alumno.getNombre_padre_alumno().toLowerCase();
-        String nombreMadreAlumno = alumno.getNombre_madre_alumno().toLowerCase();
-        Optional<Alumnos> existingAlumno = alumnosRepository.findAlumnosByNif(alumno.getNif_alumno());
-        if (existingAlumno.isPresent()) {
-            mv.addObject("error", "El alumno ya existe en la base de datos");
-        } else {
-            Alumnos alumnos = new Alumnos();
-            alumnos.setNif_alumno(nifAlumno);
-            alumnos.setNombre_alumno(nombreAlumno);
-            alumnos.setEmail_alumno(emailAlumno);
-            alumnos.setPassword_alumno(alumno.getPassword_alumno());
-            alumnos.setNombre_padre_alumno(nombrePadreAlumno);
-            alumnos.setNombre_madre_alumno(nombreMadreAlumno);
-            alumnosRepository.save(alumnos);
+        if (result.hasErrors() || alumno.getNif_alumno().isEmpty() || alumno.getNombre_alumno().isEmpty() || alumno.getEmail_alumno().isEmpty() || alumno.getPassword_alumno().isEmpty() || alumno.getNombre_madre_alumno().isEmpty() || alumno.getNombre_padre_alumno().isEmpty()) {
+            mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            mv.setViewName("redirect:/administradores/alumnos/viewCrearAlumnoAdmin");
+            return mv;
+        }else{
+            String nifAlumno = alumno.getNif_alumno().toLowerCase();
+            String nombreAlumno = alumno.getNombre_alumno().toLowerCase();
+            String emailAlumno = alumno.getEmail_alumno().toLowerCase();
+            String nombrePadreAlumno = alumno.getNombre_padre_alumno().toLowerCase();
+            String nombreMadreAlumno = alumno.getNombre_madre_alumno().toLowerCase();
+            Optional<Alumnos> existingAlumno = alumnosRepository.findAlumnosByNif(alumno.getNif_alumno());
+            if (existingAlumno.isPresent()) {
+                mv.addObject("error", "El alumno ya existe en la base de datos");
+            } else {
+                Alumnos alumnos = new Alumnos();
+                alumnos.setNif_alumno(nifAlumno);
+                alumnos.setNombre_alumno(nombreAlumno);
+                alumnos.setEmail_alumno(emailAlumno);
+                alumnos.setPassword_alumno(alumno.getPassword_alumno());
+                alumnos.setNombre_padre_alumno(nombrePadreAlumno);
+                alumnos.setNombre_madre_alumno(nombreMadreAlumno);
+                alumnosRepository.save(alumnos);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            mv.setViewName("redirect:/administradores/alumnos/viewCrearAlumnoAdmin");
+            return mv;
         }
-        mv.setViewName("redirect:/administradores/vistaCrearAlumnoAdmin");
-        return mv;
     }
 
 
 
 
     // ------------MOSTRAR ALUMNO------------------
-    @GetMapping("/vistaListarAlumnosAdmin")
-    public ModelAndView vistaListarAlumnos() {
+    @GetMapping("/alumnos/viewListarAlumnosAdmin")
+    public ModelAndView viewListarAlumnosAdmin() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("pages/administrador/student/readStudientAdmin");
-        mv.addObject("alumnos", listarAlumnos().getModel().get("alumnos"));
+        mv.addObject("alumnos", listarAlumnosAdmin().getModel().get("alumnos"));
         return mv;
     }
 
-    @GetMapping("/listarAlumnos")
-    public ModelAndView listarAlumnos() {
+    @GetMapping("/alumnos/listarAlumnosAdmin")
+    public ModelAndView listarAlumnosAdmin() {
         ModelAndView mv = new ModelAndView();
         List<Alumnos> alumnos = alumnosRepository.findAll();
         mv.addObject("alumnos", alumnos);
-        mv.setViewName("redirect:/administradores/vistaListarAlumnosAdmin");
+        mv.setViewName("redirect:/administradores/alumnos/viewListarAlumnosAdmin");
         return mv;
     }
 
 
+
+
+
+    //------------ACTUALIZAR ALUMNOS------------------
+    @GetMapping("/alumnos/viewActualizarAlumnoAdmin/{id_alumno}")
+    public ModelAndView viewUpdateAlumnosAdmin(@PathVariable("id_alumno") int id_alumno, @ModelAttribute("alumno") Alumnos alumno, BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        Optional<Alumnos> alumnoOptional = alumnosRepository.findById(id_alumno);
+        if (alumnoOptional.isPresent()) {
+            System.out.println("Alumno cargado desde el repositorio: " + alumno);
+            mv.addObject("alumno", alumno);
+            mv.setViewName("pages/administrador/student/updateStudientAdmin");
+        } else {
+            mv.setViewName("redirect:/administradores/alumnos/viewListarAlumnosAdmin");
+        }
+        return mv;
+    }
+
+
+
+        @PostMapping("/alumnos/actualizarAlumno/{id_alumno}")
+        public ModelAndView actualizarAlumno(@PathVariable("id_alumno") int id_alumno, @ModelAttribute("alumno") Alumnos alumno, BindingResult result) {
+            ModelAndView mv = new ModelAndView();
+            if (result.hasErrors() || alumno.getNif_alumno().isEmpty() || alumno.getNombre_alumno().isEmpty() || alumno.getEmail_alumno().isEmpty() || alumno.getPassword_alumno().isEmpty() || alumno.getNombre_madre_alumno().isEmpty() || alumno.getNombre_padre_alumno().isEmpty()) {
+                mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
+                mv.setViewName("redirect:/administradores/alumnos/viewListarAlumnosAdmin");
+                return mv;
+            }
+            int idAlumno = alumno.getId_alumno();
+            if (alumnosRepository.existsById(idAlumno)) {
+                alumnosRepository.save(alumno);
+                mv.setViewName("redirect:/administradores/alumnos/viewListarAlumnosAdmin");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                mv.addObject("error", "El alumno no existe en la base de datos");
+                mv.setViewName("redirect:/administradores/alumnos/viewActualizarAlumnoAdmin");
+            }
+            return mv;
+        }
+
+
+
+
+
+
+
+
+
+
+
     // ------------BORRAR ALUMNO------------------
-    @PostMapping("/borrarAlumno/{id_alumno}")
+    @PostMapping("/alumnos/borrarAlumno/{id_alumno}")
     public ModelAndView borrarAlumno(@PathVariable("id_alumno") int id_alumno_tarea) {
         ModelAndView mv = new ModelAndView();
         try {
@@ -109,11 +176,11 @@ public class AdministradoresController {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            mv.setViewName("redirect:/administradores/vistaListarAlumnosAdmin");
+            mv.setViewName("redirect:/administradores/alumnos/viewListarAlumnosAdmin");
         } catch (DataAccessException e) {
             System.out.println("Error al eliminar el alumno: " + e.getMessage());
             mv.addObject("error", "Error al eliminar el alumno");
-            mv.setViewName("redirect:/administradores/vistaListarAlumnosAdmin");
+            mv.setViewName("redirect:/administradores/alumnos/viewListarAlumnosAdmin");
         }
         return mv;
     }

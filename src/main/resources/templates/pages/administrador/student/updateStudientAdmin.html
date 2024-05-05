@@ -50,13 +50,13 @@
             <h3>Formulario Alumno</h3>
 
             <!-- Formulario para añadir/editar alumno -->
-            <form id="alumnoForm" th:action="@{/administradores/alumnos/guardarAlumno}" method="post" onsubmit="return validarFormulario()"
+            <form id="alumnoForm" th:action="@{/administradores/alumnos/actualizarAlumno/{id_alumno}(id_alumno=${alumno.id_alumno})}" method="post" th:object="${alumno}" onsubmit="return validarFormulario()">
                   class="needs-validation" novalidate>
-                <input type="hidden" id="id" name="id" th:value="${alumno != null ? alumno.id : ''}">
+                <input type="hidden" id="id" name="id" th:value="${alumno != null ? alumno.id_alumno : ''}">
                 <div class="mb-3">
                     <label for="nif_alumno" class="form-label">NIF del alumno:</label>
                     <input type="text" class="form-control" id="nif_alumno" name="nif_alumno"
-                           placeholder="NIF del alumno" th:value="${alumno != null ? alumno.nif : ''}" required>
+                           placeholder="NIF del alumno" th:value="${alumno != null ? alumno.nif_alumno : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el NIF del alumno.
                     </div>
@@ -64,7 +64,7 @@
                 <div class="mb-3">
                     <label for="nombre_alumno" class="form-label">Nombre del alumno:</label>
                     <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno"
-                           placeholder="Nombre del alumno" th:value="${alumno != null ? alumno.nombre : ''}" required>
+                           placeholder="Nombre del alumno" th:value="${alumno != null ? alumno.nombre_alumno : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre del alumno.
                     </div>
@@ -72,7 +72,7 @@
                 <div class="mb-3">
                     <label for="email_alumno" class="form-label">Email del alumno:</label>
                     <input type="email" class="form-control" id="email_alumno" name="email_alumno"
-                           placeholder="Email del alumno" th:value="${alumno != null ? alumno.email : ''}" required>
+                           placeholder="Email del alumno" th:value="${alumno != null ? alumno.email_alumno : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa un email válido.
                     </div>
@@ -80,7 +80,7 @@
                 <div class="mb-3">
                     <label for="password_alumno" class="form-label">Contraseña del alumno:</label>
                     <input type="password" class="form-control" id="password_alumno" name="password_alumno"
-                           placeholder="Contraseña del alumno" th:value="${alumno != null ? alumno.password : ''}"
+                           placeholder="Contraseña del alumno" th:value="${alumno != null ? alumno.password_alumno : ''}"
                            required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}">
                     <div class="invalid-feedback">
                         La contraseña debe contener al menos 8 caracteres incluyendo mayúsculas, minúsculas, números y
@@ -91,19 +91,19 @@
                     <label for="nombre_padre_alumno" class="form-label">Nombre completo del padre:</label>
                     <input type="text" class="form-control" id="nombre_padre_alumno" name="nombre_padre_alumno"
                            placeholder="Nombre completo del padre del alumno"
-                           th:value="${alumno != null ? alumno.nombrePadre : ''}">
+                           th:value="${alumno != null ? alumno.nombre_padre_alumno : ''}">
                 </div>
                 <div class="mb-3">
                     <label for="nombre_madre_alumno" class="form-label">Nombre completo de la madre:</label>
                     <input type="text" class="form-control" id="nombre_madre_alumno" name="nombre_madre_alumno"
                            placeholder="Nombre completo de la madre del alumno"
-                           th:value="${alumno != null ? alumno.nombreMadre : ''}">
+                           th:value="${alumno != null ? alumno.nombre_madre_alumno : ''}">
                 <div th:if="${not #strings.isEmpty(error)}">
                     <div class="alert alert-danger" role="alert" th:text="${error}"></div>
                 </div>
                 </div>
                 <div class="justify-content-center d-flex">
-                    <input type="submit" class="btn btn-primary btn-lg" value="Añadir alumno">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Editar Alumno">
                 </div>
             </form>
         </div>
