@@ -37,7 +37,7 @@
                     <h3>Alumnos</h3>
                 </div>
                 <div class="col-6 text-end">
-                    <a th:href="@{/administradores/vistaCrearAlumnoAdmin}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Nuevo alumno</a>
+                    <a th:href="@{/administradores/alumnos/viewCrearAlumnoAdmin}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Nuevo alumno</a>
                 </div>
             </div>
 
@@ -60,8 +60,14 @@
                     <td th:text="${alumno.nombre_padre_alumno}"></td>
                     <td th:text="${alumno.nombre_madre_alumno}"></td>
                     <td>
-                        <a th:href="@{/administradores/vistaEditarAlumnoAdmin/{id_alumno}(id_alumno=${alumno.id_alumno})}" class="btn btn-primary"><i class="bi bi-pen"></i></a>
-                        <a th:href="@{/administradores/eliminarAlumnoAdmin/{id_alumno}(id_alumno=${alumno.id_alumno})}" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash3"></i></a>
+                        <form th:action="@{/administradores/alumnos/viewActualizarAlumnoAdmin/{id_alumno}(id_alumno=${alumno.id_alumno})}" method="get">
+                            <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/administradores/alumnos/borrarAlumno/{id_alumno}(id_alumno=${alumno.id_alumno})}" method="post">
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>
