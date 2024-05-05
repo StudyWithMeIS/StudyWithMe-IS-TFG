@@ -16,34 +16,7 @@
 
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/homeAdmin">Study With Me</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/readStudientAdmin">Alumno</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/readTeacherAdmin">Profesor</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/readGradeAdmin">Clases</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/readCourseAdmin">Cursos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/readSubjectAdmin">Asignaturas</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>
 
 <section class="container-fluid lg-5 content-container">
     <!-- Home -->
@@ -79,9 +52,17 @@
                                 th:text="${alumno.nombre} + ' ' + ${alumno.apellidos}"></li>
                         </ul>
                     </td>-->
+                    <td>
+                        <a th:href="@{'/administradores/vistaEditarAsignaturaAdmin/' + ${asignatura.id_asignatura}}"
+                           class="btn btn-primary"><i class="bi bi-pencil"></i> </a>
+                        <a th:href="@{'/administradores/eliminarAsignaturaAdmin/' + ${asignatura.id_asignatura}}"
+                           class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
+                                class="bi bi-trash"></i> </a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
+            <div th:replace="modalDeleteAdmin :: modalDeleteAdmin"></div>
         </div>
     </div>
 </section>

@@ -14,48 +14,12 @@
 
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/">Study With Me</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/">Inicio</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="knowUs">Conócenos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="join">Mátriculate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:if="${!(userAuthenticated == null)}" th:href="@{/pages/login.html}">Iniciar sesión</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:if="${userAuthenticated == null}" th:href="@{/logout}">Cerrar sesión</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:if="${userAuthenticated == null}"  th:href="@{/perfil}">Perfil</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/administradores/alumnos/viewCrearAlumnoAdmin}"> Crear alumnos</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/administradores/alumnos/viewListarAlumnosAdmin}"> Mostrar alumnos</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div th:insert="~{navbar :: navbarComponenet}"></div>
 
 
 <!-- GIF de bienvenida -->
 <section id="video-welcome" class="container-fluid mt-lg-5">
-     <img th:src="@{/images/index/infantil.webp}" alt="Bienvenida a Study With Me" class="w-100">
+    <img th:src="@{/images/index/infantil.webp}" alt="Bienvenida a Study With Me" class="w-100">
     <div id="video-text">
         <h2 class="test">Bienvenido a StudyWithMe</h2>
     </div>
@@ -189,7 +153,8 @@
                         </p>
                     </div>
                     <div class="col-md-6 order-md-6">
-                        <img th:src="@{/images/index/exploracionCientifica.webp}" alt="Exploración Científica" class="img-fluid">
+                        <img th:src="@{/images/index/exploracionCientifica.webp}" alt="Exploración Científica"
+                             class="img-fluid">
                     </div>
                 </div>
 
@@ -344,19 +309,23 @@
                         <!-- Actividad 9 -->
                         <h3>Competencia de Robótica</h3>
                         <p>
-                            ¡Sumérgete en el emocionante mundo de la tecnología en nuestra Competencia de Robótica! Equipos
+                            ¡Sumérgete en el emocionante mundo de la tecnología en nuestra Competencia de Robótica!
+                            Equipos
                             de
                             estudiantes
-                            diseñarán, construirán y programarán robots para superar desafíos. Imagina a los más pequeños
+                            diseñarán, construirán y programarán robots para superar desafíos. Imagina a los más
+                            pequeños
                             explorando
                             la
                             programación, mientras que los estudiantes mayores construyen robots avanzados.
                         </p>
                         <p>
-                            Los equipos ganadores serán elogiados con medallas y certificados de excelencia tecnológica, y
+                            Los equipos ganadores serán elogiados con medallas y certificados de excelencia tecnológica,
+                            y
                             algunos
                             robots
-                            destacados serán exhibidos en nuestro laboratorio de tecnología. ¡Únete a nosotros y descubre el
+                            destacados serán exhibidos en nuestro laboratorio de tecnología. ¡Únete a nosotros y
+                            descubre el
                             futuro
                             de la
                             ingeniería!
@@ -368,7 +337,6 @@
                         </p>
                     </div>
                 </div>
-
 
 
                 <!-- Actividad 10 -->
@@ -462,7 +430,8 @@
                         </p>
                     </div>
                     <div class="col-md-6 order-md-28">
-                        <img th:src="@{/images/index/conferenciaEducativa.webp}" alt="Conferencia Educativa" class="img-fluid">
+                        <img th:src="@{/images/index/conferenciaEducativa.webp}" alt="Conferencia Educativa"
+                             class="img-fluid">
                     </div>
                 </div>
 
@@ -501,7 +470,8 @@
                         <strong>Hora:</strong> 6:30 PM - 8:30 PM<br>
                         <strong>Lugar:</strong> Auditorio
                     </p>
-                    <img th:src="@{/images/index/entregaCertifiados.webp}" alt="Entrega de Certificados" class="img-fluid">
+                    <img th:src="@{/images/index/entregaCertifiados.webp}" alt="Entrega de Certificados"
+                         class="img-fluid">
                 </div>
             </section>
 

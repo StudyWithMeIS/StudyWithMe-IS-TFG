@@ -7,47 +7,50 @@
     <link rel="stylesheet" th:href="@{/styles/style.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
 </head>
 
 <body>
 
-
 <!-- Navbar -->
-<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>
+<div th:insert="~{navbarAlumno :: navbarAlumnoComonente}"></div>
+
 
 <section class="container-fluid lg-5">
-    <!-- Home -->
+    <!-- Perfil del Alumno -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <h2>Perfil del Administrador</h2>
-            <form th:object="${/administradores/administradores/leer}" method="post" enctype="multipart/form-data">
+            <h2>Perfil del Alumno</h2>
+            <form th:object="${alumno}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="nif">NIF:</label>
-                    <input type="text" class="form-control" id="nif" th:field="*{admin.nif_admin}" readonly>
+                    <label for="nif" disabled >NIF:</label>
+                    <input type="text" class="form-control" disabled id="nif" th:value="*{alumno.nif_alumno}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" th:field="*{admin.nombre_admin}">
+                    <input type="text" class="form-control" id="nombre" th:value="*{alumno.nombre_alumno}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" th:field="*{admin.email_admin}">
+                    <input type="email" class="form-control" id="email" th:value="*{alumno.email_alumno}" readonly>
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
-                    <input type="password" class="form-control" id="password" th:field="*{admin.password_admin}">
+                    <input type="password" class="form-control" id="password" th:value="*{alumno.password_alumno}">
                 </div>
-<!--            <div class="form-group">
-                    <label for="foto">Foto de Perfil:</label>
-                    <input type="file" class="form-control-file" id="foto" name="foto">
-                </div>-->
+                <div class="form-group">
+                    <label for="nombrePadre">Nombre del Padre:</label>
+                    <input type="text" class="form-control" disabled id="nombrePadre" th:value="*{alumno.nombre_padre_alumno}" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="nombreMadre">Nombre de la Madre:</label>
+                    <input type="text" class="form-control" disabled id="nombreMadre" th:value="*{alumno.nombre_madre_alumno}" readonly>
+                </div>
+                <br>
                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
             </form>
         </div>
     </div>
 </section>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
