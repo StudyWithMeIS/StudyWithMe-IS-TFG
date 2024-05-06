@@ -84,28 +84,29 @@
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
             <h3>Añadir Administrador</h3>
-            <form id="AdministradorForm" th:action="@{/administradores/administradores/guardarAdministrador}" method="post">
+            <form id="AdministradorForm" th:action="@{/administradores/administradores/actualizarAdministradores/{id_admin}(id_admin=${administrador.id_admin})}" method="post" th:object="${administrador}" onsubmit="return validarFormulario()">
+                <input type="hidden" id="id" name="id" th:value="${administrador != null ? administrador.id_admin : ''}">
                 <div class="mb-3">
                     <label for="nif_admin" class="form-label">NIF/DNI</label>
-                    <input type="text" class="form-control" id="nif_admin" name="nif_admin" th:value="${administrador != null ? administrador.nif : ''}" required>
+                    <input type="text" class="form-control" id="nif_admin" name="nif_admin" th:value="${administrador != null ? administrador.nif_admin : ''}" required>
                 </div>
                 <div class="mb-3">
                     <label for="nombre_admin" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre_admin" name="nombre_admin" required th:value="${administrador != null ? administrador.nombre : ''}">
+                    <input type="text" class="form-control" id="nombre_admin" name="nombre_admin" required th:value="${administrador != null ? administrador.nombre_admin : ''}">
                 </div>
                 <div class="mb-3">
                     <label for="email_admin" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email_admin" name="email_admin" required th:value="${administrador != null ? administrador.email : ''}">
+                    <input type="email" class="form-control" id="email_admin" name="email_admin" required th:value="${administrador != null ? administrador.email_admin : ''}">
                 </div>
                 <div class="mb-3">
                     <label for="password_admin" class="form-label">Contraseña</label>
                     <input type="password" class="form-control" id="password_admin" name="password_admin" required
-                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" th:value="${administrador != null ? administrador.password : ''}">
+                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" th:value="${administrador != null ? administrador.password_admin : ''}">
                 </div>
                 <div th:if="${not #strings.isEmpty(error)}">
                     <div class="alert alert-danger" role="alert" th:text="${error}"></div>
                 </div>
-                <button type="submit" class="btn btn-primary">Añadir Administrador
+                <button type="submit" class="btn btn-primary">Actualizar Administrador
                 </button>
             </form>
         </div>

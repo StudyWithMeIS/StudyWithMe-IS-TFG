@@ -80,34 +80,39 @@
 </nav>
 
 <section class="container-fluid lg-5">
-    <!-- Formulario para añadir un nuevo administrador -->
+    <!-- Home -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <h3>Añadir Administrador</h3>
-            <form id="AdministradorForm" th:action="@{/administradores/administradores/guardarAdministrador}" method="post">
-                <div class="mb-3">
-                    <label for="nif_admin" class="form-label">NIF/DNI</label>
-                    <input type="text" class="form-control" id="nif_admin" name="nif_admin" th:value="${administrador != null ? administrador.nif : ''}" required>
-                </div>
-                <div class="mb-3">
-                    <label for="nombre_admin" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre_admin" name="nombre_admin" required th:value="${administrador != null ? administrador.nombre : ''}">
-                </div>
-                <div class="mb-3">
-                    <label for="email_admin" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email_admin" name="email_admin" required th:value="${administrador != null ? administrador.email : ''}">
-                </div>
-                <div class="mb-3">
-                    <label for="password_admin" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password_admin" name="password_admin" required
-                           pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" th:value="${administrador != null ? administrador.password : ''}">
-                </div>
-                <div th:if="${not #strings.isEmpty(error)}">
-                    <div class="alert alert-danger" role="alert" th:text="${error}"></div>
-                </div>
-                <button type="submit" class="btn btn-primary">Añadir Administrador
-                </button>
-            </form>
+            <h3>Administradores</h3>
+
+            <!-- Tabla para mostrar los administradores -->
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="admin : ${administradores}">
+                    <td th:text="${admin.nombre_admin}"></td>
+                    <td th:text="${admin.email_admin}"></td>
+                    <td>
+                        <form th:action="@{/administradores/administradores/viewActualizarAdministradores/{id_admin}(id_admin=${admin.id_admin})}" method="get">
+                            <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/administradores/administradores/borrarAdministrador/{id_admin}(id_admin=${admin.id_admin})}" method="post">
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+<!--            <div th:replace="modalDeleteAdmin :: modalDeleteAdmin"></div>-->
         </div>
     </div>
 </section>
