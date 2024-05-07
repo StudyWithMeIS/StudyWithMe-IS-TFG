@@ -87,19 +87,19 @@
             <form id="AdministradorForm" th:action="@{/administradores/administradores/actualizarAdministradores/{id_admin}(id_admin=${administrador.id_admin})}" method="post" th:object="${administrador}" onsubmit="return validarFormulario()">
                 <input type="hidden" id="id" name="id" th:value="${administrador != null ? administrador.id_admin : ''}">
                 <div class="mb-3">
-                    <label for="nif_admin" class="form-label">NIF/DNI</label>
+                    <label for="nif_admin" class="form-label">NIF/DNI del administrador</label>
                     <input type="text" class="form-control" id="nif_admin" name="nif_admin" th:value="${administrador != null ? administrador.nif_admin : ''}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="nombre_admin" class="form-label">Nombre</label>
+                    <label for="nombre_admin" class="form-label">Nombre del administrador</label>
                     <input type="text" class="form-control" id="nombre_admin" name="nombre_admin" required th:value="${administrador != null ? administrador.nombre_admin : ''}">
                 </div>
                 <div class="mb-3">
-                    <label for="email_admin" class="form-label">Email</label>
+                    <label for="email_admin" class="form-label">Email del administrador</label>
                     <input type="email" class="form-control" id="email_admin" name="email_admin" required th:value="${administrador != null ? administrador.email_admin : ''}">
                 </div>
                 <div class="mb-3">
-                    <label for="password_admin" class="form-label">Contraseña</label>
+                    <label for="password_admin" class="form-label">Contraseña del administrador</label>
                     <input type="password" class="form-control" id="password_admin" name="password_admin" required
                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" th:value="${administrador != null ? administrador.password_admin : ''}">
                 </div>

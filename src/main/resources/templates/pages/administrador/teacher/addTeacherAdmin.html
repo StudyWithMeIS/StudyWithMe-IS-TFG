@@ -15,8 +15,30 @@
 
 
 <!-- Navbar -->
-<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>
-
+<!--<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>-->
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Study With Me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        PROFESORES
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesor</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewListarProfesoresAdministradores}">Mostrar profesores</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <section class="container-fluid lg-5">
     <!-- Home -->
@@ -25,34 +47,39 @@
             <h3>Añadir Nuevo Profesor</h3>
 
             <!-- Formulario para añadir nuevo profesor -->
-            <form th:action="@{/administradores/profesores/nuevo}" method="post">
+            <form id="profesorForm" th:action="@{/administradores/profesor/guardarProfesor}" method="post" onsubmit="return validarFormulario()">
+                <input type="hidden" id="id" name="id" th:value="${profesor != null ? profesor.id : ''}">
                 <div class="mb-3">
-                    <label for="nif" class="form-label">NIF</label>
-                    <input type="text" class="form-control" id="nif" name="nif" placeholder="NIF del profesor" required>
+                    <label for="nif_profesor" class="form-label">NIF/DNI del profesor</label>
+                    <input type="text" class="form-control" id="nif_profesor" name="nif_profesor" placeholder="NIF del profesor"
+                           th:value="${profesor != null ? profesor.nif : ''}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre del profesor" required>
+                    <label for="nombre_profesor" class="form-label">Nombre del profesor</label>
+                    <input type="text" class="form-control" id="nombre_profesor" name="nombre_profesor" placeholder="Nombre del profesor"
+                           th:value="${profesor != null ? profesor.nombre : ''}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Email del profesor" required>
+                    <label for="email_profesor" class="form-label">Email del profesor</label>
+                    <input type="email" class="form-control" id="email_profesor" name="email_profesor" placeholder="Email del profesor"
+                           th:value="${profesor != null ? profesor.email : ''}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña del profesor" required>
+                    <label for="password_profesor" class="form-label">Contraseña del profesor</label>
+                    <input type="password" class="form-control" id="password_profesor" name="password_profesor" placeholder="Contraseña del profesor"
+                           th:value="${profesor != null ? profesor.password : ''}" required>
                 </div>
-                <div class="mb-3">
-                    <label for="asignatura" class="form-label">Asignatura</label>
-                    <select class="form-select" id="asignatura" name="asignatura" required>
-                        <option value="">Seecciona una asignatura</option>
-                        <option th:each="asignatura : ${asignaturas}" th:value="${asignatura.id}"
-                                th:text="${asignatura.nombre}"></option>
-                    </select>
-                    <div class="invalid-feedback">
-                        Por favor, selecciona un profesor.
-                    </div>
-                </div>
+<!--                <div class="mb-3">-->
+<!--                    <label for="asignatura" class="form-label">Asignatura</label>-->
+<!--                    <select class="form-select" id="asignatura" name="asignatura" required>-->
+<!--                        <option value="">Seecciona una asignatura</option>-->
+<!--                        <option th:each="asignatura : ${asignaturas}" th:value="${asignatura.id}"-->
+<!--                                th:text="${asignatura.nombre}"></option>-->
+<!--                    </select>-->
+<!--                    <div class="invalid-feedback">-->
+<!--                        Por favor, selecciona un profesor.-->
+<!--                    </div>-->
+<!--                </div>-->
                 <button type="submit" class="btn btn-primary">Añadir Profesor</button>
             </form>
         </div>

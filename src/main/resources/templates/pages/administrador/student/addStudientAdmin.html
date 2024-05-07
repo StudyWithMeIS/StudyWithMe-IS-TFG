@@ -90,7 +90,7 @@
                   class="needs-validation" novalidate>
                 <input type="hidden" id="id" name="id" th:value="${alumno != null ? alumno.id : ''}">
                 <div class="mb-3">
-                    <label for="nif_alumno" class="form-label">NIF del alumno:</label>
+                    <label for="nif_alumno" class="form-label">NIF/DNI del alumno:</label>
                     <input type="text" class="form-control" id="nif_alumno" name="nif_alumno"
                            placeholder="NIF del alumno" th:value="${alumno != null ? alumno.nif : ''}" required>
                     <div class="invalid-feedback">
