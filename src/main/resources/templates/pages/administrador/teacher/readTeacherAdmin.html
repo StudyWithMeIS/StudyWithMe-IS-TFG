@@ -15,12 +15,45 @@
 
 
 <!-- Navbar -->
-<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>
+<!--<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>-->
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Study With Me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        PROFESORES
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesor</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewListarProfesoresAdministradores}">Mostrar profesores</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 
 <section class="container-fluid lg-5">
     <!-- Ver profesor -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
+            <!-- Botón para añadir nuevo profesor -->
+            <div class="row mb-3">
+                <div class="col-6">
+                    <h3>Profesor</h3>
+                </div>
+                <div class="col-6 text-end">
+                    <a th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Nuevo profesor</a>
+                </div>
+            </div>
             <h3>Ver Profesor</h3>
             <table class="table table-striped">
                 <thead>
@@ -28,7 +61,7 @@
                     <th>NIF</th>
                     <th>Nombre</th>
                     <th>Email</th>
-                    <th>Acciones</th>
+<!--                    <th>Acciones</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -37,21 +70,27 @@
                     <td th:text="${profesor.nif_profesor}"></td>
                     <td th:text="${profesor.nombre_profesor}"></td>
                     <td th:text="${profesor.email_profesor}"></td>
+<!--                    <td>-->
+<!--                        <ul>-->
+<!--                            <li th:each="asignatura : ${profesor.asignaturas}">-->
+<!--                                <span th:text="${asignatura.nombre_asignatura}"></span>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </td>-->
                     <td>
-                        <ul>
-                            <li th:each="asignatura : ${profesor.asignaturas}">
-                                <span th:text="${asignatura.nombre_asignatura}"></span>
-                            </li>
-                        </ul>
+                        <form th:action="@{/administradores/profesor/viewActualizarProfesorAdministradores/{id_profesor}(id_profesor=${profesor.id_profesor})}" method="get">
+                            <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
+                        </form>
                     </td>
                     <td>
-                        <a th:href="@{/administradores/profesores/edit/{id}(id=${profesor.id})}" class="btn btn-primary"><i class="bi bi-pencil"></i></a>
-                        <a th:href="@{/administradores/profesores/eliminar/{id}(id=${profesor.id})}" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="bi bi-trash"></i></a>
+                        <form th:action="@{/administradores/profesor/borrarAdministrador/{id_profesor}(id_profesor=${profesor.id_profesor})}" method="post">
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <div th:replace="modalDeleteAdmin :: modalDeleteAdmin"></div>
+<!--            <div th:replace="modalDeleteAdmin :: modalDeleteAdmin"></div>-->
         </div>
     </div>
 </section>

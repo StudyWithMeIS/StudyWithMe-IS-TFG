@@ -86,19 +86,19 @@
             <h3>Añadir Administrador</h3>
             <form id="AdministradorForm" th:action="@{/administradores/administradores/guardarAdministrador}" method="post">
                 <div class="mb-3">
-                    <label for="nif_admin" class="form-label">NIF/DNI</label>
+                    <label for="nif_admin" class="form-label">NIF/DNI del administrador</label>
                     <input type="text" class="form-control" id="nif_admin" name="nif_admin" th:value="${administrador != null ? administrador.nif : ''}" required>
                 </div>
                 <div class="mb-3">
-                    <label for="nombre_admin" class="form-label">Nombre</label>
+                    <label for="nombre_admin" class="form-label">Nombre del administrador</label>
                     <input type="text" class="form-control" id="nombre_admin" name="nombre_admin" required th:value="${administrador != null ? administrador.nombre : ''}">
                 </div>
                 <div class="mb-3">
-                    <label for="email_admin" class="form-label">Email</label>
+                    <label for="email_admin" class="form-label">Email del administrador</label>
                     <input type="email" class="form-control" id="email_admin" name="email_admin" required th:value="${administrador != null ? administrador.email : ''}">
                 </div>
                 <div class="mb-3">
-                    <label for="password_admin" class="form-label">Contraseña</label>
+                    <label for="password_admin" class="form-label">Contraseña del administrador</label>
                     <input type="password" class="form-control" id="password_admin" name="password_admin" required
                            pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}" th:value="${administrador != null ? administrador.password : ''}">
                 </div>
