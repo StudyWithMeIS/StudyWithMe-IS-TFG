@@ -476,5 +476,155 @@ public class AdministradoresController {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+    //-------------------------------------------
+    //---------------CURSOS---------------------
+    //-------------------------------------------
+
+    //------------CREAR CURSO---------------------
+    @GetMapping("/curso/viewCrearCursoAdministrador")
+    public ModelAndView mostrarPaginaAddCursos() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/grade/addGradeAdmin");
+        return mv;
+    }
+
+    @RequestMapping("/curso/guardarCurso")
+    public ModelAndView guardarCurso(@ModelAttribute Cursos curso, @Validated BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        if (result.hasErrors() || curso.getNombre_curso().isEmpty()) {
+            System.out.println(curso.getId_curso());
+            System.out.println(curso.getNombre_curso());
+            System.out.println(result.getAllErrors().toString());
+            mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mv.setViewName("redirect:/administradores/curso/viewCrearCursoAdministrador");
+            return mv;
+        }else{
+            String nombreCurso = curso.getNombre_curso().toLowerCase();
+            Optional<Cursos> existingCursos = cursosRepository.findCursosByName(curso.getNombre_curso());
+            if (existingCursos.isPresent()) {
+                mv.addObject("error", "El profesor ya existe en la base de datos");
+            } else {
+                Cursos cursos = new Cursos();
+                cursos.setNombre_curso(nombreCurso);
+                cursosRepository.save(cursos);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            mv.setViewName("redirect:/administradores/curso/viewCrearCursoAdministrador");
+            return mv;
+        }
+    }
+
+
+
+
+    //---------MOSTRAR CURSOS--------------
+    @GetMapping("/curso/viewListarCursosAdministradores")
+    public ModelAndView viewListarCursos() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/grade/readGradeAdmin");
+        mv.addObject("cursos", listarCursos().getModel().get("cursos"));
+        return mv;
+    }
+
+    @GetMapping("/curso/listarCursosAdmin")
+    public ModelAndView listarCursos() {
+        ModelAndView mv = new ModelAndView();
+        List<Cursos> cursos = cursosRepository.findAll();
+        mv.addObject("cursos", cursos);
+        mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
+        return mv;
+    }
+
+
+
+
+
+
+    //----------ACTUALIZAR CURSOS------------
+
+    @GetMapping("/curso/viewActualizarCursosAdministradores/{id_curso}")
+    public ModelAndView viewUpdateCursosAdministrador(@PathVariable("id_curso") int id_curso, @ModelAttribute("curso") Cursos curso, BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        Optional<Cursos> cursosOptional = cursosRepository.findById(id_curso);
+        if (cursosOptional.isPresent()) {
+            mv.addObject("curso", curso);
+            mv.setViewName("pages/administrador/grade/updateGradeAdmin");
+        } else {
+            mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
+        }
+        return mv;
+    }
+
+    @PostMapping("/curso/actualizarCurso/{id_curso}")
+    public ModelAndView actualizarCurso(@PathVariable("id_curso") int id_curso, @ModelAttribute("curso") Cursos curso, BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        if (result.hasErrors() || curso.getNombre_curso().isEmpty()) {
+            mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
+            mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
+            return mv;
+        }
+        int idCurso = curso.getId_curso();
+        if (cursosRepository.existsById(idCurso)) {
+            cursosRepository.save(curso);
+            mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            mv.addObject("error", "El curso no existe en la base de datos");
+            mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
+        }
+        return mv;
+    }
+
+
+
+    //-----------BORRAR PROFESOR-------------
+    @PostMapping("/curso/borrarAdministrador/{id_curso}")
+    public ModelAndView borrarCurso(@PathVariable("id_curso") int id_curso) {
+        ModelAndView mv = new ModelAndView();
+        try {
+            cursosRepository.deleteById(id_curso);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
+        } catch (DataAccessException e) {
+            System.out.println("Error al eliminar el curso: " + e.getMessage());
+            mv.addObject("error", "Error al eliminar el curso");
+            mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
+        }
+        return mv;
+    }
+
+
+
+
+
 }// CLOSE CLASS ADMINSTRADORCONTROLLER
 

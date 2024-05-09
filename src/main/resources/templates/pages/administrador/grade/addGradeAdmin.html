@@ -15,25 +15,49 @@
 
 
 <!-- Navbar -->
-<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>
+<!--<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>-->
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Study With Me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        CURSOS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewCrearCursoAdministrador}">Crear curso</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewListarCursosAdministradores}">Mostrar curso</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <section class="container-fluid lg-5 content-container">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
             <h3>Añadir/Editar Curso</h3>
-            <form id="cursoForm" th:action="@{/guardarCurso}" method="post" onsubmit="return validarFormulario()"
+            <form id="cursoForm" th:action="@{/administradores/curso/guardarCurso}" method="post" onsubmit="return validarFormulario()"
                   class="needs-validation" novalidate>
+                <input type="hidden" id="id" name="id" th:value="${curso != null ? curso.id : ''}">
                 <div class="mb-3">
                     <label for="nombre_curso" class="form-label">Nombre del Curso:</label>
                     <input type="text" class="form-control" id="nombre_curso" name="nombre_curso"
-                           placeholder="Nombre del Curso" th:value="${clase != null ? curso.nombre_clase : ''}"
+                           placeholder="Nombre del Curso" th:value="${curso != null ? curso.nombre_curso : ''}"
                            required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre del curso.
                     </div>
                 </div>
                 <div class="justify-content-center d-flex">
-                    <button type="submit" class="btn btn-primary" th:value="${clase != null ? 'Editar Alumno' : 'Añadir Alumno'}">Guardar</button>
+                    <button type="submit" class="btn btn-primary">Guardar curso</button>
                 </div>
             </form>
         </div>
