@@ -14,22 +14,22 @@ public class Cursos implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_curso;
+    private int id_curso;
 
     private String nombre_curso;
 
     public Cursos() {}
 
-    public Cursos(Long id_curso, String nombre_curso) {
+    public Cursos(int id_curso, String nombre_curso) {
         this.id_curso = id_curso;
         this.nombre_curso = nombre_curso;
     }
 
-    public Long getId_curso() {
+    public int getId_curso() {
         return id_curso;
     }
 
-    public void setId_curso(Long id_curso) {
+    public void setId_curso(int id_curso) {
         this.id_curso = id_curso;
     }
 

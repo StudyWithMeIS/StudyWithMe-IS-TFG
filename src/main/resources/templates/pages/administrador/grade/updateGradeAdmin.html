@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <title>Study With Me</title>
     <link rel="stylesheet" th:href="@{/styles/style.css}">
-    <link rel="stylesheet" href="../../../../static/styles/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="../../../../static/styles/style.css">
 
 </head>
 
@@ -16,7 +15,6 @@
 
 
 <!-- Navbar -->
-<!--<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>-->
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">Study With Me</a>
@@ -42,51 +40,40 @@
 </nav>
 
 
-<section class="container-fluid lg-5">
+<section class="container-fluid lg-5 content-container">
+    <!-- Home -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
 
-            <div class="row mb-3">
-                <div class="col-6">
-                    <h3>Lista de Cursos</h3>
+            <h3>Formulario Alumno</h3>
+
+            <!-- Formulario para añadir/editar alumno -->
+            <form id="alumnoForm" th:action="@{/administradores/curso/actualizarCurso/{id_curso}(id_curso=${curso.id_curso})}" method="post" th:object="${curso}" onsubmit="return validarFormulario()"
+                  class="needs-validation" novalidate>
+                <input type="hidden" id="id" name="id" th:value="${curso != null ? curso.id_curso : ''}">
+                <div class="mb-3">
+                    <label for="nombre_curso" class="form-label">Nombre del Curso:</label>
+                    <input type="text" class="form-control" id="nombre_curso" name="nombre_curso"
+                           placeholder="Nombre del Curso" th:value="${curso != null ? curso.nombre_curso : ''}"
+                           required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa el nombre del curso.
+                    </div>
                 </div>
-                <div class="col-6 text-end">
-                    <a th:href="@{/administradores/curso/viewCrearCursoAdministrador}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Nueva Curso</a>
+                <div class="justify-content-center d-flex">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Editar curso">
                 </div>
-            </div>
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Nombre del Curso</th>
-                    <th>Editar Elimninar</th>
-                </tr>
-                </thead>
-                <tbody>
-                <!-- Iterar sobre la lista de cursos -->
-                <tr th:each="curso : ${cursos}">
-                    <td th:text="${curso.nombre_curso}"></td>
-                    <td>
-                        <form th:action="@{/administradores/curso/viewActualizarCursosAdministradores/{id_curso}(id_curso=${curso.id_curso})}" method="get">
-                            <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form th:action="@{/administradores/curso/borrarAdministrador/{id_curso}(id_curso=${curso.id_curso})}" method="post">
-                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-<!--            <div th:replace="modalDeleteAdmin :: modalDeleteAdmin"></div>-->
+            </form>
         </div>
     </div>
 </section>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
-</body>
+<script src="../../../../static/scripts/validatorForm.js"></script>
 
+</body>
 </html>

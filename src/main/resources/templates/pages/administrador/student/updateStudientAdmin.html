@@ -87,7 +87,7 @@
             <h3>Formulario Alumno</h3>
 
             <!-- Formulario para añadir/editar alumno -->
-            <form id="alumnoForm" th:action="@{/administradores/alumnos/actualizarAlumno/{id_alumno}(id_alumno=${alumno.id_alumno})}" method="post" th:object="${alumno}" onsubmit="return validarFormulario()">
+            <form id="alumnoForm" th:action="@{/administradores/alumnos/actualizarAlumno/{id_alumno}(id_alumno=${alumno.id_alumno})}" method="post" th:object="${alumno}" onsubmit="return validarFormulario()"
                   class="needs-validation" novalidate>
                 <input type="hidden" id="id" name="id" th:value="${alumno != null ? alumno.id_alumno : ''}">
                 <div class="mb-3">
