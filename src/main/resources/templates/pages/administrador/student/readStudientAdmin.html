@@ -32,8 +32,8 @@
                         ALUMNOS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdmin}">Crear alumnos</a></li>
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdmin}">Mostrar alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdministradores}">Crear alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdministradores}">Mostrar alumnos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -41,8 +41,8 @@
                         PROFESORES
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{#}">Crear profesores</a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Mostrar profesores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewListarProfesoresAdministradores}">Mostrar profesores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -50,8 +50,17 @@
                         ASIGNATURAS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{#}">Crear asignaturas</a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Mostrar asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}">Crear asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewListarAsignaturasAdministradores}">Mostrar asignaturas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkTareas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        TAREAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewCrearTareaAdministrador}">Crear tareas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewListarTareasAdministradores}">Mostrar tareas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -59,8 +68,8 @@
                         CURSOS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{#}">Crear cursos</a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Mostrar cursos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewCrearCursoAdministrador}">Crear cursos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewListarCursosAdministradores}">Mostrar cursos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -68,31 +77,21 @@
                         ADMINISTRADORES
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{#}">Crear administradores</a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Mostrar administradores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewCrearAdministrador}">Crear administradores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewListarAdministradores}">Mostrar administradores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{#}">Perfil</a>
+                    <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Perfil</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
 <section class="container-fluid lg-5 content-container">
-    <!-- Home -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-
-<!--            <div class="input-group mb-3">-->
-<!--                <input type="text" class="form-control" placeholder="Buscar alumno" aria-label="Buscar alumno"-->
-<!--                       aria-describedby="button-addon2" id="searchInput">-->
-<!--                <button class="btn btn-outline-secondary" type="button" id="searchButton">Buscar</button>-->
-<!--            </div>-->
             <br>
-
-            <!-- Botón para añadir nuevo alumno -->
             <div class="row mb-3">
                 <div class="col-6">
                     <h3>Alumnos</h3>
@@ -110,11 +109,12 @@
                     <th>Email</th>
                     <th>Nombre Padre</th>
                     <th>Nombre Madre</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="alumno : ${alumnos}">
-                    <td th:text="${alumno.id_alumno}"></td>
                     <td th:text="${alumno.nif_alumno}"></td>
                     <td th:text="${alumno.nombre_alumno}"></td>
                     <td th:text="${alumno.email_alumno}"></td>

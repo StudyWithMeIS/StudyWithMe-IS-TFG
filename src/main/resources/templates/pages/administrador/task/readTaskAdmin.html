@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <title>Study With Me</title>
     <link rel="stylesheet" th:href="@{/styles/style.css}">
+    <link rel="stylesheet" href="../../../../static/styles/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../../../static/styles/style.css">
+
 
 </head>
 
@@ -15,7 +16,7 @@
 
 
 <!-- Navbar -->
-<!--<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>-->
+<!--<div th:replace="navbarAdmin :: navbarAdmin"></div>-->
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">Study With Me</a>
@@ -90,63 +91,49 @@
 <section class="container-fluid lg-5 content-container">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <h3>Crear un nuevo alumno</h3>
-            <form id="alumnoForm" th:action="@{/administradores/alumnos/guardarAlumno}" method="post" onsubmit="return validarFormulario()"
-                  class="needs-validation" novalidate>
-                <input type="hidden" id="id" name="id" th:value="${alumno != null ? alumno.id : ''}">
-                <div class="mb-3">
-                    <label for="nif_alumno" class="form-label">NIF/DNI del alumno:</label>
-                    <input type="text" class="form-control" id="nif_alumno" name="nif_alumno"
-                           placeholder="11111111A" th:value="${alumno != null ? alumno.nif : ''}" required>
-                    <div class="invalid-feedback">
-                        Por favor ingresa el NIF del alumno.
-                    </div>
+            <br>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <h3>Tareas</h3>
                 </div>
-                <div class="mb-3">
-                    <label for="nombre_alumno" class="form-label">Nombre del alumno:</label>
-                    <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno"
-                           placeholder="Pepe" th:value="${alumno != null ? alumno.nombre : ''}" required>
-                    <div class="invalid-feedback">
-                        Por favor ingresa el nombre del alumno.
-                    </div>
+                <div class="col-6 text-end">
+                    <a th:href="@{/administradores/tareas/viewCrearTareaAdministrador}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Nueva tarea</a>
                 </div>
-                <div class="mb-3">
-                    <label for="email_alumno" class="form-label">Email del alumno:</label>
-                    <input type="email" class="form-control" id="email_alumno" name="email_alumno"
-                           placeholder="pepe@gmail.com" th:value="${alumno != null ? alumno.email : ''}" required>
-                    <div class="invalid-feedback">
-                        Por favor ingresa un email válido.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="password_alumno" class="form-label">Contraseña del alumno:</label>
-                    <input type="password" class="form-control" id="password_alumno" name="password_alumno"
-                           placeholder="Pepe123@$" th:value="${alumno != null ? alumno.password : ''}"
-                           required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}">
-                    <div class="invalid-feedback">
-                        La contraseña debe contener al menos 8 caracteres incluyendo mayúsculas, minúsculas, números y
-                        símbolos.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="nombre_padre_alumno" class="form-label">Nombre completo del padre:</label>
-                    <input type="text" class="form-control" id="nombre_padre_alumno" name="nombre_padre_alumno"
-                           placeholder="Paco Gomez"
-                           th:value="${alumno != null ? alumno.nombrePadre : ''}">
-                </div>
-                <div class="mb-3">
-                    <label for="nombre_madre_alumno" class="form-label">Nombre completo de la madre:</label>
-                    <input type="text" class="form-control" id="nombre_madre_alumno" name="nombre_madre_alumno"
-                           placeholder="Maria Gomez"
-                           th:value="${alumno != null ? alumno.nombreMadre : ''}">
-                <div th:if="${not #strings.isEmpty(error)}">
-                    <div class="alert alert-danger" role="alert" th:text="${error}"></div>
-                </div>
-                </div>
-                <div class="justify-content-center d-flex">
-                    <input type="submit" class="btn btn-primary btn-lg" value="Añadir alumno">
-                </div>
-            </form>
+            </div>
+
+            <table th:method="@{/administradores/tareas/listarTareasAdministrador}" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Tipo</th>
+                    <th>Titulo</th>
+                    <th>Descripcion</th>
+                    <th>Calificacion</th>
+                    <th>Nombre de la asignatura</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="tarea : ${tareas}">
+                    <td th:text="${tarea.tipo_tarea}"></td>
+                    <td th:text="${tarea.titulo_tarea}"></td>
+                    <td th:text="${tarea.descripcion_tarea}"></td>
+                    <td th:text="${tarea.calificacion_tarea}"></td>
+                    <td th:text="${tarea.nombre_asignatura_tarea}"></td>
+                    <td>
+                        <form th:action="@{/administradores/tarea/viewActualizarTareasAdministradores/{id_tarea}(id_tarea=${tarea.id_tarea})}" method="get">
+                            <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/administradores/tareas/borrarTareaAdministrador/{id_tarea}(id_tarea=${tarea.id_tarea})}" method="post">
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+<!--            <div th:replace="~{modalDeleteAdmin :: modalDeleteAdmin}"></div>-->
         </div>
     </div>
 </section>
@@ -156,7 +143,6 @@
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 
-<script src="../../../../static/scripts/validatorForm.js"></script>
-
 </body>
+
 </html>

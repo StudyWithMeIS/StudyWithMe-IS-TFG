@@ -24,23 +24,78 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- Navbar links -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ALUMNOS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdministradores}">Crear alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdministradores}">Mostrar alumnos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkProfesores" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        PROFESORES
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewListarProfesoresAdministradores}">Mostrar profesores</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAsignaturas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ASIGNATURAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}">Crear asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewListarAsignaturasAdministradores}">Mostrar asignaturas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkTareas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        TAREAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewCrearTareaAdministrador}">Crear tareas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewListarTareasAdministradores}">Mostrar tareas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkCursos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        CURSOS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewCrearCursoAdministrador}">Crear cursos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewListarCursosAdministradores}">Mostrar cursos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdministradores" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ADMINISTRADORES
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewCrearAdministrador}">Crear administradores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewListarAdministradores}">Mostrar administradores</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Perfil</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
-
 <section class="container-fluid lg-5 content-container">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <h3>Crear asignaturas</h3>
+            <h3>Crear una nueva asignatura</h3>
             <form th:action="@{/administradores/asignatura/guardarAsignatura}" th:object="${asignatura}" method="post"
                   onsubmit="return validarFormulario()" class="needs-validation" novalidate>
                 <input type="hidden" id="id" name="id" th:value="${asignatura != null ? asignatura.id : ''}">
                 <div class="mb-3">
                     <label for="nombre_asignatura" class="form-label">Nombre de la asignatura:</label>
                     <input type="text" class="form-control" id="nombre_asignatura" name="nombre_asignatura"
-                           placeholder="Nombre de la asignatura" th:value="${asignatura != null ? asignatura.nombre_asignatura : ''}" required>
+                           placeholder="Lengua - 1 de ESO" th:value="${asignatura != null ? asignatura.nombre_asignatura : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre de la asignatura.
                     </div>
@@ -48,7 +103,7 @@
                 <div class="mb-3">
                     <label for="nombre_curso_asignatura" class="form-label">Nombre del curso:</label>
                     <input type="text" class="form-control" id="nombre_curso_asignatura" name="nombre_curso_asignatura"
-                           placeholder="Nombre del curso" th:value="${asignatura != null ? asignatura.nombre_curso_asignatura : ''}" required>
+                           placeholder="1 de ESO" th:value="${asignatura != null ? asignatura.nombre_curso_asignatura : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre del curso.
                     </div>
@@ -56,7 +111,7 @@
                 <div class="mb-3">
                     <label for="nif_profesor_asignatura" class="form-label">NIF del profesor:</label>
                     <input type="text" class="form-control" id="nif_profesor_asignatura" name="nif_profesor_asignatura"
-                           placeholder="NIF del profesor" th:value="${asignatura != null ? asignatura.nif_profesor_asignatura : ''}" required>
+                           placeholder="11111111A" th:value="${asignatura != null ? asignatura.nif_profesor_asignatura : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa un NIF válido.
                     </div>

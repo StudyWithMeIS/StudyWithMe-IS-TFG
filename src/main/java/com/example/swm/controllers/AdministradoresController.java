@@ -12,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +37,9 @@ public class AdministradoresController {
 
     @Autowired
     private ProfesoresRepository profesoresRepository;
+
+    @Autowired
+    private TareasRepository tareasRepository;
 
     @Autowired
     private AlumnosService alumnosService;
@@ -306,6 +310,16 @@ public class AdministradoresController {
         }
         int idAdministrador = administrador.getId_admin();
         if (administradoresRepository.existsById(idAdministrador)) {
+            String nifAdministrador = administrador.getNif_admin().toLowerCase();
+            String nombreAdministrador = administrador.getNombre_admin().toLowerCase();
+            String emailAdministrador = administrador.getEmail_admin().toLowerCase();
+            String contraseñaEncriptada = passwordEncoder.encode(administrador.getPassword_admin());
+
+            administrador.setNif_admin(nifAdministrador);
+            administrador.setNombre_admin(nombreAdministrador);
+            administrador.setEmail_admin(emailAdministrador);
+            administrador.setPassword_admin(contraseñaEncriptada);
+
             administradoresRepository.save(administrador);
             mv.setViewName("redirect:/administradores/administradores/viewListarAdministradores");
             try {
@@ -365,10 +379,6 @@ public class AdministradoresController {
     public ModelAndView guardarProfesores(@ModelAttribute Profesores profesor, @Validated BindingResult result) {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors() || profesor.getNif_profesor().isEmpty() || profesor.getNombre_profesor().isEmpty() || profesor.getEmail_profesor().isEmpty() || profesor.getPassword_profesor().isEmpty()) {
-            System.out.println(profesor.getNif_profesor());
-            System.out.println(profesor.getNombre_profesor());
-            System.out.println(profesor.getEmail_profesor());
-            System.out.println(profesor.getPassword_profesor());
             System.out.println(result.getAllErrors().toString());
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
             try {
@@ -453,6 +463,16 @@ public class AdministradoresController {
         }
         int idProfesor = profesor.getId_profesor();
         if (profesoresRepository.existsById(idProfesor)) {
+            String nifProfesor = profesor.getNif_profesor().toLowerCase();
+            String nombreProfesor = profesor.getNombre_profesor().toLowerCase();
+            String emailProfesor = profesor.getEmail_profesor().toLowerCase();
+            String contraseñaEncriptada = passwordEncoder.encode(profesor.getPassword_profesor());
+
+            profesor.setNif_profesor(nifProfesor);
+            profesor.setNombre_profesor(nombreProfesor);
+            profesor.setEmail_profesor(emailProfesor);
+            profesor.setPassword_profesor(contraseñaEncriptada);
+
             profesoresRepository.save(profesor);
             mv.setViewName("redirect:/administradores/profesor/viewListarProfesoresAdministradores");
             try {
@@ -519,8 +539,6 @@ public class AdministradoresController {
     public ModelAndView guardarCurso(@ModelAttribute Cursos curso, @Validated BindingResult result) {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors() || curso.getNombre_curso().isEmpty()) {
-            System.out.println(curso.getId_curso());
-            System.out.println(curso.getNombre_curso());
             System.out.println(result.getAllErrors().toString());
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
             try {
@@ -601,6 +619,9 @@ public class AdministradoresController {
         }
         int idCurso = curso.getId_curso();
         if (cursosRepository.existsById(idCurso)) {
+            String nombreCurso = curso.getNombre_curso().toLowerCase();
+            curso.setNombre_curso(nombreCurso);
+
             cursosRepository.save(curso);
             mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
             try {
@@ -665,9 +686,6 @@ public class AdministradoresController {
     public ModelAndView guardarAsignatura(@ModelAttribute Asignaturas asignatura, @Validated BindingResult result) {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors() || asignatura.getNombre_asignatura().isEmpty() || asignatura.getNombre_curso_asignatura().isEmpty() || asignatura.getNif_profesor_asignatura().isEmpty()) {
-            System.out.println(asignatura.getNombre_asignatura());
-            System.out.println(asignatura.getNombre_curso_asignatura());
-            System.out.println(asignatura.getNif_profesor_asignatura());
             System.out.println(result.getAllErrors().toString());
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
             try {
@@ -750,6 +768,15 @@ public class AdministradoresController {
         }
         int idAsignatura = asignatura.getId_asignatura();
         if (asignaturasRepository.existsById(idAsignatura)) {
+
+            String nombreAsignatura = asignatura.getNombre_asignatura().toLowerCase();
+            String nombreCursoAsignatura = asignatura.getNombre_curso_asignatura().toLowerCase();
+            String nifProfesorAsignatura = asignatura.getNif_profesor_asignatura().toLowerCase();
+
+            asignatura.setNombre_asignatura(nombreAsignatura);
+            asignatura.setNombre_curso_asignatura(nombreCursoAsignatura);
+            asignatura.setNif_profesor_asignatura(nifProfesorAsignatura);
+
             asignaturasRepository.save(asignatura);
             mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
             try {
@@ -771,7 +798,7 @@ public class AdministradoresController {
     public ModelAndView borrarAsignatura(@PathVariable("id_asignatura") int id_asignatura) {
         ModelAndView mv = new ModelAndView();
         try {
-            asignaturasService.eliminarAsignatura(id_asignatura);
+            asignaturasRepository.deleteById(id_asignatura);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -785,6 +812,187 @@ public class AdministradoresController {
         }
         return mv;
     }
+
+
+
+
+
+
+
+
+
+
+
+    //-------------------------------------------
+    //-----------------TAREAS--------------------
+    //-------------------------------------------
+
+
+    //------------CREAR TAREAS---------------
+    @GetMapping("/tareas/viewCrearTareaAdministrador")
+    public ModelAndView mostrarPaginaAddTarea() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/task/addTaskAdmin");
+        return mv;
+    }
+
+    @RequestMapping("/tareas/guardarTarea")
+    public ModelAndView guardarTareas(@ModelAttribute Tareas tarea, @Validated BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0 || tarea.getNif_profesor_tarea().isEmpty() || tarea.getNif_alumno_tarea().isEmpty() || tarea.getNombre_asignatura_tarea().isEmpty()) {
+            System.out.println(tarea.getTipo_tarea());
+            System.out.println(tarea.getTitulo_tarea());
+            System.out.println(tarea.getDescripcion_tarea());
+            System.out.println(tarea.getCalificacion_tarea());
+            System.out.println(tarea.getNif_profesor_tarea());
+            System.out.println(tarea.getNif_alumno_tarea());
+            System.out.println(tarea.getNif_alumno_tarea());
+            System.out.println(result.getAllErrors().toString());
+            mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mv.setViewName("redirect:/administradores/tareas/viewCrearTareaAdministrador");
+            return mv;
+        }else{
+            String tipoTarea = tarea.getTipo_tarea().toLowerCase();
+            String tituloTarea = tarea.getTitulo_tarea().toLowerCase();
+            String descripcionTarea = tarea.getDescripcion_tarea().toLowerCase();
+            String nifProfesorTarea = tarea.getNif_profesor_tarea().toLowerCase();
+            String nifAlumnoTarea = tarea.getNif_alumno_tarea().toLowerCase();
+            String nombreAsignaturaTarea = tarea.getNombre_asignatura_tarea().toLowerCase();
+            Optional<Tareas> existingTarea = tareasRepository.findTareasByTitulo(tituloTarea);
+            if (existingTarea.isPresent()) {
+                mv.addObject("error", "La tarea ya existe en la base de datos");
+            } else {
+                Tareas tareas = new Tareas();
+                tareas.setTipo_tarea(tipoTarea);
+                tareas.setTitulo_tarea(tituloTarea);
+                tareas.setDescripcion_tarea(descripcionTarea);
+                tareas.setCalificacion_tarea(tarea.getCalificacion_tarea());
+                tareas.setNif_profesor_tarea(nifProfesorTarea);
+                tareas.setNif_alumno_tarea(nifAlumnoTarea);
+                tareas.setNombre_asignatura_tarea(nombreAsignaturaTarea);
+                tareasRepository.save(tareas);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            mv.setViewName("redirect:/administradores/tareas/viewListarTareasAdministradores");
+            return mv;
+        }
+    }
+
+
+
+
+
+    //---------MOSTRAR TAREAS------------------
+    @GetMapping("/tareas/viewListarTareasAdministradores")
+    public ModelAndView viewListarTareas() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/task/readTaskAdmin");
+        mv.addObject("tarea", new Tareas());
+        mv.addObject("tareas", listarTareas().getModel().get("tareas"));
+        return mv;
+    }
+
+    @GetMapping("/tareas/listarTareasAdministrador")
+    public ModelAndView listarTareas() {
+        ModelAndView mv = new ModelAndView();
+        List<Tareas> tareas = tareasRepository.findAll();
+        mv.addObject("tarea", new Tareas());
+        mv.addObject("tareas", tareas);
+        mv.setViewName("redirect:/administradores/tareas/viewListarTareasAdministradores");
+        return mv;
+    }
+
+
+
+
+
+    //----------ACTUALIZAR TAREA------------
+
+    @GetMapping("/tarea/viewActualizarTareasAdministradores/{id_tarea}")
+    public ModelAndView viewUpdateTareasAdministrador(@PathVariable("id_tarea") int id_tarea, @ModelAttribute("tarea") Tareas tarea, BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        Optional<Tareas> tareasOptional = tareasRepository.findById(id_tarea);
+        if (tareasOptional.isPresent()) {
+            mv.addObject("tarea", tarea);
+            mv.setViewName("pages/administrador/task/updateTaskAdmin");
+        } else {
+            mv.setViewName("redirect:/administradores/tareas/viewCrearTareaAdministrador");
+        }
+        return mv;
+    }
+
+    @PostMapping("/tareas/actualizarTarea/{id_tarea}")
+    public ModelAndView actualizarTarea(@PathVariable("id_tarea") int id_tarea, @ModelAttribute("tarea") Tareas tarea, BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0 || tarea.getNif_profesor_tarea().isEmpty() || tarea.getNif_alumno_tarea().isEmpty() || tarea.getNombre_asignatura_tarea().isEmpty()) {
+            mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
+            mv.setViewName("redirect:/administradores/tarea/viewActualizarTareasAdministradores/{id_tarea}");
+            return mv;
+        }
+        int idTarea = tarea.getId_tarea();
+
+        if (tareasRepository.existsById(idTarea)) {
+
+            String tipoTarea = tarea.getTipo_tarea().toLowerCase();
+            String tituloTarea = tarea.getTitulo_tarea().toLowerCase();
+            String descripcionTarea = tarea.getDescripcion_tarea().toLowerCase();
+            String nifProfesorTarea = tarea.getNif_profesor_tarea().toLowerCase();
+            String nifAlumnoTarea = tarea.getNif_alumno_tarea().toLowerCase();
+            String nombreAsignaturaTarea = tarea.getNombre_asignatura_tarea().toLowerCase();
+
+            tarea.setTipo_tarea(tipoTarea);
+            tarea.setTitulo_tarea(tituloTarea);
+            tarea.setDescripcion_tarea(descripcionTarea);
+            tarea.setCalificacion_tarea(tarea.getCalificacion_tarea());
+            tarea.setNif_profesor_tarea(nifProfesorTarea);
+            tarea.setNif_alumno_tarea(nifAlumnoTarea);
+            tarea.setNombre_asignatura_tarea(nombreAsignaturaTarea);
+
+            tareasRepository.save(tarea);
+            mv.setViewName("redirect:/administradores/tareas/viewListarTareasAdministradores");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            mv.addObject("error", "La tarea no existe en la base de datos");
+            mv.setViewName("redirect:/administradores/tareas/viewActualizarTareasAdministradores/{id_tarea}");
+        }
+        return mv;
+    }
+
+
+
+    //-----------BORRAR TAREA----------------
+    @PostMapping("/tareas/borrarTareaAdministrador/{id_tarea}")
+    public ModelAndView borrarTarea(@PathVariable("id_tarea") int id_tarea) {
+        ModelAndView mv = new ModelAndView();
+        try {
+            tareasRepository.deleteById(id_tarea);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mv.setViewName("redirect:/administradores/tareas/viewListarTareasAdministradores");
+        } catch (DataAccessException e) {
+            System.out.println("Error al eliminar la tarea: " + e.getMessage());
+            mv.addObject("error", "Error al eliminar la tarea");
+            mv.setViewName("redirect:/administradores/tareas/viewListarTareasAdministradores");
+        }
+        return mv;
+    }
+
 
 
 }// CLOSE CLASS ADMINSTRADORCONTROLLER

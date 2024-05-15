@@ -31,8 +31,8 @@
                         ALUMNOS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdmin}">Crear alumnos</a></li>
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdmin}">Mostrar alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdministradores}">Crear alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdministradores}">Mostrar alumnos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -49,8 +49,17 @@
                         ASIGNATURAS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Crear asignaturas</a></li>
-                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Mostrar asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}">Crear asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewListarAsignaturasAdministradores}">Mostrar asignaturas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkTareas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        TAREAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewCrearTareaAdministrador}">Crear tareas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewListarTareasAdministradores}">Mostrar tareas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -82,14 +91,14 @@
 <section class="container-fluid lg-5 content-container">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <h3>Añadir/Editar Curso</h3>
+            <h3>Crear un nuevo curso</h3>
             <form id="cursoForm" th:action="@{/administradores/curso/guardarCurso}" method="post" onsubmit="return validarFormulario()"
                   class="needs-validation" novalidate>
                 <input type="hidden" id="id" name="id" th:value="${curso != null ? curso.id : ''}">
                 <div class="mb-3">
                     <label for="nombre_curso" class="form-label">Nombre del Curso:</label>
                     <input type="text" class="form-control" id="nombre_curso" name="nombre_curso"
-                           placeholder="Nombre del Curso" th:value="${curso != null ? curso.nombre_curso : ''}"
+                           placeholder="1 de ESO" th:value="${curso != null ? curso.nombre_curso : ''}"
                            required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre del curso.

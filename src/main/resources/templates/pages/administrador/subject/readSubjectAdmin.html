@@ -32,8 +32,8 @@
                         ALUMNOS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdmin}">Crear alumnos</a></li>
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdmin}">Mostrar alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdministradores}">Crear alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdministradores}">Mostrar alumnos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -50,8 +50,17 @@
                         ASIGNATURAS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Crear asignaturas</a></li>
-                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Mostrar asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}">Crear asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewListarAsignaturasAdministradores}">Mostrar asignaturas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkTareas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        TAREAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewCrearTareaAdministrador}">Crear tareas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewListarTareasAdministradores}">Mostrar tareas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -80,7 +89,6 @@
     </div>
 </nav>
 
-
 <section class="container-fluid lg-5 content-container">
     <!-- Home -->
     <div class="container mt-3">
@@ -95,27 +103,17 @@
                 </div>
             </div>
 
-            <!-- Lectura de asignaturas -->
             <table th:method="@{/administradores/asignatura/listarAsignaturaAdministrador}" class="table table-striped">
                 <thead>
                 <tr>
                     <th>Nombre de la Asignatura</th>
-                    <th>Profesores</th>
-<!--                    <th>Alumnos</th>-->
+                    <th>Curso</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Iterar sobre la lista de asignaturas -->
                 <tr th:each="asignatura : ${asignaturas}">
                     <td th:text="${asignatura.nombre_asignatura}"></td>
                     <td th:text="${asignatura.nombre_curso_asignatura}"></td>
-                    <td th:text="${asignatura.nif_profesor_asignatura}"></td>
-<!--                    <td>
-                        <ul>
-                             Iterar sobre la lista de alumnos
-                            <li th:each="alumno : ${asignatura.alumnos}"
-                                th:text="${alumno.nombre} + ' ' + ${alumno.apellidos}"></li>
-                        </ul>-->
                     <td>
                         <form th:action="@{/administradores/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="get">
                             <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>

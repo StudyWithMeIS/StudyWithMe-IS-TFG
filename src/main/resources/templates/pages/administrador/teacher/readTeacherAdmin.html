@@ -28,55 +28,93 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ALUMNOS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdministradores}">Crear alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdministradores}">Mostrar alumnos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkProfesores" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         PROFESORES
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesor</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesores</a></li>
                         <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewListarProfesoresAdministradores}">Mostrar profesores</a></li>
                     </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAsignaturas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ASIGNATURAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}">Crear asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewListarAsignaturasAdministradores}">Mostrar asignaturas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkTareas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        TAREAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewCrearTareaAdministrador}">Crear tareas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewListarTareasAdministradores}">Mostrar tareas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkCursos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        CURSOS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewCrearCursoAdministrador}">Crear cursos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewListarCursosAdministradores}">Mostrar cursos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdministradores" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ADMINISTRADORES
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewCrearAdministrador}">Crear administradores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewListarAdministradores}">Mostrar administradores</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Perfil</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
 
-
 <section class="container-fluid lg-5">
-    <!-- Ver profesor -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <!-- Botón para añadir nuevo profesor -->
             <div class="row mb-3">
                 <div class="col-6">
-                    <h3>Profesor</h3>
+                    <h3>Profesores</h3>
                 </div>
                 <div class="col-6 text-end">
                     <a th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Nuevo profesor</a>
                 </div>
             </div>
-            <h3>Ver Profesor</h3>
+            <h3>Profesores</h3>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th>NIF</th>
                     <th>Nombre</th>
                     <th>Email</th>
-<!--                    <th>Acciones</th>-->
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Aquí puedes iterar sobre la lista de profesores para mostrarlos -->
                 <tr th:each="profesor : ${profesores}">
                     <td th:text="${profesor.nif_profesor}"></td>
                     <td th:text="${profesor.nombre_profesor}"></td>
                     <td th:text="${profesor.email_profesor}"></td>
-<!--                    <td>-->
-<!--                        <ul>-->
-<!--                            <li th:each="asignatura : ${profesor.asignaturas}">-->
-<!--                                <span th:text="${asignatura.nombre_asignatura}"></span>-->
-<!--                            </li>-->
-<!--                        </ul>-->
-<!--                    </td>-->
                     <td>
                         <form th:action="@{/administradores/profesor/viewActualizarProfesorAdministradores/{id_profesor}(id_profesor=${profesor.id_profesor})}" method="get">
                             <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
