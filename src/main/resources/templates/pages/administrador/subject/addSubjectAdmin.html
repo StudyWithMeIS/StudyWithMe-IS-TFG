@@ -13,49 +13,61 @@
 
 <body>
 
-
 <!-- Navbar -->
-<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Study With Me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <!-- Navbar links -->
+            </ul>
+        </div>
+    </div>
+</nav>
 
 <section class="container-fluid lg-5 content-container">
-    <!-- Home -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-
-            <h3>Asignaturas</h3>
-
-            <!-- Lectura de asignaturas -->
-            <form id="asignaturaForm" th:action="@{/guardarAsignatura}" method="post"
-                  onsubmit="return validarFormulario()"
-                  class="needs-validation" novalidate>
+            <h3>Crear asignaturas</h3>
+            <form th:action="@{/administradores/asignatura/guardarAsignatura}" th:object="${asignatura}" method="post"
+                  onsubmit="return validarFormulario()" class="needs-validation" novalidate>
                 <input type="hidden" id="id" name="id" th:value="${asignatura != null ? asignatura.id : ''}">
                 <div class="mb-3">
-                    <label for="nombre_asignatura" class="form-label">Nombre de la Asignatura:</label>
+                    <label for="nombre_asignatura" class="form-label">Nombre de la asignatura:</label>
                     <input type="text" class="form-control" id="nombre_asignatura" name="nombre_asignatura"
-                           placeholder="Nombre de la Asignatura"
-                           th:value="${asignatura != null ? asignatura.nombre : ''}" required>
+                           placeholder="Nombre de la asignatura" th:value="${asignatura != null ? asignatura.nombre_asignatura : ''}" required>
                     <div class="invalid-feedback">
-                        Por favor, introduce un nombre de asignatura.
+                        Por favor ingresa el nombre de la asignatura.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="profesor_asignatura" class="form-label">Profesor de la Asignatura:</label>
-                    <select class="form-select" id="profesor_asignatura" name="profesor_asignatura" required>
-                        <option value="">Selecciona un profesor</option>
-                        <option th:each="profesor : ${profesores}" th:value="${profesor.id}"
-                                th:text="${profesor.nombre} + ' ' + ${profesor.apellidos}"></option>
-                    </select>
+                    <label for="nombre_curso_asignatura" class="form-label">Nombre del curso:</label>
+                    <input type="text" class="form-control" id="nombre_curso_asignatura" name="nombre_curso_asignatura"
+                           placeholder="Nombre del curso" th:value="${asignatura != null ? asignatura.nombre_curso_asignatura : ''}" required>
                     <div class="invalid-feedback">
-                        Por favor, selecciona un profesor.
+                        Por favor ingresa el nombre del curso.
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Guardar</button>
-
+                <div class="mb-3">
+                    <label for="nif_profesor_asignatura" class="form-label">NIF del profesor:</label>
+                    <input type="text" class="form-control" id="nif_profesor_asignatura" name="nif_profesor_asignatura"
+                           placeholder="NIF del profesor" th:value="${asignatura != null ? asignatura.nif_profesor_asignatura : ''}" required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa un NIF válido.
+                    </div>
+                </div>
+                <div class="justify-content-center d-flex">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Añadir asignatura">
+                </div>
             </form>
         </div>
     </div>
 </section>
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

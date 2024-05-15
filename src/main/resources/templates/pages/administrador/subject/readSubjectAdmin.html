@@ -16,17 +16,87 @@
 
 
 <!-- Navbar -->
-<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>
+<!--<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>-->
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">Study With Me</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ALUMNOS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdmin}">Crear alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdmin}">Mostrar alumnos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkProfesores" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        PROFESORES
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewListarProfesoresAdministradores}">Mostrar profesores</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAsignaturas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ASIGNATURAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Crear asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Mostrar asignaturas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkCursos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        CURSOS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewCrearCursoAdministrador}">Crear cursos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewListarCursosAdministradores}">Mostrar cursos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdministradores" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ADMINISTRADORES
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewCrearAdministrador}">Crear administradores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewListarAdministradores}">Mostrar administradores</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Perfil</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 
 <section class="container-fluid lg-5 content-container">
     <!-- Home -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
 
-            <h3>Asignaturas</h3>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <h3>Asignaturas</h3>
+                </div>
+                <div class="col-6 text-end">
+                    <a th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Nueva asignatura</a>
+                </div>
+            </div>
 
             <!-- Lectura de asignaturas -->
-            <table class="table table-striped">
+            <table th:method="@{/administradores/asignatura/listarAsignaturaAdministrador}" class="table table-striped">
                 <thead>
                 <tr>
                     <th>Nombre de la Asignatura</th>
@@ -38,31 +108,28 @@
                 <!-- Iterar sobre la lista de asignaturas -->
                 <tr th:each="asignatura : ${asignaturas}">
                     <td th:text="${asignatura.nombre_asignatura}"></td>
-                    <td>
-                        <ul>
-                            <!-- Iterar sobre la lista de profesores -->
-                            <li th:each="profesor : ${asignatura.profesores}"
-                                th:text="${profesor.nombre} + ' ' + ${profesor.apellidos}"></li>
-                        </ul>
-                    </td>
+                    <td th:text="${asignatura.nombre_curso_asignatura}"></td>
+                    <td th:text="${asignatura.nif_profesor_asignatura}"></td>
 <!--                    <td>
                         <ul>
                              Iterar sobre la lista de alumnos
                             <li th:each="alumno : ${asignatura.alumnos}"
                                 th:text="${alumno.nombre} + ' ' + ${alumno.apellidos}"></li>
-                        </ul>
-                    </td>-->
+                        </ul>-->
                     <td>
-                        <a th:href="@{'/administradores/vistaEditarAsignaturaAdmin/' + ${asignatura.id_asignatura}}"
-                           class="btn btn-primary"><i class="bi bi-pencil"></i> </a>
-                        <a th:href="@{'/administradores/eliminarAsignaturaAdmin/' + ${asignatura.id_asignatura}}"
-                           class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i
-                                class="bi bi-trash"></i> </a>
+                        <form th:action="@{/administradores/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="get">
+                            <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/administradores/asignatura/borrarAsignaturaAdministrador/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="post">
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
+                        </form>
                     </td>
                 </tr>
                 </tbody>
             </table>
-            <div th:replace="modalDeleteAdmin :: modalDeleteAdmin"></div>
+<!--            <div th:replace="modalDeleteAdmin :: modalDeleteAdmin"></div>-->
         </div>
     </div>
 </section>
