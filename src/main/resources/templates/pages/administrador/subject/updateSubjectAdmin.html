@@ -30,8 +30,8 @@
                         ALUMNOS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdmin}">Crear alumnos</a></li>
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdmin}">Mostrar alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdministradores}">Crear alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdministradores}">Mostrar alumnos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -48,8 +48,17 @@
                         ASIGNATURAS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Crear asignaturas</a></li>
-                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Mostrar asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}">Crear asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewListarAsignaturasAdministradores}">Mostrar asignaturas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkTareas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        TAREAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewCrearTareaAdministrador}">Crear tareas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewListarTareasAdministradores}">Mostrar tareas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -77,24 +86,17 @@
         </div>
     </div>
 </nav>
-
-
-
 <section class="container-fluid lg-5 content-container">
-    <!-- Home -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-
-            <h3>Asignaturas</h3>
-
-            <!-- Lectura de asignaturas -->
+            <h3>Actualizar los datos de la asignatura</h3>
             <form id="asignaturaForm" th:action="@{/administradores/asignatura/actualizarAsignatura/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="post"
                   th:object="${asignatura}" onsubmit="return validarFormulario()" class="needs-validation" novalidate>
                 <input type="hidden" id="id" name="id" th:value="${asignatura != null ? asignatura.id_asignatura : ''}">
                 <div class="mb-3">
                     <label for="nombre_asignatura" class="form-label">Nombre de la asignatura:</label>
                     <input type="text" class="form-control" id="nombre_asignatura" name="nombre_asignatura"
-                           placeholder="Nombre de la asignatura" th:value="${asignatura != null ? asignatura.nombre_asignatura : ''}" required>
+                           placeholder="Lengua - 1 de ESO" th:value="${asignatura != null ? asignatura.nombre_asignatura : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre de la asignatura.
                     </div>
@@ -102,7 +104,7 @@
                 <div class="mb-3">
                     <label for="nombre_curso_asignatura" class="form-label">Nombre del curso:</label>
                     <input type="text" class="form-control" id="nombre_curso_asignatura" name="nombre_curso_asignatura"
-                           placeholder="Nombre del curso" th:value="${asignatura != null ? asignatura.nombre_curso_asignatura : ''}" required>
+                           placeholder="1 de ESO" th:value="${asignatura != null ? asignatura.nombre_curso_asignatura : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre del curso.
                     </div>
@@ -110,7 +112,7 @@
                 <div class="mb-3">
                     <label for="nif_profesor_asignatura" class="form-label">NIF del profesor:</label>
                     <input type="text" class="form-control" id="nif_profesor_asignatura" name="nif_profesor_asignatura"
-                           placeholder="NIF del profesor" th:value="${asignatura != null ? asignatura.nif_profesor_asignatura : ''}" required>
+                           placeholder="11111111A" th:value="${asignatura != null ? asignatura.nif_profesor_asignatura : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa un NIF válido.
                     </div>

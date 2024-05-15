@@ -15,7 +15,6 @@
 
 
 <!-- Navbar -->
-<!--<div th:insert="~{navbarAdmin :: navbarAdminComonente}"></div>-->
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" th:href="@{/}">Study With Me</a>
@@ -90,61 +89,66 @@
 <section class="container-fluid lg-5 content-container">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <h3>Crear un nuevo alumno</h3>
-            <form id="alumnoForm" th:action="@{/administradores/alumnos/guardarAlumno}" method="post" onsubmit="return validarFormulario()"
-                  class="needs-validation" novalidate>
-                <input type="hidden" id="id" name="id" th:value="${alumno != null ? alumno.id : ''}">
+            <h3>Actualizar los datos de la tarea</h3>
+            <form id="alumnoForm" th:action="@{/administradores/tareas/actualizarTarea/{id_tarea}(id_tarea=${tarea.id_tarea})}" method="post"
+                  onsubmit="return validarFormulario()" th:object="${tarea}" class="needs-validation" novalidate>
+                <input type="hidden" id="id" name="id" th:value="${tarea != null ? tarea.id_tarea : ''}">
                 <div class="mb-3">
-                    <label for="nif_alumno" class="form-label">NIF/DNI del alumno:</label>
-                    <input type="text" class="form-control" id="nif_alumno" name="nif_alumno"
-                           placeholder="11111111A" th:value="${alumno != null ? alumno.nif : ''}" required>
+                    <label for="tipo_tarea" class="form-label">Tipo de tarea:</label>
+                    <input type="text" class="form-control" id="tipo_tarea" name="tipo_tarea"
+                           placeholder="Tarea" th:value="${tarea != null ? tarea.tipo_tarea : ''}" required>
                     <div class="invalid-feedback">
-                        Por favor ingresa el NIF del alumno.
+                        Por favor ingresa el tipo de tarea.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="nombre_alumno" class="form-label">Nombre del alumno:</label>
-                    <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno"
-                           placeholder="Pepe" th:value="${alumno != null ? alumno.nombre : ''}" required>
+                    <label for="titulo_tarea" class="form-label">Título de la tarea:</label>
+                    <input type="text" class="form-control" id="titulo_tarea" name="titulo_tarea"
+                           placeholder="Tarea 1 - Ejemplo" th:value="${tarea != null ? tarea.titulo_tarea : ''}" required>
                     <div class="invalid-feedback">
-                        Por favor ingresa el nombre del alumno.
+                        Por favor ingresa el titulo de la tarea.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="email_alumno" class="form-label">Email del alumno:</label>
-                    <input type="email" class="form-control" id="email_alumno" name="email_alumno"
-                           placeholder="pepe@gmail.com" th:value="${alumno != null ? alumno.email : ''}" required>
+                    <label for="descripcion_tarea" class="form-label">Descripción de la tarea:</label>
+                    <input type="text" class="form-control" id="descripcion_tarea" name="descripcion_tarea"
+                           placeholder="Esta es la descripción" th:value="${tarea != null ? tarea.descripcion_tarea : ''}" required>
                     <div class="invalid-feedback">
-                        Por favor ingresa un email válido.
+                        Por favor ingresa una descripción válida.
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="password_alumno" class="form-label">Contraseña del alumno:</label>
-                    <input type="password" class="form-control" id="password_alumno" name="password_alumno"
-                           placeholder="Pepe123@$" th:value="${alumno != null ? alumno.password : ''}"
-                           required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}">
+                    <label for="calificacion_tarea" class="form-label">Calificación del alumno:</label>
+                    <input type="number" step="0.001" class="form-control" id="calificacion_tarea" name="calificacion_tarea"
+                           placeholder="10.000" th:value="${tarea != null ? tarea.calificacion_tarea : ''}"
+                           required>
                     <div class="invalid-feedback">
-                        La contraseña debe contener al menos 8 caracteres incluyendo mayúsculas, minúsculas, números y
-                        símbolos.
+                        La calificacion debe de tener 3 decimales (0.000).
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="nombre_padre_alumno" class="form-label">Nombre completo del padre:</label>
-                    <input type="text" class="form-control" id="nombre_padre_alumno" name="nombre_padre_alumno"
-                           placeholder="Paco Gomez"
-                           th:value="${alumno != null ? alumno.nombrePadre : ''}">
+                    <label for="nif_profesor_tarea" class="form-label">NIF del profesor:</label>
+                    <input type="text" class="form-control" id="nif_profesor_tarea" name="nif_profesor_tarea"
+                           placeholder="11111111A"
+                           th:value="${tarea != null ? tarea.nif_profesor_tarea : ''}">
                 </div>
                 <div class="mb-3">
-                    <label for="nombre_madre_alumno" class="form-label">Nombre completo de la madre:</label>
-                    <input type="text" class="form-control" id="nombre_madre_alumno" name="nombre_madre_alumno"
-                           placeholder="Maria Gomez"
-                           th:value="${alumno != null ? alumno.nombreMadre : ''}">
-                <div th:if="${not #strings.isEmpty(error)}">
-                    <div class="alert alert-danger" role="alert" th:text="${error}"></div>
+                    <label for="nif_alumno_tarea" class="form-label">NIF del alumno:</label>
+                    <input type="text" class="form-control" id="nif_alumno_tarea" name="nif_alumno_tarea"
+                           placeholder="22222222B"
+                           th:value="${tarea != null ? tarea.nif_alumno_tarea : ''}">
                 </div>
+                <div class="mb-3">
+                    <label for="nombre_asignatura_tarea" class="form-label">Nombre de la asignatura de la tarea:</label>
+                    <input type="text" class="form-control" id="nombre_asignatura_tarea" name="nombre_asignatura_tarea"
+                           placeholder="Lengua - 1 de ESO"
+                           th:value="${alumno != null ? alumno.nombre_asignatura_tarea : ''}">
+                    <div th:if="${not #strings.isEmpty(error)}">
+                        <div class="alert alert-danger" role="alert" th:text="${error}"></div>
+                    </div>
                 </div>
                 <div class="justify-content-center d-flex">
-                    <input type="submit" class="btn btn-primary btn-lg" value="Añadir alumno">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Editar tarea">
                 </div>
             </form>
         </div>

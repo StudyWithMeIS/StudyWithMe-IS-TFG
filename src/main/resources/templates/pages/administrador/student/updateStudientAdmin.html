@@ -30,8 +30,8 @@
                         ALUMNOS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdmin}">Crear alumnos</a></li>
-                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdmin}">Mostrar alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdministradores}">Crear alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdministradores}">Mostrar alumnos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -39,8 +39,8 @@
                         PROFESORES
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{#}">Crear profesores</a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Mostrar profesores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewListarProfesoresAdministradores}">Mostrar profesores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -48,8 +48,17 @@
                         ASIGNATURAS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{#}">Crear asignaturas</a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Mostrar asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}">Crear asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewListarAsignaturasAdministradores}">Mostrar asignaturas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkTareas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        TAREAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewCrearTareaAdministrador}">Crear tareas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/tareas/viewListarTareasAdministradores}">Mostrar tareas</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -57,8 +66,8 @@
                         CURSOS
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{#}">Crear cursos</a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Mostrar cursos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewCrearCursoAdministrador}">Crear cursos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewListarCursosAdministradores}">Mostrar cursos</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -66,34 +75,28 @@
                         ADMINISTRADORES
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{#}">Crear administradores</a></li>
-                        <li><a class="dropdown-item" th:href="@{#}">Mostrar administradores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewCrearAdministrador}">Crear administradores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewListarAdministradores}">Mostrar administradores</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{#}">Perfil</a>
+                    <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Perfil</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
-
-
 <section class="container-fluid lg-5 content-container">
-    <!-- Home -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-
-            <h3>Formulario Alumno</h3>
-
-            <!-- Formulario para añadir/editar alumno -->
+            <h3>Actualizar datos del alumno</h3>
             <form id="alumnoForm" th:action="@{/administradores/alumnos/actualizarAlumno/{id_alumno}(id_alumno=${alumno.id_alumno})}" method="post" th:object="${alumno}" onsubmit="return validarFormulario()"
                   class="needs-validation" novalidate>
                 <input type="hidden" id="id" name="id" th:value="${alumno != null ? alumno.id_alumno : ''}">
                 <div class="mb-3">
                     <label for="nif_alumno" class="form-label">NIF/DNI del alumno:</label>
                     <input type="text" class="form-control" id="nif_alumno" name="nif_alumno"
-                           placeholder="NIF del alumno" th:value="${alumno != null ? alumno.nif_alumno : ''}" required>
+                           placeholder="11111111A" th:value="${alumno != null ? alumno.nif_alumno : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el NIF del alumno.
                     </div>
@@ -101,7 +104,7 @@
                 <div class="mb-3">
                     <label for="nombre_alumno" class="form-label">Nombre del alumno:</label>
                     <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno"
-                           placeholder="Nombre del alumno" th:value="${alumno != null ? alumno.nombre_alumno : ''}" required>
+                           placeholder="Pepe" th:value="${alumno != null ? alumno.nombre_alumno : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre del alumno.
                     </div>
@@ -109,7 +112,7 @@
                 <div class="mb-3">
                     <label for="email_alumno" class="form-label">Email del alumno:</label>
                     <input type="email" class="form-control" id="email_alumno" name="email_alumno"
-                           placeholder="Email del alumno" th:value="${alumno != null ? alumno.email_alumno : ''}" required>
+                           placeholder="pepe@gmail.com" th:value="${alumno != null ? alumno.email_alumno : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa un email válido.
                     </div>
@@ -117,7 +120,7 @@
                 <div class="mb-3">
                     <label for="password_alumno" class="form-label">Contraseña del alumno:</label>
                     <input type="password" class="form-control" id="password_alumno" name="password_alumno"
-                           placeholder="Contraseña del alumno" th:value="${alumno != null ? alumno.password_alumno : ''}"
+                           placeholder="Pepe123@$" th:value="${alumno != null ? alumno.password_alumno : ''}"
                            required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}">
                     <div class="invalid-feedback">
                         La contraseña debe contener al menos 8 caracteres incluyendo mayúsculas, minúsculas, números y
@@ -127,13 +130,13 @@
                 <div class="mb-3">
                     <label for="nombre_padre_alumno" class="form-label">Nombre completo del padre:</label>
                     <input type="text" class="form-control" id="nombre_padre_alumno" name="nombre_padre_alumno"
-                           placeholder="Nombre completo del padre del alumno"
+                           placeholder="Paco Gomez"
                            th:value="${alumno != null ? alumno.nombre_padre_alumno : ''}">
                 </div>
                 <div class="mb-3">
                     <label for="nombre_madre_alumno" class="form-label">Nombre completo de la madre:</label>
                     <input type="text" class="form-control" id="nombre_madre_alumno" name="nombre_madre_alumno"
-                           placeholder="Nombre completo de la madre del alumno"
+                           placeholder="Maria Gomez"
                            th:value="${alumno != null ? alumno.nombre_madre_alumno : ''}">
                 <div th:if="${not #strings.isEmpty(error)}">
                     <div class="alert alert-danger" role="alert" th:text="${error}"></div>
