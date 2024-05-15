@@ -9,35 +9,36 @@ import java.io.Serializable;
 @Entity
 @NamedQuery(name = "Asignaturas.findAll", query = "SELECT a FROM Asignaturas a")
 public class Asignaturas implements Serializable {
-    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    private String id_asignatura;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_asignatura")
+    private int id_asignatura;
+
+    @Column(name = "nombre_asignatura", nullable = false, unique = true)
     private String nombre_asignatura;
 
-    @ManyToOne
-    @JoinColumn(name = "id_curso_asignatura")
-    private Cursos curso;
+    @Column(name = "nombre_curso_asignatura", nullable = false, unique = true)
+    private String nombre_curso_asignatura;
 
-    @ManyToOne
-    @JoinColumn(name = "nif_profesor")
-    private Profesores profesores;
+    @Column(name = "nif_profesor_asignatura", nullable = false, unique = true)
+    private String nif_profesor_asignatura;
 
     public Asignaturas() {}
 
-    public Asignaturas(String id_asignatura, String nombre_asignatura, Cursos curso, Profesores profesores) {
+    public Asignaturas(int id_asignatura, String nombre_asignatura, String nombre_curso_asignatura, String nif_profesor_asignatura) {
         this.id_asignatura = id_asignatura;
         this.nombre_asignatura = nombre_asignatura;
-        this.curso = curso;
-        this.profesores = profesores;
+        this.nombre_curso_asignatura = nombre_curso_asignatura;
+        this.nif_profesor_asignatura = nif_profesor_asignatura;
     }
 
-    public String getId_asignatura() {
+    public int getId_asignatura() {
         return id_asignatura;
     }
 
-    public void setId_asignatura(String id_asignatura) {
+    public void setId_asignatura(int id_asignatura) {
         this.id_asignatura = id_asignatura;
     }
 
@@ -49,29 +50,29 @@ public class Asignaturas implements Serializable {
         this.nombre_asignatura = nombre_asignatura;
     }
 
-    public Cursos getCurso() {
-        return curso;
+    public String getNombre_curso_asignatura() {
+        return nombre_curso_asignatura;
     }
 
-    public void setCurso(Cursos curso) {
-        this.curso = curso;
+    public void setNombre_curso_asignatura(String nombre_curso_asignatura) {
+        this.nombre_curso_asignatura = nombre_curso_asignatura;
     }
 
-    public Profesores getProfesores() {
-        return profesores;
+    public String getNif_profesor_asignatura() {
+        return nif_profesor_asignatura;
     }
 
-    public void setProfesores(Profesores profesores) {
-        this.profesores = profesores;
+    public void setNif_profesor_asignatura(String nif_profesor_asignatura) {
+        this.nif_profesor_asignatura = nif_profesor_asignatura;
     }
 
     @Override
     public String toString() {
         return "Asignaturas{" +
-                "id_asignatura='" + id_asignatura + '\'' +
+                "id_asignatura=" + id_asignatura +
                 ", nombre_asignatura='" + nombre_asignatura + '\'' +
-                ", curso=" + curso +
-                ", profesores=" + profesores +
+                ", nombre_curso_asignatura='" + nombre_curso_asignatura + '\'' +
+                ", nif_profesor_asignatura='" + nif_profesor_asignatura + '\'' +
                 '}';
     }
 }

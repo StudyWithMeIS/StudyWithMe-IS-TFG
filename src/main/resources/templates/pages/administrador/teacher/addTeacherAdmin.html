@@ -28,12 +28,51 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ALUMNOS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewCrearAlumnoAdmin}">Crear alumnos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/alumnos/viewListarAlumnosAdmin}">Mostrar alumnos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkProfesores" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         PROFESORES
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesor</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewCrearProfesorAdministrador}">Crear profesores</a></li>
                         <li><a class="dropdown-item" th:href="@{/administradores/profesor/viewListarProfesoresAdministradores}">Mostrar profesores</a></li>
                     </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAsignaturas" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ASIGNATURAS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Crear asignaturas</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/asignatura/viewCrearAsignaturaAdministrador}">Mostrar asignaturas</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkCursos" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        CURSOS
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewCrearCursoAdministrador}">Crear cursos</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/curso/viewListarCursosAdministradores}">Mostrar cursos</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkAdministradores" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        ADMINISTRADORES
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewCrearAdministrador}">Crear administradores</a></li>
+                        <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewListarAdministradores}">Mostrar administradores</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Perfil</a>
                 </li>
             </ul>
         </div>

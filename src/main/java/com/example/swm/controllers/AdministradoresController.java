@@ -3,8 +3,10 @@ package com.example.swm.controllers;
 import com.example.swm.entity.*;
 import com.example.swm.repository.*;
 import com.example.swm.services.AlumnosService;
+import com.example.swm.services.AsignaturasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/administradores")
 public class AdministradoresController {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AdministradoresRepository administradoresRepository;
@@ -34,6 +39,9 @@ public class AdministradoresController {
 
     @Autowired
     private AlumnosService alumnosService;
+
+    @Autowired
+    private AsignaturasService asignaturasService;
 
 
     //-------------------------------------------
@@ -71,11 +79,14 @@ public class AdministradoresController {
             if (existingAlumno.isPresent()) {
                 mv.addObject("error", "El alumno ya existe en la base de datos");
             } else {
+                String contraseñaEncriptada = passwordEncoder.encode(alumno.getPassword_alumno());
+                System.out.println(contraseñaEncriptada);
+
                 Alumnos alumnos = new Alumnos();
                 alumnos.setNif_alumno(nifAlumno);
                 alumnos.setNombre_alumno(nombreAlumno);
                 alumnos.setEmail_alumno(emailAlumno);
-                alumnos.setPassword_alumno(alumno.getPassword_alumno());
+                alumnos.setPassword_alumno(contraseñaEncriptada);
                 alumnos.setNombre_padre_alumno(nombrePadreAlumno);
                 alumnos.setNombre_madre_alumno(nombreMadreAlumno);
                 alumnosRepository.save(alumnos);
@@ -85,7 +96,7 @@ public class AdministradoresController {
                     e.printStackTrace();
                 }
             }
-            mv.setViewName("redirect:/administradores/alumnos/viewCrearAlumnoAdministradores");
+            mv.setViewName("redirect:/administradores/alumnos/viewListarAlumnosAdministradores");
             return mv;
         }
     }
@@ -136,7 +147,7 @@ public class AdministradoresController {
             ModelAndView mv = new ModelAndView();
             if (result.hasErrors() || alumno.getNif_alumno().isEmpty() || alumno.getNombre_alumno().isEmpty() || alumno.getEmail_alumno().isEmpty() || alumno.getPassword_alumno().isEmpty() || alumno.getNombre_madre_alumno().isEmpty() || alumno.getNombre_padre_alumno().isEmpty()) {
                 mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
-                mv.setViewName("redirect:/administradores/alumnos/viewListarAlumnosAdministradores");
+                mv.setViewName("redirect:/administradores/alumnos/viewActualizarAlumnoAdministradores/{id_alumno}");
                 return mv;
             }
             int idAlumno = alumno.getId_alumno();
@@ -150,7 +161,7 @@ public class AdministradoresController {
                 }
             } else {
                 mv.addObject("error", "El alumno no existe en la base de datos");
-                mv.setViewName("redirect:/administradores/alumnos/viewActualizarAlumnoAdmin");
+                mv.setViewName("redirect:/administradores/alumnos/viewActualizarAlumnoAdministradores/{id_alumno}");
             }
             return mv;
         }
@@ -161,7 +172,7 @@ public class AdministradoresController {
     public ModelAndView borrarAlumno(@PathVariable("id_alumno") int id_alumno_tarea) {
         ModelAndView mv = new ModelAndView();
         try {
-            alumnosService.eliminarAlumno(id_alumno_tarea);
+            alumnosRepository.deleteById(id_alumno_tarea);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -228,11 +239,13 @@ public class AdministradoresController {
             if (existingAdministrador.isPresent()) {
                 mv.addObject("error", "El administrador ya existe en la base de datos");
             } else {
+                String contraseñaEncriptada = passwordEncoder.encode(administrador.getPassword_admin());
+
                 Administradores administradores = new Administradores();
                 administradores.setNif_admin(nifAdministrador);
                 administradores.setNombre_admin(nombreAdministrador);
                 administradores.setEmail_admin(emailAdministrador);
-                administradores.setPassword_admin(administrador.getPassword_admin());
+                administradores.setPassword_admin(contraseñaEncriptada);
                 administradoresRepository.save(administradores);
                 try {
                     Thread.sleep(1000);
@@ -240,7 +253,7 @@ public class AdministradoresController {
                     e.printStackTrace();
                 }
             }
-            mv.setViewName("redirect:/administradores/administradores/viewCrearAdministrador");
+            mv.setViewName("redirect:/administradores/administradores/viewListarAdministradores");
             return mv;
         }
     }
@@ -288,7 +301,7 @@ public class AdministradoresController {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors() || administrador.getNif_admin().isEmpty() || administrador.getNombre_admin().isEmpty() || administrador.getEmail_admin().isEmpty() || administrador.getPassword_admin().isEmpty()) {
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
-            mv.setViewName("redirect:/administradores/administradores/viewListarAdministradores");
+            mv.setViewName("redirect:/administradores/administradores/viewActualizarAdministradores/{id_admin}");
             return mv;
         }
         int idAdministrador = administrador.getId_admin();
@@ -302,7 +315,7 @@ public class AdministradoresController {
             }
         } else {
             mv.addObject("error", "El administrador no existe en la base de datos");
-            mv.setViewName("redirect:/administradores/administradores/viewListarAdministradores");
+            mv.setViewName("redirect:/administradores/administradores/viewActualizarAdministradores/{id_admin}");
         }
         return mv;
     }
@@ -373,11 +386,13 @@ public class AdministradoresController {
             if (existingProfesor.isPresent()) {
                 mv.addObject("error", "El profesor ya existe en la base de datos");
             } else {
+                String contraseñaEncriptada = passwordEncoder.encode(profesor.getPassword_profesor());
+
                 Profesores profesores = new Profesores();
                 profesores.setNif_profesor(nifProfesor);
                 profesores.setNombre_profesor(nombreProfesor);
                 profesores.setEmail_profesor(emailProfesor);
-                profesores.setPassword_profesor(profesor.getPassword_profesor());
+                profesores.setPassword_profesor(contraseñaEncriptada);
                 profesoresRepository.save(profesores);
                 try {
                     Thread.sleep(1000);
@@ -385,7 +400,7 @@ public class AdministradoresController {
                     e.printStackTrace();
                 }
             }
-            mv.setViewName("redirect:/administradores/profesor/viewCrearProfesorAdministrador");
+            mv.setViewName("redirect:/administradores/profesor/viewListarProfesoresAdministradores");
             return mv;
         }
     }
@@ -433,7 +448,7 @@ public class AdministradoresController {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors() || profesor.getNif_profesor().isEmpty() || profesor.getNombre_profesor().isEmpty() || profesor.getEmail_profesor().isEmpty() || profesor.getPassword_profesor().isEmpty()) {
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
-            mv.setViewName("redirect:/administradores/profesor/viewListarProfesoresAdministradores");
+            mv.setViewName("redirect:/administradores/profesor/viewActualizarProfesorAdministradores/{id_profesor}");
             return mv;
         }
         int idProfesor = profesor.getId_profesor();
@@ -447,7 +462,7 @@ public class AdministradoresController {
             }
         } else {
             mv.addObject("error", "El profesor no existe en la base de datos");
-            mv.setViewName("redirect:/administradores/profesor/viewListarProfesoresAdministradores");
+            mv.setViewName("redirect:/administradores/profesor/viewActualizarProfesorAdministradores/{id_profesor}");
         }
         return mv;
     }
@@ -455,7 +470,7 @@ public class AdministradoresController {
 
 
     //-----------BORRAR PROFESOR-------------
-    @PostMapping("/profesor/borrarAdministrador/{id_profesor}")
+    @PostMapping("/profesor/borrarProfesorAdministrador/{id_profesor}")
     public ModelAndView borrarProfesor(@PathVariable("id_profesor") int id_profesor) {
         ModelAndView mv = new ModelAndView();
         try {
@@ -519,7 +534,7 @@ public class AdministradoresController {
             String nombreCurso = curso.getNombre_curso().toLowerCase();
             Optional<Cursos> existingCursos = cursosRepository.findCursosByName(curso.getNombre_curso());
             if (existingCursos.isPresent()) {
-                mv.addObject("error", "El profesor ya existe en la base de datos");
+                mv.addObject("error", "El curso ya existe en la base de datos");
             } else {
                 Cursos cursos = new Cursos();
                 cursos.setNombre_curso(nombreCurso);
@@ -530,7 +545,7 @@ public class AdministradoresController {
                     e.printStackTrace();
                 }
             }
-            mv.setViewName("redirect:/administradores/curso/viewCrearCursoAdministrador");
+            mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
             return mv;
         }
     }
@@ -581,7 +596,7 @@ public class AdministradoresController {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors() || curso.getNombre_curso().isEmpty()) {
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
-            mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
+            mv.setViewName("redirect:/administradores/curso/viewActualizarCursosAdministradores/{id_curso}");
             return mv;
         }
         int idCurso = curso.getId_curso();
@@ -595,15 +610,15 @@ public class AdministradoresController {
             }
         } else {
             mv.addObject("error", "El curso no existe en la base de datos");
-            mv.setViewName("redirect:/administradores/curso/viewListarCursosAdministradores");
+            mv.setViewName("redirect:/administradores/curso/viewActualizarCursosAdministradores/{id_curso}");
         }
         return mv;
     }
 
 
 
-    //-----------BORRAR PROFESOR-------------
-    @PostMapping("/curso/borrarAdministrador/{id_curso}")
+    //-----------BORRAR CURSOS-------------
+    @PostMapping("/curso/borrarCursoAdministrador/{id_curso}")
     public ModelAndView borrarCurso(@PathVariable("id_curso") int id_curso) {
         ModelAndView mv = new ModelAndView();
         try {
@@ -624,6 +639,152 @@ public class AdministradoresController {
 
 
 
+
+
+
+
+
+
+
+
+
+    //-------------------------------------------
+    //---------------ASIGNATURAS-----------------
+    //-------------------------------------------
+
+    //-------------CREAR ASIGNATURAS-------------
+
+    @GetMapping("/asignatura/viewCrearAsignaturasAdministrador")
+    public ModelAndView mostrarPaginaAddAsignatura() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/subject/addSubjectAdmin");
+        return mv;
+    }
+
+    @RequestMapping("/asignatura/guardarAsignatura")
+    public ModelAndView guardarAsignatura(@ModelAttribute Asignaturas asignatura, @Validated BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        if (result.hasErrors() || asignatura.getNombre_asignatura().isEmpty() || asignatura.getNombre_curso_asignatura().isEmpty() || asignatura.getNif_profesor_asignatura().isEmpty()) {
+            System.out.println(asignatura.getNombre_asignatura());
+            System.out.println(asignatura.getNombre_curso_asignatura());
+            System.out.println(asignatura.getNif_profesor_asignatura());
+            System.out.println(result.getAllErrors().toString());
+            mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mv.setViewName("redirect:/administradores/asignatura/viewCrearAsignaturasAdministrador");
+            return mv;
+        }else{
+            String nombreAsignatura = asignatura.getNombre_asignatura().toLowerCase();
+            String nombreCursoAsignatura = asignatura.getNombre_curso_asignatura().toLowerCase();
+            String nifProfesorAsignatura = asignatura.getNif_profesor_asignatura().toLowerCase();
+            Optional<Asignaturas> existingAsignaturas = asignaturasRepository.findAsignaturasByName(asignatura.getNombre_asignatura());
+            if (existingAsignaturas.isPresent()) {
+                mv.addObject("error", "La asignatura ya existe en la base de datos");
+            } else {
+                Asignaturas asignaturas = new Asignaturas();
+                asignaturas.setNombre_asignatura(nombreAsignatura);
+                asignaturas.setNombre_curso_asignatura(nombreCursoAsignatura);
+                asignaturas.setNif_profesor_asignatura(nifProfesorAsignatura);
+
+                asignaturasRepository.save(asignaturas);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
+            return mv;
+        }
+    }
+
+
+
+    //---------MOSTRAR ASIGNATURAS--------------
+    @GetMapping("/asignatura/viewListarAsignaturasAdministradores")
+    public ModelAndView viewListarAsignaturas() {
+            ModelAndView mv = new ModelAndView();
+            mv.setViewName("pages/administrador/subject/readSubjectAdmin");
+            mv.addObject("asignatura", new Asignaturas());
+            mv.addObject("asignaturas", listarAsignaturas().getModel().get("asignaturas"));
+            return mv;
+    }
+
+    @GetMapping("/asignatura/listarAsignaturaAdministrador")
+    public ModelAndView listarAsignaturas() {
+        ModelAndView mv = new ModelAndView();
+        List<Asignaturas> asignaturas = asignaturasRepository.findAll();
+        mv.addObject("asignatura", new Asignaturas());
+        mv.addObject("asignaturas", asignaturas);
+        mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
+        return mv;
+    }
+
+
+    //----------ACTUALIZAR ASIGNATURAS------------
+
+    @GetMapping("/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}")
+    public ModelAndView viewUpdateAsignaturaAdministrador(@PathVariable("id_asignatura") int id_asignatura, @ModelAttribute("curso") Asignaturas asignatura, BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        Optional<Asignaturas> asignaturasOptional = asignaturasRepository.findById(id_asignatura);
+        if (asignaturasOptional.isPresent()) {
+            mv.addObject("asignatura", asignatura);
+            mv.setViewName("pages/administrador/subject/updateSubjectAdmin");
+        } else {
+            mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
+        }
+        return mv;
+    }
+
+    @PostMapping("/asignatura/actualizarAsignatura/{id_asignatura}")
+    public ModelAndView actualizarAsignatura(@PathVariable("id_asignatura") int id_asignatura, @ModelAttribute("asignatura") Asignaturas asignatura, BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+        if (result.hasErrors() || asignatura.getNombre_asignatura().isEmpty() || asignatura.getNombre_curso_asignatura().isEmpty() || asignatura.getNif_profesor_asignatura().isEmpty()) {
+            mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
+            mv.setViewName("redirect:/administradores/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}");
+            return mv;
+        }
+        int idAsignatura = asignatura.getId_asignatura();
+        if (asignaturasRepository.existsById(idAsignatura)) {
+            asignaturasRepository.save(asignatura);
+            mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else {
+            mv.addObject("error", "La asignatura no existe en la base de datos");
+            mv.setViewName("redirect:/administradores/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}");
+        }
+        return mv;
+    }
+
+
+
+    //-----------BORRAR ASIGNATURAS-------------
+    @PostMapping("/asignatura/borrarAsignaturaAdministrador/{id_asignatura}")
+    public ModelAndView borrarAsignatura(@PathVariable("id_asignatura") int id_asignatura) {
+        ModelAndView mv = new ModelAndView();
+        try {
+            asignaturasService.eliminarAsignatura(id_asignatura);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
+        } catch (DataAccessException e) {
+            System.out.println("Error al eliminar la asignatura: " + e.getMessage());
+            mv.addObject("error", "Error al eliminar la asignatura");
+            mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
+        }
+        return mv;
+    }
 
 
 }// CLOSE CLASS ADMINSTRADORCONTROLLER
