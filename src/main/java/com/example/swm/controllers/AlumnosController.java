@@ -1,19 +1,17 @@
 package com.example.swm.controllers;
 
 
-import com.example.swm.entity.Cursos;
-import com.example.swm.repository.AlumnosRepository;
-import com.example.swm.repository.CursosRepository;
+import com.example.swm.repository.*;
+import com.example.swm.services.AlumnosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.web.servlet.ModelAndView;
 
 @RestController
-@RequestMapping("/alumno")
+@RequestMapping("/alumnos")
 public class AlumnosController {
 
     @Autowired
@@ -22,16 +20,66 @@ public class AlumnosController {
     @Autowired
     private CursosRepository cursosRepository;
 
+    @Autowired
+    private AdministradoresRepository administradoresRepository;
 
-    @GetMapping("/home")
-    public String mostrarClases(Model model) {
-        List<Cursos> cursos = cursosRepository.findAll();
-        if (cursos.isEmpty()) {
-            model.addAttribute("mensaje", "Aun no te has unido a ninguna clase.");
-        } else {
-            model.addAttribute("cursos", cursos);
-        }
-        return "clases";
+    @Autowired
+    private AsignaturasRepository asignaturasRepository;
+
+    @Autowired
+    private ProfesoresRepository profesoresRepository;
+
+    @Autowired
+    private AlumnosService alumnosService;
+
+    @GetMapping("/homeAsignaturas")
+    public ModelAndView homeAsignaturas(Model model) {
+        // Listar las asignaturas del alumno
+        return new ModelAndView("pages/alumno/homeAlumno");
     }
+
+
+
+    @GetMapping("/perfilAlumno")
+    public ModelAndView perfilAlumno() {
+        return new ModelAndView("pages/alumno/profileAlumno");
+    }
+
+    //-------------------------------------------
+    //--------------ASIGNATURAS------------------
+    //-------------------------------------------
+
+    //CALENDARIO
+    @GetMapping("/asignaturas/calendario")
+    public ModelAndView calendario() {
+        return new ModelAndView("pages/alumno/asignatura/calendarAlumno");
+    }
+
+    //NAVEGADOR DE ASIGNATURAS
+    @GetMapping("/asignaturas/navAsignaturasAlumnos")
+    public ModelAndView navAsignaturasAlumnos() {
+        return new ModelAndView("pages/alumno/asignatura/navbarGradeAlumno");
+    }
+
+    //VER PERSONAS DE UNA ASIGNATURA
+    @GetMapping("/asignaturas/verPersonas")
+    public ModelAndView verAsignatura() {
+        return new ModelAndView("pages/alumno/asignatura/verPersonasAlumno");
+    }
+
+    //VER TAREAS DE UNA ASIGNATURA
+    @GetMapping("/asignaturas/verTareas")
+    public ModelAndView verTareas() {
+        return new ModelAndView("pages/alumno/asignatura/tareasAlumno");
+    }
+
+    //VER UNA TAREA DE UNA ASIGNATURA
+    @GetMapping("/asignaturas/verUnaTarea")
+    public ModelAndView verUnaAsignatura() {
+        return new ModelAndView("pages/alumno/asignatura/unaTareaAlumno");
+    }
+
+
+
 
 }
