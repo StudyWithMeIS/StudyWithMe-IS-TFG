@@ -357,7 +357,12 @@ public class AdministradoresController {
         return mv;
     }
 
-
+    @GetMapping("/administradores/viewPerfilAdministrador")
+    public ModelAndView viewPerfilAdministrador() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/administrador/profileAdministrador");
+        return mv;
+    }
 
 
 

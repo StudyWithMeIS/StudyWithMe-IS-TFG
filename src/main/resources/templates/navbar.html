@@ -7,7 +7,6 @@
     <link rel="stylesheet" th:href="@{/styles/style.css}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
 </head>
 
 <body>
@@ -15,59 +14,51 @@
 
 <!-- Navbar -->
 <div th:fragment="navbarComponenet">
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">Study With Me</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="knowUs">Conócenos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="join">Mátriculate</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:if="${session.user == null}" th:href="@{/pages/login.html}">Iniciar
-                            sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:if="${session.user != null}" th:href="@{/logout}">Cerrar sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:if="${session.user != null}" th:href="@{/perfil}">Perfil</a>
-                    </li>
-                    <li class="nav-item">
-                        <div th:switch="${session.user?.role}">
-                            <p th:case="'ROLE_ADMIN'">
-                                <a class="nav-link" th:if="${session.user != null}"
-                                   th:href="@{/administradores/vistaHomeAdmin}">Home</a>
-                            </p>
-                            <p th:case="'ROLE_TEACHER'">
-                                <a class="nav-link" th:if="${session.user != null}"
-                                   th:href="@{/profesores/vistaHomeProfesor}">Home</a>
-                            </p>
-                            <p th:case="'ROLE_STUDENT'">
-                                <a class="nav-link" th:if="${session.user != null}"
-                                   th:href="@{/alumnos/vistaHomeAlumno}">Home</a>
-                            </p>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/administradores/vistaListarAlumnosAdmin}"> Mostrar alumnos</a>
-                    </li>
-                </ul>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/}">Study With Me</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" th:href="@{/}">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/knowUs}">Conócenos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/join}">Mátriculate</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:if="${session.user == null}" th:href="@{/login}">Iniciar
+                                sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:if="${session.user}" th:href="@{/logout}">Cerrar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" th:if="${session.user != null}" th:href="@{/perfil}">Perfil</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                HOMES
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewHomeAdministrador}">Home Administrador</a></li>
+                                <li><a class="dropdown-item" th:href="@{/profesores/viewHomeProfesor}">Home Profesor</a></li>
+                                <li><a class="dropdown-item" th:href="@{/alumnos/homeAsignaturas}">Home Alumno</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</div>
+        </nav>
+    </div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
