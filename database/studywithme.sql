@@ -19,106 +19,106 @@ DROP TABLE IF EXISTS administradores;
 CREATE TABLE IF NOT EXISTS administradores (
                                                id_admin INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
                                                nif_admin CHAR(9) NOT NULL UNIQUE,
-    nombre_admin VARCHAR(50) NOT NULL,
-    email_admin VARCHAR(100) UNIQUE NOT NULL,
-    password_admin VARCHAR(100) NOT NULL
-    );
+                                               nombre_admin VARCHAR(50) NOT NULL,
+                                               email_admin VARCHAR(100) UNIQUE NOT NULL,
+                                               password_admin VARCHAR(100) NOT NULL,
+);
 
 -- Crear la tabla para Profesores
 CREATE TABLE IF NOT EXISTS profesores (
                                           id_profesor INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
                                           nif_profesor CHAR(9) NOT NULL UNIQUE,
-    nombre_profesor VARCHAR(50) NOT NULL,
-    email_profesor VARCHAR(100) UNIQUE NOT NULL,
-    password_profesor VARCHAR(100) NOT NULL
-    );
+                                          nombre_profesor VARCHAR(50) NOT NULL,
+                                          email_profesor VARCHAR(100) UNIQUE NOT NULL,
+                                          password_profesor VARCHAR(100) NOT NULL
+);
 
 -- Crear la tabla para Alumnos
 CREATE TABLE IF NOT EXISTS alumnos (
                                        id_alumno INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
                                        nif_alumno CHAR(9) NOT NULL UNIQUE,
-    nombre_alumno VARCHAR(50) NOT NULL,
-    email_alumno VARCHAR(100) UNIQUE NOT NULL,
-    password_alumno VARCHAR(100) NOT NULL,
-    nombre_padre_alumno VARCHAR(100),
-    nombre_madre_alumno VARCHAR(100)
-    );
+                                       nombre_alumno VARCHAR(50) NOT NULL,
+                                       email_alumno VARCHAR(100) UNIQUE NOT NULL,
+                                       password_alumno VARCHAR(100) NOT NULL,
+                                       nombre_padre_alumno VARCHAR(100),
+                                       nombre_madre_alumno VARCHAR(100)
+);
 
 -- Crear tabla curso
 CREATE TABLE IF NOT EXISTS cursos (
                                       id_curso INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                       nombre_curso VARCHAR(100) NOT NULL UNIQUE
-    );
+);
 
 -- Crear la tabla para asignaturas
 CREATE TABLE IF NOT EXISTS asignaturas (
                                            id_asignatura INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                            nombre_asignatura VARCHAR(100) NOT NULL UNIQUE,
-    nombre_curso_asignatura VARCHAR(100) NOT NULL,
-    nif_profesor_asignatura CHAR(9) NOT NULL
-    );
+                                           nombre_curso_asignatura VARCHAR(100) NOT NULL,
+                                           nif_profesor_asignatura CHAR(9) NOT NULL
+);
 
 
 -- Crear la tabla para tareas
 CREATE TABLE IF NOT EXISTS tareas (
                                       id_tarea INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                       tipo_tarea VARCHAR(50) NOT NULL,
-    titulo_tarea VARCHAR(100) NOT NULL,
-    descripcion_tarea VARCHAR(100) NOT NULL,
-    calificacion_tarea DECIMAL(5, 3),
-    nif_profesor_tarea CHAR(9) NOT NULL,
-    nif_alumno_tarea CHAR(9) NOT NULL,
-    nombre_asignatura_tarea VARCHAR(100) NOT NULL
-    );
+                                      titulo_tarea VARCHAR(100) NOT NULL,
+                                      descripcion_tarea VARCHAR(100) NOT NULL,
+                                      calificacion_tarea DECIMAL(5, 3),
+                                      nif_profesor_tarea CHAR(9) NOT NULL,
+                                      nif_alumno_tarea CHAR(9) NOT NULL,
+                                      nombre_asignatura_tarea VARCHAR(100) NOT NULL
+);
 
 -- Datos para la tabla administradores
 INSERT INTO administradores (nif_admin, nombre_admin, email_admin, password_admin) VALUES
-                                                                                       ('76587609C', 'María García López', 'maria.garcia@a.stdywithme.com', '{noop}password123'),
-                                                                                       ('35891234X', 'Juan Martínez Sánchez', 'juan.martinez@a.stdywithme.com', '{noop}admin456pass'),
-                                                                                       ('44781265A', 'Laura Pérez Martín', 'laura.perez@a.stdywithme.com', '{noop}admin789pass');
+                                                                                       ('76587609C', 'María García López', 'maria.garcia@a.stdywithme.com', '$2a$10$BaInhP2.v5Dm4IYuPfJqHO4kr4OEb/2TJEqrj3AYlsSdEEiMef59O'), -- password123
+                                                                                       ('35891234X', 'Juan Martínez Sánchez', 'juan.martinez@a.stdywithme.com', '$2a$10$29SmIZBAh/P3GZIDw6tUo.8gz2GkMbX350wUowxWYzpHZxMoERhKG'), -- admin456pass
+                                                                                       ('44781265A', 'Laura Pérez Martín', 'laura.perez@a.stdywithme.com', '$2a$10$sNIr2tlDJ.Zz0HSR2KkDnO1InYOZrFOgxRCzrtJZaIh0JppYel8oe'); -- admin789pass
 
 -- Datos para la tabla profesores
 INSERT INTO profesores (nif_profesor, nombre_profesor, email_profesor, password_profesor) VALUES
                                                                                               -- MATEMATICAS
-                                                                                              ('87651234A', 'Javier Ruiz García', 'javier.ruiz@p.studywithme.com', '{noop}prof123pass'),
+                                                                                              ('87651234A', 'Javier Ruiz García', 'javier.ruiz@p.studywithme.com', '$2a$10$OHRYb2trGntu0v9G0TUr/.wjlAWS8/EFRESsy3quKafq64FKGpAmy'), -- prof123pass
                                                                                               -- LENGUA
-                                                                                              ('76451235B', 'María Sánchez López', 'maria.sanchez@p.studywithme.com', '{noop}profpass456'),
+                                                                                              ('76451235B', 'María Sánchez López', 'maria.sanchez@p.studywithme.com', '$2a$10$WErz18pvf0bmZSlyZQBzb.MaFGvTIXF0zdRp6a3HmjnoshzMp7bty'), -- profpass456
                                                                                               -- CIENCIAS NATURALES
-                                                                                              ('65482367C', 'Daniel Martínez Gómez', 'daniel.martinez@p.studywithme.com', '{noop}passwordprof789'),
+                                                                                              ('65482367C', 'Daniel Martínez Gómez', 'daniel.martinez@p.studywithme.com', '$2a$10$Kfp.bCt7jWTXzpu2TG9/ZuUBvgr8A9BZBcPNt2DNDikybL8MzLevW'), -- passwordprof789
                                                                                               -- HISTORIA
-                                                                                              ('34578901D', 'Carmen García Martín', 'carmen.garcia@p.studywithme.com', '{noop}professorpass123'),
+                                                                                              ('34578901D', 'Carmen García Martín', 'carmen.garcia@p.studywithme.com', '$2a$10$8jO3qMaqd3GSpAvy/d479.qE9jNwcYXy3v4melEWyCAjRU6Q2WQ8O'), -- professorpass123
                                                                                               -- INGLES
-                                                                                              ('56789012E', 'Sergio Pérez Rodríguez', 'sergio.perez@p.studywithme.com', '{noop}profpass789'),
+                                                                                              ('56789012E', 'Sergio Pérez Rodríguez', 'sergio.perez@p.studywithme.com', '$2a$10$ERejNG1FwMOMUFvchxx/XeOGLlO6QrIdYr8sjhMTmNySZqWLn9lsW'), -- profpass789
                                                                                               -- EDUCACION FISICA
-                                                                                              ('67890123F', 'Marta López Gómez', 'marta.lopez@p.studywithme.com', '{noop}passwordprof123');
+                                                                                              ('67890123F', 'Marta López Gómez', 'marta.lopez@p.studywithme.com', '$2a$10$.t5yWwwmwX4oVI6OBsoQ1.NzF5MhvPYIXNRWPl1538scW83Gr6t0a'); -- passwordprof123
 
 
 -- Datos actualizados para la tabla alumnos
 INSERT INTO alumnos (nif_alumno, nombre_alumno, email_alumno, password_alumno, nombre_padre_alumno, nombre_madre_alumno) VALUES
                                                                                                                              -- 1 DE ESO
-                                                                                                                             ('45678901K', 'Sara García López', 'sara.garcia@studywithme.com', '{noop}studentpass123', 'Antonio García', 'María López'),
-                                                                                                                             ('12345678L', 'Carlos Martínez Sánchez', 'carlos.martinez@studywithme.com', '{noop}alum123pass', 'José Martínez', 'Ana Sánchez'),
-                                                                                                                             ('98765432M', 'Laura Pérez Martín', 'laura.perez@studywithme.com', '{noop}student456pass', 'Francisco Pérez', 'Sofía Martín'),
-                                                                                                                             ('34567890N', 'Sergio Rodríguez Gómez', 'sergio.rodriguez@studywithme.com', '{noop}alumpass789', 'Javier Rodríguez', 'Elena Gómez'),
-                                                                                                                             ('54321678O', 'Marta López García', 'marta.lopez.garcia@studywithme.com', '{noop}studentpass456', 'David López', 'Laura García'),
+                                                                                                                             ('45678901K', 'Sara García López', 'sara.garcia@studywithme.com', '$2a$10$uG/68Ph4Nt18Ey8UbLYf5e2E.uhp30oxmJGUBfpjbaF3EBCSlVY5C', 'Antonio García', 'María López'), -- studentpass123
+                                                                                                                             ('12345678L', 'Carlos Martínez Sánchez', 'carlos.martinez@studywithme.com', '$2a$10$cFCvG06yCs3Fln/wH73E..XdY7RVawyxNQPfulSqhAKkaq10/bw4G', 'José Martínez', 'Ana Sánchez'),-- alum123pass
+                                                                                                                             ('98765432M', 'Laura Pérez Martín', 'laura.perez@studywithme.com', '$2a$10$k0xsNfeyC6.Spz6b7xt/OOlfsa6FLa4tVF7u3GboKVuznm/SAQOlK', 'Francisco Pérez', 'Sofía Martín'),-- student456pass
+                                                                                                                             ('34567890N', 'Sergio Rodríguez Gómez', 'sergio.rodriguez@studywithme.com', '$2a$10$H7sPiivc9rMuYpwIVyeYVu62UsvqvRmGTrAAXfsRJhrKXJN3ubuKK', 'Javier Rodríguez', 'Elena Gómez'),-- alumpass789
+                                                                                                                             ('54321678O', 'Marta López García', 'marta.lopez.garcia@studywithme.com', '$2a$10$KBy0EauvhKWmMlWRfxgJQOQ9l68MDY/cRZLHodrsmtRwV5fHP83KG', 'David López', 'Laura García'),-- studentpass456
                                                                                                                              -- 2 DE ESO
-                                                                                                                             ('89012345P', 'Lucía Sánchez Martín', 'lucia.sanchez.martinez@studywithme.com', '{noop}alum789pass', 'Juan Sánchez', 'Ana Martín'),
-                                                                                                                             ('67890123Q', 'David González Gómez', 'david.gonzalez.gomez@studywithme.com', '{noop}studentpass789', 'Manuel González', 'María Gómez'),
-                                                                                                                             ('78901234R', 'Ana Martínez Rodríguez', 'ana.martinez.rodriguez@studywithme.com', '{noop}alum666pass', 'Carlos Martínez', 'Sara Rodríguez'),
-                                                                                                                             ('90123456S', 'Pablo Ruiz García', 'pablo.ruiz.garcia@studywithme.com', '{noop}studentpass777', 'Francisco Ruiz', 'Elena García'),
-                                                                                                                             ('23456789T', 'Elena Fernández López', 'elena.fernandez.lopez@studywithme.com', '{noop}alum888pass', 'Luis Fernández', 'Lucía López'),
+                                                                                                                             ('89012345P', 'Lucía Sánchez Martín', 'lucia.sanchez.martinez@studywithme.com', '$2a$10$rIjQTTFLNTP2WNiug/10nuwtFO.ZSPmA5..KfgOyg0LmapdgvnevK', 'Juan Sánchez', 'Ana Martín'),-- alum789pass
+                                                                                                                             ('67890123Q', 'David González Gómez', 'david.gonzalez.gomez@studywithme.com', '$2a$10$iCLUL2NNfECDuo3tXf2TX.xtaVyLAI5JCPyeXyWR63Qf9Con1BPyi', 'Manuel González', 'María Gómez'),-- studentpass789
+                                                                                                                             ('78901234R', 'Ana Martínez Rodríguez', 'ana.martinez.rodriguez@studywithme.com', '$2a$10$PnbH2U/OAonBJbwWzD194egIFnP0FrIoB78yq/V/oY2E9ZTML2EgW', 'Carlos Martínez', 'Sara Rodríguez'),-- alum666pass
+                                                                                                                             ('90123456S', 'Pablo Ruiz García', 'pablo.ruiz.garcia@studywithme.com', '$2a$10$FX4/cO9T.58Dah99PkjKs.sQLC7v2EUx6gI86v7HD5k8JycnUMfSq', 'Francisco Ruiz', 'Elena García'),-- studentpass777
+                                                                                                                             ('23456789T', 'Elena Fernández López', 'elena.fernandez.lopez@studywithme.com', '$2a$10$cVU0CnT1cRtXo5BppwFXQOFOrQJgteUbv3oDIln1k8QZYdtfOLaeW', 'Luis Fernández', 'Lucía López'),-- alum888pass
                                                                                                                              -- 3 DE ESO
-                                                                                                                             ('45678901U', 'Laura García Martínez', 'laura.garcia@studywithme.com', '{noop}studentpass123', 'Antonio García', 'María Martínez'),
-                                                                                                                             ('12345678V', 'Javier Martínez Rodríguez', 'javier.martinez@studywithme.com', '{noop}alum123pass', 'José Martínez', 'Ana Rodríguez'),
-                                                                                                                             ('98765432W', 'Sofía Pérez López', 'sofia.perez@studywithme.com', '{noop}student456pass', 'Francisco Pérez', 'Sara López'),
-                                                                                                                             ('34567890X', 'Diego Rodríguez Sánchez', 'diego.rodriguez@studywithme.com', '{noop}alumpass789', 'Javier Rodríguez', 'María Sánchez'),
-                                                                                                                             ('54321678Y', 'Marta López Martínez', 'marta.lopez@studywithme.com', '{noop}studentpass456', 'David López', 'Lucía Martínez'),
+                                                                                                                             ('45678901U', 'Laura García Martínez', 'laura.garcia@studywithme.com', '$2a$10$lUetrKUizQEFHT0hBLAt3eQnIqmmaCNlQ/My5JAquGQk9NZ5vHDFm', 'Antonio García', 'María Martínez'),-- studentpass123
+                                                                                                                             ('12345678V', 'Javier Martínez Rodríguez', 'javier.martinez@studywithme.com', '$2a$10$UDxfRB8x.hn0v18BVa./G.yZHwpqfh.lCFzaxtt2k3Zb2wH6vD1rm', 'José Martínez', 'Ana Rodríguez'),-- alum123pass
+                                                                                                                             ('98765432W', 'Sofía Pérez López', 'sofia.perez@studywithme.com', '$2a$10$UUPD1dLteTurLphO4MIwHuY7FI5A2iuqsOeEgJhq1kclpzDARTqIy', 'Francisco Pérez', 'Sara López'),-- student456pass
+                                                                                                                             ('34567890X', 'Diego Rodríguez Sánchez', 'diego.rodriguez@studywithme.com', '$2a$10$8Djft9apoqzJZltmzwiYnuMv8xc7Q1fMJ.oKwPo8QFbnj1cPQv9ei', 'Javier Rodríguez', 'María Sánchez'),-- alumpass789
+                                                                                                                             ('54321678Y', 'Marta López Martínez', 'marta.lopez@studywithme.com', '$2a$10$hm4K1j8g/7dp0Us/tp..p.iqviaBY66/b/C1Gh9LnM8daosTPFife', 'David López', 'Lucía Martínez'),-- studentpass456
                                                                                                                              -- 4 DE ESO
-                                                                                                                             ('89012345Z', 'Lucía Sánchez Rodríguez', 'lucia.sanchez@studywithme.com', '{noop}alum789pass', 'Juan Sánchez', 'Sofía Rodríguez'),
-                                                                                                                             ('67890123A', 'David González García', 'david.gonzalez@studywithme.com', '{noop}studentpass789', 'Manuel González', 'Laura García'),
-                                                                                                                             ('78901234B', 'Ana Martínez Gómez', 'ana.martinez@studywithme.com', '{noop}alum666pass', 'Carlos Martínez', 'Marta Gómez'),
-                                                                                                                             ('90123456C', 'Pablo Ruiz Rodríguez', 'pablo.ruiz@studywithme.com', '{noop}studentpass777', 'Francisco Ruiz', 'Elena Rodríguez'),
-                                                                                                                             ('23456789D', 'Elena Fernández Martínez', 'elena.fernandez@studywithme.com', '{noop}alum888pass', 'Luis Fernández', 'Sara Martínez');
+                                                                                                                             ('89012345Z', 'Lucía Sánchez Rodríguez', 'lucia.sanchez@studywithme.com', '$2a$10$u81YO8VWqWvoHmNXr2xqKOj5O7y.yqmvaBkM65ftADuLYtk71hhSK', 'Juan Sánchez', 'Sofía Rodríguez'),-- alum789pass
+                                                                                                                             ('67890123A', 'David González García', 'david.gonzalez@studywithme.com', '$2a$10$wgSBn/.Jv8IH4LUrc51ERutmWQ6SYF8L6/q.ERlskJKwuSpthZDA6', 'Manuel González', 'Laura García'),-- studentpass789
+                                                                                                                             ('78901234B', 'Ana Martínez Gómez', 'ana.martinez@studywithme.com', '$2a$10$TXFEjRPo/S2HVHwnZcEUgu23oIC8k1iMwoKcMDScsBRFYZxKlrHUK', 'Carlos Martínez', 'Marta Gómez'),-- alum666pass
+                                                                                                                             ('90123456C', 'Pablo Ruiz Rodríguez', 'pablo.ruiz@studywithme.com', '$2a$10$NXg5IPPFOibqhRLpSDndE.fFX4az9ibCR55NnbqkoBStBIaSKXT/u', 'Francisco Ruiz', 'Elena Rodríguez'),-- studentpass777
+                                                                                                                             ('23456789D', 'Elena Fernández Martínez', 'elena.fernandez@studywithme.com', '$2a$10$LbLYzcPcUyreOrL3pWf34eV5rCNfrzzF58DHh5oReRajUN/PufSue', 'Luis Fernández', 'Sara Martínez');-- alum888pass
 
 
 -- Datos curso
@@ -162,9 +162,9 @@ CREATE TABLE IF NOT EXISTS cursos_asignaturas (
                                                   id_curso INT NOT NULL,
                                                   id_asignatura INT NOT NULL,
                                                   PRIMARY KEY (id_curso, id_asignatura),
-    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
-    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura)
-    );
+                                                  FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
+                                                  FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura)
+);
 
 -- ASIGNATURAS
 INSERT INTO cursos_asignaturas (id_curso, id_asignatura)
