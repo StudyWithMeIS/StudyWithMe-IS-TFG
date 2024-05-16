@@ -19,57 +19,57 @@ DROP TABLE IF EXISTS administradores;
 CREATE TABLE IF NOT EXISTS administradores (
                                                id_admin INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
                                                nif_admin CHAR(9) NOT NULL UNIQUE,
-                                               nombre_admin VARCHAR(50) NOT NULL,
-                                               email_admin VARCHAR(100) UNIQUE NOT NULL,
-                                               password_admin VARCHAR(100) NOT NULL,
-);
+    nombre_admin VARCHAR(50) NOT NULL,
+    email_admin VARCHAR(100) UNIQUE NOT NULL,
+    password_admin VARCHAR(100) NOT NULL,
+    );
 
 -- Crear la tabla para Profesores
 CREATE TABLE IF NOT EXISTS profesores (
                                           id_profesor INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
                                           nif_profesor CHAR(9) NOT NULL UNIQUE,
-                                          nombre_profesor VARCHAR(50) NOT NULL,
-                                          email_profesor VARCHAR(100) UNIQUE NOT NULL,
-                                          password_profesor VARCHAR(100) NOT NULL
-);
+    nombre_profesor VARCHAR(50) NOT NULL,
+    email_profesor VARCHAR(100) UNIQUE NOT NULL,
+    password_profesor VARCHAR(100) NOT NULL
+    );
 
 -- Crear la tabla para Alumnos
 CREATE TABLE IF NOT EXISTS alumnos (
                                        id_alumno INT NOT NULL UNIQUE PRIMARY KEY auto_increment,
                                        nif_alumno CHAR(9) NOT NULL UNIQUE,
-                                       nombre_alumno VARCHAR(50) NOT NULL,
-                                       email_alumno VARCHAR(100) UNIQUE NOT NULL,
-                                       password_alumno VARCHAR(100) NOT NULL,
-                                       nombre_padre_alumno VARCHAR(100),
-                                       nombre_madre_alumno VARCHAR(100)
-);
+    nombre_alumno VARCHAR(50) NOT NULL,
+    email_alumno VARCHAR(100) UNIQUE NOT NULL,
+    password_alumno VARCHAR(100) NOT NULL,
+    nombre_padre_alumno VARCHAR(100),
+    nombre_madre_alumno VARCHAR(100)
+    );
 
 -- Crear tabla curso
 CREATE TABLE IF NOT EXISTS cursos (
                                       id_curso INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                       nombre_curso VARCHAR(100) NOT NULL UNIQUE
-);
+    );
 
 -- Crear la tabla para asignaturas
 CREATE TABLE IF NOT EXISTS asignaturas (
                                            id_asignatura INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                            nombre_asignatura VARCHAR(100) NOT NULL UNIQUE,
-                                           nombre_curso_asignatura VARCHAR(100) NOT NULL,
-                                           nif_profesor_asignatura CHAR(9) NOT NULL
-);
+    nombre_curso_asignatura VARCHAR(100) NOT NULL,
+    nif_profesor_asignatura CHAR(9) NOT NULL
+    );
 
 
 -- Crear la tabla para tareas
 CREATE TABLE IF NOT EXISTS tareas (
                                       id_tarea INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                       tipo_tarea VARCHAR(50) NOT NULL,
-                                      titulo_tarea VARCHAR(100) NOT NULL,
-                                      descripcion_tarea VARCHAR(100) NOT NULL,
-                                      calificacion_tarea DECIMAL(5, 3),
-                                      nif_profesor_tarea CHAR(9) NOT NULL,
-                                      nif_alumno_tarea CHAR(9) NOT NULL,
-                                      nombre_asignatura_tarea VARCHAR(100) NOT NULL
-);
+    titulo_tarea VARCHAR(100) NOT NULL,
+    descripcion_tarea VARCHAR(100) NOT NULL,
+    calificacion_tarea DECIMAL(5, 3),
+    nif_profesor_tarea CHAR(9) NOT NULL,
+    nif_alumno_tarea CHAR(9) NOT NULL,
+    nombre_asignatura_tarea VARCHAR(100) NOT NULL
+    );
 
 -- Datos para la tabla administradores
 INSERT INTO administradores (nif_admin, nombre_admin, email_admin, password_admin) VALUES
@@ -162,9 +162,9 @@ CREATE TABLE IF NOT EXISTS cursos_asignaturas (
                                                   id_curso INT NOT NULL,
                                                   id_asignatura INT NOT NULL,
                                                   PRIMARY KEY (id_curso, id_asignatura),
-                                                  FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
-                                                  FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura)
-);
+    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
+    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura)
+    );
 
 -- ASIGNATURAS
 INSERT INTO cursos_asignaturas (id_curso, id_asignatura)
