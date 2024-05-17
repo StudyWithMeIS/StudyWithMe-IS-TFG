@@ -52,31 +52,31 @@ public class AlumnosController {
     //CALENDARIO
     @GetMapping("/asignaturas/calendario")
     public ModelAndView calendario() {
-        return new ModelAndView("pages/alumno/asignatura/calendarAlumno");
-    }
-
-    //NAVEGADOR DE ASIGNATURAS
-    @GetMapping("/asignaturas/navAsignaturasAlumnos")
-    public ModelAndView navAsignaturasAlumnos() {
-        return new ModelAndView("pages/alumno/asignatura/navbarGradeAlumno");
+        return new ModelAndView("pages/alumno/grade/calendarAlumno");
     }
 
     //VER PERSONAS DE UNA ASIGNATURA
     @GetMapping("/asignaturas/verPersonas")
     public ModelAndView verAsignatura() {
-        return new ModelAndView("pages/alumno/asignatura/verPersonasAlumno");
+        return new ModelAndView("pages/alumno/grade/verPersonasAlumno");
     }
 
     //VER TAREAS DE UNA ASIGNATURA
     @GetMapping("/asignaturas/verTareas")
     public ModelAndView verTareas() {
-        return new ModelAndView("pages/alumno/asignatura/tareasAlumno");
+        return new ModelAndView("pages/alumno/grade/tareasAlumno");
     }
 
     //VER UNA TAREA DE UNA ASIGNATURA
     @GetMapping("/asignaturas/verUnaTarea")
     public ModelAndView verUnaAsignatura() {
-        return new ModelAndView("pages/alumno/asignatura/unaTareaAlumno");
+        return new ModelAndView("pages/alumno/grade/unaTareaAlumno");
+    }
+
+    //VER TABLON
+    @GetMapping("/asignaturas/verTablon")
+    public ModelAndView verTablon() {
+        return new ModelAndView("pages/alumno/grade/tablonAlumno");
     }
 
 
