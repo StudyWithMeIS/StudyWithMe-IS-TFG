@@ -28,10 +28,26 @@ public class SecurityConfig{
     @Bean
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager userDetailsManager = new JdbcUserDetailsManager(dataSource);
-        userDetailsManager.setUsersByUsernameQuery(
-                "SELECT nif_admin AS username, password_admin AS password, true AS enabled FROM administradores WHERE nif_admin = ?");
-        userDetailsManager.setAuthoritiesByUsernameQuery(
-                "SELECT nif_admin AS username, 'ROLE_ADMINISTRADOR' AS authority FROM administradores WHERE nif_admin=?" );
+
+        String usersByUsernameQuery = "SELECT username, password, enabled FROM (" +
+                "SELECT nif_admin AS username, password_admin AS password, true AS enabled FROM administradores " +
+                "UNION ALL " +
+                "SELECT nif_profesor AS username, password_profesor AS password, true AS enabled FROM profesores " +
+                "UNION ALL " +
+                "SELECT nif_alumno AS username, password_alumno AS password, true AS enabled FROM alumnos" +
+                ") AS users WHERE username = ?";
+
+        String authoritiesByUsernameQuery = "SELECT username, authority FROM (" +
+                "SELECT nif_admin AS username, 'ROLE_ADMINISTRADOR' AS authority FROM administradores " +
+                "UNION ALL " +
+                "SELECT nif_profesor AS username, 'ROLE_PROFESOR' AS authority FROM profesores " +
+                "UNION ALL " +
+                "SELECT nif_alumno AS username, 'ROLE_ALUMNO' AS authority FROM alumnos" +
+                ") AS authorities WHERE username = ?";
+
+        userDetailsManager.setUsersByUsernameQuery(usersByUsernameQuery);
+        userDetailsManager.setAuthoritiesByUsernameQuery(authoritiesByUsernameQuery);
+
         return userDetailsManager;
     }
 
