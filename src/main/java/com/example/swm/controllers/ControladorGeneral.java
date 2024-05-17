@@ -37,7 +37,30 @@ public class ControladorGeneral {
     @RequestMapping("/")
     public ModelAndView index(Authentication auth) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("userAuthenticated", isAuthenticated(auth));
+        if (auth != null) {
+            String username = auth.getName();
+            //Representa al cliente  que ha iniciado sesion.
+            Administradores admin_user = adminRepo.findAdministradorByNif(username).orElse(null);
+            Alumnos alumno_user = alumnosRepo.findAlumnosByNif(username).orElse(null);
+            Profesores profesor_user = profesoresRepo.findProfesoresByNif(username).orElse(null);
+
+            System.out.println("AUTH HECHO");
+
+            if (admin_user != null) {
+                mv.addObject("user", admin_user);
+                System.out.println("ROLE ADMIN");
+            } else if (alumno_user != null) {
+                mv.addObject("user", alumno_user);
+                System.out.println("ROLE PROFESOR");
+            } else if (profesor_user != null) {
+                mv.addObject("user", profesor_user);
+                System.out.println("ROLE ALUMNO");
+            }
+            System.out.println("USUARIO INICIÓ SESIÓN: " + username);
+            mv.addObject("userAuthenticated", isAuthenticated(auth));
+        }else{
+            System.out.println("AUTH NO HECHO");
+        }
         mv.setViewName("index");
         return mv;
     }
@@ -65,22 +88,6 @@ public class ControladorGeneral {
     @RequestMapping("/login")
     public ModelAndView login(Authentication auth) {
         ModelAndView mv = new ModelAndView();
-        if (auth != null) {
-            String username = auth.getName();
-            //Representa al cliente  que ha iniciado sesion.
-            Administradores admin_user = adminRepo.findById(Integer.valueOf(username)).orElse(null);
-            Alumnos alumno_user = alumnosRepo.findById(Integer.valueOf(username)).orElse(null);
-            Profesores profesor_user = profesoresRepo.findById(Integer.valueOf(username)).orElse(null);
-
-            if (admin_user != null) {
-                mv.addObject("user", admin_user);
-            } else if (alumno_user != null) {
-                mv.addObject("user", alumno_user);
-            } else if (profesor_user != null) {
-                mv.addObject("user", profesor_user);
-            }
-            System.out.println("USUARIO INICIÓ SESIÓN: " + username);
-        }
         mv.setViewName("pages/login");
         return mv;
     }
