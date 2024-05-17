@@ -50,7 +50,7 @@
                         <h3 class="text-center">INICIA SESIÓN</h3>
                     </div>
                     <div class="card-body">
-                        <form th:action="@{/login}" method="post">
+                        <form th:action="@{/login}" th:object="${auth}" method="post">
                             <div class="form-group">
                                 <label for="username">NIF de usuario:</label>
                                 <input type="text" id="username" name="username" class="form-control" required>
