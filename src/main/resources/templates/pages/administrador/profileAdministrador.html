@@ -24,7 +24,7 @@
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
             <h2>Perfil del Administrador</h2>
-            <form th:object="${/administradores/administradores/leer}" method="post" enctype="multipart/form-data">
+            <form th:object="@{/administradores/administradores/viewPerfilAdministrador}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="nif">NIF:</label>
                     <input type="text" class="form-control" id="nif" th:field="*{admin.nif_admin}" readonly>
