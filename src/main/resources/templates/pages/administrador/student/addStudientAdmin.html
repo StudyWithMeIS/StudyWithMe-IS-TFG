@@ -29,7 +29,7 @@
                 <div class="mb-3">
                     <label for="nif_alumno" class="form-label">NIF/DNI del alumno:</label>
                     <input type="text" class="form-control" id="nif_alumno" name="nif_alumno"
-                           placeholder="11111111A" th:value="${alumno != null ? alumno.nif : ''}" required>
+                           placeholder="00000000A" th:value="${alumno != null ? alumno.nif : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el NIF del alumno.
                     </div>
@@ -37,7 +37,7 @@
                 <div class="mb-3">
                     <label for="nombre_alumno" class="form-label">Nombre del alumno:</label>
                     <input type="text" class="form-control" id="nombre_alumno" name="nombre_alumno"
-                           placeholder="Pepe" th:value="${alumno != null ? alumno.nombre : ''}" required>
+                           placeholder="Ejemplo" th:value="${alumno != null ? alumno.nombre : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa el nombre del alumno.
                     </div>
@@ -45,7 +45,7 @@
                 <div class="mb-3">
                     <label for="email_alumno" class="form-label">Email del alumno:</label>
                     <input type="email" class="form-control" id="email_alumno" name="email_alumno"
-                           placeholder="pepe@gmail.com" th:value="${alumno != null ? alumno.email : ''}" required>
+                           placeholder="ejemplo@gmail.com" th:value="${alumno != null ? alumno.email : ''}" required>
                     <div class="invalid-feedback">
                         Por favor ingresa un email válido.
                     </div>
@@ -53,7 +53,7 @@
                 <div class="mb-3">
                     <label for="password_alumno" class="form-label">Contraseña del alumno:</label>
                     <input type="password" class="form-control" id="password_alumno" name="password_alumno"
-                           placeholder="Pepe123@$" th:value="${alumno != null ? alumno.password : ''}"
+                           placeholder="Ejemplo" th:value="${alumno != null ? alumno.password : ''}"
                            required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}">
                     <div class="invalid-feedback">
                         La contraseña debe contener al menos 8 caracteres incluyendo mayúsculas, minúsculas, números y

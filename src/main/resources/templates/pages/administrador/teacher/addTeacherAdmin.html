@@ -27,22 +27,22 @@
                 <input type="hidden" id="id" name="id" th:value="${profesor != null ? profesor.id : ''}">
                 <div class="mb-3">
                     <label for="nif_profesor" class="form-label">NIF/DNI del profesor</label>
-                    <input type="text" class="form-control" id="nif_profesor" name="nif_profesor" placeholder="11111111A"
+                    <input type="text" class="form-control" id="nif_profesor" name="nif_profesor" placeholder="00000000A"
                            th:value="${profesor != null ? profesor.nif : ''}" required>
                 </div>
                 <div class="mb-3">
                     <label for="nombre_profesor" class="form-label">Nombre del profesor</label>
-                    <input type="text" class="form-control" id="nombre_profesor" name="nombre_profesor" placeholder="Javier"
+                    <input type="text" class="form-control" id="nombre_profesor" name="nombre_profesor" placeholder="Ejemplo"
                            th:value="${profesor != null ? profesor.nombre : ''}" required>
                 </div>
                 <div class="mb-3">
                     <label for="email_profesor" class="form-label">Email del profesor</label>
-                    <input type="email" class="form-control" id="email_profesor" name="email_profesor" placeholder="javier@gmail.com"
+                    <input type="email" class="form-control" id="email_profesor" name="email_profesor" placeholder="ejempo@gmail.com"
                            th:value="${profesor != null ? profesor.email : ''}" required>
                 </div>
                 <div class="mb-3">
                     <label for="password_profesor" class="form-label">Contraseña del profesor</label>
-                    <input type="password" class="form-control" id="password_profesor" name="password_profesor" placeholder="Javier123@$"
+                    <input type="password" class="form-control" id="password_profesor" name="password_profesor" placeholder="ejemplo"
                            th:value="${profesor != null ? profesor.password : ''}" required>
                 </div>
                 <button type="submit" class="btn btn-primary">Añadir Profesor</button>
