@@ -33,25 +33,23 @@
                         <li class="nav-item">
                             <a class="nav-link" th:href="@{/join}">Mátriculate</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:if="${session.user == null}" th:href="@{/login}">Iniciar
-                                sesión</a>
+                        <li class="nav-item" th:if="${#authentication.name == 'anonymousUser'}">
+                            <a class="nav-link" th:href="@{/login}">Iniciar sesión</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:if="${session.user}" th:href="@{/logout}">Cerrar sesión</a>
+                        <li class="nav-item" th:if="${#authentication.name != 'anonymousUser'}">
+                            <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:if="${session.user != null}" th:href="@{/perfil}">Perfil</a>
+                        <li class="nav-item" th:if="${#authentication.name != 'anonymousUser'}">
+                            <a class="nav-link" th:href="@{/administradores/administradores/viewPerfilAdministrador}">Perfil</a>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                HOMES
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewHomeAdministrador}">Home Administrador</a></li>
-                                <li><a class="dropdown-item" th:href="@{/profesores/viewHomeProfesor}">Home Profesor</a></li>
-                                <li><a class="dropdown-item" th:href="@{/alumnos/homeAsignaturas}">Home Alumno</a></li>
-                            </ul>
+                        <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ADMINISTRADOR'')')}">
+                            <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Home Administrador</a>
+                        </li>
+                        <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_PROFESOR'')')}">
+                            <a class="nav-link" th:href="@{/profesores/viewHomeProfesor}">Home Profesor</a>
+                        </li>
+                        <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ALUMNO'')')}">
+                            <a class="nav-link" th:href="@{/alumnos/homeAsignaturas}">Home Alumno</a>
                         </li>
                     </ul>
                 </div>

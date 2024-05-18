@@ -58,7 +58,7 @@ public class SecurityConfig{
                .requestMatchers("templates/**", "static/**", "/styles/**", "/scripts/**", "/images/**", "/pages/**", "/vendor/**", "/join", "knowUs").permitAll()
                .requestMatchers("/", "/login", "/signup").permitAll()
                .requestMatchers("/profesor/**").hasAuthority("ROLE_PROFESOR")
-               .requestMatchers("/administrador/**").hasAuthority("ROLE_ADMINISTRADOR")
+               .requestMatchers("/administradores/**").hasAuthority("ROLE_ADMINISTRADOR")
                .requestMatchers("/alumno/**").hasAuthority("ROLE_ALUMNO")
                .anyRequest().authenticated())
             .formLogin(formLogin -> formLogin.loginPage("/login").defaultSuccessUrl("/", true).permitAll())

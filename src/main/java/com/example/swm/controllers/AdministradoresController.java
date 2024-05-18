@@ -6,6 +6,7 @@ import com.example.swm.services.AlumnosService;
 import com.example.swm.services.AsignaturasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -363,6 +364,32 @@ public class AdministradoresController {
         mv.setViewName("pages/administrador/profileAdministrador");
         return mv;
     }
+
+
+    @GetMapping("/administradores/perfilAdministrador")
+    public ModelAndView PerfilAdministrador(Authentication auth) {
+        ModelAndView mv = new ModelAndView();
+        if (auth != null) {
+            String username = auth.getName();
+            Administradores admin = administradoresRepository.findAdministradorByNif(username).orElse(null);
+            if (admin != null) {
+                mv.addObject("admin", admin);
+                mv.setViewName("/administradores/administradores/viewPerfilAdministrador");
+                return mv;
+            }
+        }
+        mv.setViewName("redirect:/");
+        return mv;
+    }
+
+
+
+
+
+
+
+
+
 
 
 

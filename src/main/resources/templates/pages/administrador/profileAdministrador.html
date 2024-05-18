@@ -24,29 +24,29 @@
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
             <h2>Perfil del Administrador</h2>
-            <form th:object="@{/administradores/administradores/viewPerfilAdministrador}" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="nif">NIF:</label>
-                    <input type="text" class="form-control" id="nif" th:field="*{admin.nif_admin}" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" th:field="*{admin.nombre_admin}">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" th:field="*{admin.email_admin}">
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" class="form-control" id="password" th:field="*{admin.password_admin}">
-                </div>
-<!--            <div class="form-group">
-                    <label for="foto">Foto de Perfil:</label>
-                    <input type="file" class="form-control-file" id="foto" name="foto">
-                </div>-->
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            </form>
+            <table class="table table-bordered" th:method="@{/administradores/administradores/perfilAdministrador}">
+                <thead>
+                <tr>
+                    <th>NIF: </th>
+                    <th>Nombre completo: </th>
+                    <th>Email: </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>NIF</td>
+                    <td th:text="${admin.nif_admin}"></td>
+                </tr>
+                <tr>
+                    <td>Nombre</td>
+                    <td th:text="${admin.nombre_admin}"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td th:text="${admin.email_admin}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
