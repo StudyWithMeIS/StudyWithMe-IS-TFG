@@ -19,34 +19,34 @@
 
 
 
-<section class="container-fluid lg-5">
-    <!-- Home -->
-    <div class="container mt-3">
-        <div class="container-fluid custom-margin-top">
-            <h2>Perfil del Administrador</h2>
-            <form th:object="@{/administradores/administradores/viewPerfilAdministrador}" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="nif">NIF:</label>
-                    <input type="text" class="form-control" id="nif" th:field="*{admin.nif_admin}" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" th:field="*{admin.nombre_admin}">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" th:field="*{admin.email_admin}">
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" class="form-control" id="password" th:field="*{admin.password_admin}">
-                </div>
-<!--            <div class="form-group">
-                    <label for="foto">Foto de Perfil:</label>
-                    <input type="file" class="form-control-file" id="foto" name="foto">
-                </div>-->
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            </form>
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h2 class="mb-4">Perfil del Administrador</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>NIF</th>
+                    <th>Nombre completo</th>
+                    <th>Email</th>
+                    <th>Actualizar</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${admin != null ? admin.nif_admin : 'N/A'}"></td>
+                    <td th:text="${admin != null ? admin.nombre_admin : 'N/A'}"></td>
+                    <td th:text="${admin != null ? admin.email_admin : 'N/A'}"></td>
+                    <td>
+                        <div class="d-flex justify-content-between">
+                            <form th:action="@{/administradores/administradores/viewActualizarAdministradores/{id_admin}(id_admin=${admin.id_admin})}" method="get">
+                                <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>
