@@ -359,9 +359,10 @@ public class AdministradoresController {
     }
 
     @GetMapping("/administradores/viewPerfilAdministrador")
-    public ModelAndView viewPerfilAdministrador() {
+    public ModelAndView viewPerfilAdministrador(Authentication auth) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("pages/administrador/profileAdministrador");
+        mv.addObject("admin", PerfilAdministrador(auth).getModel().get("admin"));
         return mv;
     }
 
@@ -374,11 +375,11 @@ public class AdministradoresController {
             Administradores admin = administradoresRepository.findAdministradorByNif(username).orElse(null);
             if (admin != null) {
                 mv.addObject("admin", admin);
-                mv.setViewName("/administradores/administradores/viewPerfilAdministrador");
+                mv.setViewName("pages/administrador/profileAdministrador");
                 return mv;
             }
         }
-        mv.setViewName("redirect:/");
+        mv.setViewName("redirect:/login");
         return mv;
     }
 

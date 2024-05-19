@@ -19,31 +19,31 @@
 
 
 
-<section class="container-fluid lg-5">
-    <!-- Home -->
-    <div class="container mt-3">
-        <div class="container-fluid custom-margin-top">
-            <h2>Perfil del Administrador</h2>
-            <table class="table table-bordered" th:method="@{/administradores/administradores/perfilAdministrador}">
-                <thead>
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h2 class="mb-4">Perfil del Administrador</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
                 <tr>
-                    <th>NIF: </th>
-                    <th>Nombre completo: </th>
-                    <th>Email: </th>
+                    <th>NIF</th>
+                    <th>Nombre completo</th>
+                    <th>Email</th>
+                    <th>Actualizar</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>NIF</td>
-                    <td th:text="${admin.nif_admin}"></td>
-                </tr>
-                <tr>
-                    <td>Nombre</td>
-                    <td th:text="${admin.nombre_admin}"></td>
-                </tr>
-                <tr>
-                    <td>Email</td>
-                    <td th:text="${admin.email_admin}"></td>
+                    <td th:text="${admin != null ? admin.nif_admin : 'N/A'}"></td>
+                    <td th:text="${admin != null ? admin.nombre_admin : 'N/A'}"></td>
+                    <td th:text="${admin != null ? admin.email_admin : 'N/A'}"></td>
+                    <td>
+                        <div class="d-flex justify-content-between">
+                            <form th:action="@{/administradores/administradores/viewActualizarAdministradores/{id_admin}(id_admin=${admin.id_admin})}" method="get">
+                                <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>
