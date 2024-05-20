@@ -30,7 +30,9 @@
                     <h3>Asignaturas</h3>
                 </div>
                 <div class="col-6 text-end">
-                    <a th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}" class="btn btn-primary"><i class="bi bi-person-plus"></i> Nueva asignatura</a>
+                    <a th:href="@{/administradores/asignatura/viewCrearAsignaturasAdministrador}" class="btn btn-primary">
+                        <i class="bi bi-person-plus"></i> Nueva asignatura
+                    </a>
                 </div>
             </div>
 
@@ -39,26 +41,38 @@
                 <tr>
                     <th>Nombre de la Asignatura</th>
                     <th>Curso</th>
+                    <th>Imagen</th>
+                    <th>Descripción</th>
+                    <th>Detalle</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="asignatura : ${asignaturas}">
                     <td th:text="${asignatura.nombre_asignatura}"></td>
                     <td th:text="${asignatura.nombre_curso_asignatura}"></td>
-                    <td>
-                        <form th:action="@{/administradores/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="get">
-                            <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
-                        </form>
+                    <td th:if="${asignatura.imagen_asignatura != null}">
+                        <img th:src="@{${asignatura.imagen_asignatura}}" alt="Imagen Asignatura" class="img-thumbnail" style="max-width: 100px;">
                     </td>
+                    <td th:if="${asignatura.imagen_asignatura == null}">
+                        Sin imagen
+                    </td>
+                    <td th:text="${asignatura.descripcion_asignatura}"></td>
+                    <td th:text="${asignatura.detalle_asignatura}"></td>
                     <td>
-                        <form th:action="@{/administradores/asignatura/borrarAsignaturaAdministrador/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="post">
-                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
-                        </form>
+                        <div class="btn-group" role="group">
+                            <form th:action="@{/administradores/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="get" class="d-inline">
+                                <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
+                            </form>
+                            <form th:action="@{/administradores/asignatura/borrarAsignaturaAdministrador/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
                 </tbody>
             </table>
-<!--            <div th:replace="modalDeleteAdmin :: modalDeleteAdmin"></div>-->
         </div>
     </div>
 </section>

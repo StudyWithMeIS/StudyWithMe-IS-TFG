@@ -716,41 +716,48 @@ public class AdministradoresController {
     }
 
     @RequestMapping("/asignatura/guardarAsignatura")
-    public ModelAndView guardarAsignatura(@ModelAttribute Asignaturas asignatura, @Validated BindingResult result) {
+    public ModelAndView guardarAsignatura(@ModelAttribute @Validated Asignaturas asignatura, BindingResult result) {
         ModelAndView mv = new ModelAndView();
-        if (result.hasErrors() || asignatura.getNombre_asignatura().isEmpty() || asignatura.getNombre_curso_asignatura().isEmpty() || asignatura.getNif_profesor_asignatura().isEmpty()) {
-            System.out.println(result.getAllErrors().toString());
+
+        // Validar campos obligatorios y mostrar errores si los hay
+        if (result.hasErrors() || asignatura.getNombre_asignatura().isEmpty()
+                || asignatura.getNombre_curso_asignatura().isEmpty()
+                || asignatura.getNif_profesor_asignatura().isEmpty()
+                || asignatura.getDescripcion_asignatura().isEmpty()
+                || asignatura.getDetalle_asignatura().isEmpty()) {
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             mv.setViewName("redirect:/administradores/asignatura/viewCrearAsignaturasAdministrador");
             return mv;
-        }else{
-            String nombreAsignatura = asignatura.getNombre_asignatura().toLowerCase();
-            String nombreCursoAsignatura = asignatura.getNombre_curso_asignatura().toLowerCase();
-            String nifProfesorAsignatura = asignatura.getNif_profesor_asignatura().toLowerCase();
-            Optional<Asignaturas> existingAsignaturas = asignaturasRepository.findAsignaturasByName(asignatura.getNombre_asignatura());
-            if (existingAsignaturas.isPresent()) {
-                mv.addObject("error", "La asignatura ya existe en la base de datos");
-            } else {
-                Asignaturas asignaturas = new Asignaturas();
-                asignaturas.setNombre_asignatura(nombreAsignatura);
-                asignaturas.setNombre_curso_asignatura(nombreCursoAsignatura);
-                asignaturas.setNif_profesor_asignatura(nifProfesorAsignatura);
-
-                asignaturasRepository.save(asignaturas);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-            mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
-            return mv;
         }
+
+        // Convertir los nombres a minúsculas para uniformidad
+        String nombreAsignatura = asignatura.getNombre_asignatura().toLowerCase();
+        String nombreCursoAsignatura = asignatura.getNombre_curso_asignatura().toLowerCase();
+        String nifProfesorAsignatura = asignatura.getNif_profesor_asignatura().toLowerCase();
+        String imagenAsignatura = asignatura.getImagen_asignatura() != null ? asignatura.getImagen_asignatura() : "";
+        String descripcionAsignatura = asignatura.getDescripcion_asignatura().toLowerCase();
+        String detalleAsignatura = asignatura.getDetalle_asignatura().toLowerCase();
+
+        // Comprobar si la asignatura ya existe
+        Optional<Asignaturas> existingAsignaturas = asignaturasRepository.findAsignaturasByName(asignatura.getNombre_asignatura());
+        if (existingAsignaturas.isPresent()) {
+            mv.addObject("error", "La asignatura ya existe en la base de datos.");
+            mv.setViewName("redirect:/administradores/asignatura/viewCrearAsignaturasAdministrador");
+        } else {
+            // Crear nueva asignatura y guardar en la base de datos
+            Asignaturas nuevaAsignatura = new Asignaturas();
+            nuevaAsignatura.setNombre_asignatura(nombreAsignatura);
+            nuevaAsignatura.setNombre_curso_asignatura(nombreCursoAsignatura);
+            nuevaAsignatura.setNif_profesor_asignatura(nifProfesorAsignatura);
+            nuevaAsignatura.setImagen_asignatura(imagenAsignatura);
+            nuevaAsignatura.setDescripcion_asignatura(descripcionAsignatura);
+            nuevaAsignatura.setDetalle_asignatura(detalleAsignatura);
+
+            asignaturasRepository.save(nuevaAsignatura);
+        }
+
+        mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
+        return mv;
     }
 
 
@@ -794,23 +801,37 @@ public class AdministradoresController {
     @PostMapping("/asignatura/actualizarAsignatura/{id_asignatura}")
     public ModelAndView actualizarAsignatura(@PathVariable("id_asignatura") int id_asignatura, @ModelAttribute("asignatura") Asignaturas asignatura, BindingResult result) {
         ModelAndView mv = new ModelAndView();
-        if (result.hasErrors() || asignatura.getNombre_asignatura().isEmpty() || asignatura.getNombre_curso_asignatura().isEmpty() || asignatura.getNif_profesor_asignatura().isEmpty()) {
+        if (result.hasErrors() || asignatura.getNombre_asignatura().isEmpty()
+                || asignatura.getNombre_curso_asignatura().isEmpty()
+                || asignatura.getNif_profesor_asignatura().isEmpty()
+                || asignatura.getDescripcion_asignatura().isEmpty()
+                || asignatura.getDetalle_asignatura().isEmpty()) {
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
-            mv.setViewName("redirect:/administradores/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}");
+            mv.setViewName("redirect:/administradores/asignatura/viewActualizarAsignaturasAdministradores/" + id_asignatura);
             return mv;
         }
-        int idAsignatura = asignatura.getId_asignatura();
-        if (asignaturasRepository.existsById(idAsignatura)) {
 
+        if (asignaturasRepository.existsById(id_asignatura)) {
+            // Convertir los campos a minúsculas
             String nombreAsignatura = asignatura.getNombre_asignatura().toLowerCase();
             String nombreCursoAsignatura = asignatura.getNombre_curso_asignatura().toLowerCase();
             String nifProfesorAsignatura = asignatura.getNif_profesor_asignatura().toLowerCase();
+            String imagenAsignatura = asignatura.getImagen_asignatura() != null ? asignatura.getImagen_asignatura() : "";
+            String descripcionAsignatura = asignatura.getDescripcion_asignatura().toLowerCase();
+            String detalleAsignatura = asignatura.getDetalle_asignatura().toLowerCase();
 
-            asignatura.setNombre_asignatura(nombreAsignatura);
-            asignatura.setNombre_curso_asignatura(nombreCursoAsignatura);
-            asignatura.setNif_profesor_asignatura(nifProfesorAsignatura);
+            // Actualizar los valores de la asignatura
+            Asignaturas asignaturaExistente = asignaturasRepository.findById(id_asignatura).orElseThrow(() -> new IllegalArgumentException("Invalid asignatura ID"));
+            asignaturaExistente.setNombre_asignatura(nombreAsignatura);
+            asignaturaExistente.setNombre_curso_asignatura(nombreCursoAsignatura);
+            asignaturaExistente.setNif_profesor_asignatura(nifProfesorAsignatura);
+            asignaturaExistente.setImagen_asignatura(imagenAsignatura);
+            asignaturaExistente.setDescripcion_asignatura(descripcionAsignatura);
+            asignaturaExistente.setDetalle_asignatura(detalleAsignatura);
 
-            asignaturasRepository.save(asignatura);
+            // Guardar la asignatura actualizada
+            asignaturasRepository.save(asignaturaExistente);
+
             mv.setViewName("redirect:/administradores/asignatura/viewListarAsignaturasAdministradores");
             try {
                 Thread.sleep(1000);
@@ -819,7 +840,7 @@ public class AdministradoresController {
             }
         } else {
             mv.addObject("error", "La asignatura no existe en la base de datos");
-            mv.setViewName("redirect:/administradores/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}");
+            mv.setViewName("redirect:/administradores/asignatura/viewActualizarAsignaturasAdministradores/" + id_asignatura);
         }
         return mv;
     }

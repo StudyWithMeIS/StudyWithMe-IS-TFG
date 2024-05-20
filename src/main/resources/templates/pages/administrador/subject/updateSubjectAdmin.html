@@ -34,6 +34,22 @@
                     </div>
                 </div>
                 <div class="mb-3">
+                    <label for="descripcion_asignatura" class="form-label">Descripción de la asignatura:</label>
+                    <input type="text" class="form-control" id="descripcion_asignatura" name="descripcion_asignatura"
+                           placeholder="Breve descripción" th:value="${asignatura != null ? asignatura.descripcion_asignatura : ''}">
+                    <div class="invalid-feedback">
+                        Por favor ingresa una descripción válida.
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="detalle_asignatura" class="form-label">Detalle de la asignatura:</label>
+                    <input type="text" class="form-control" id="detalle_asignatura" name="detalle_asignatura"
+                           placeholder="Detalles adicionales" th:value="${asignatura != null ? asignatura.detalle_asignatura : ''}">
+                    <div class="invalid-feedback">
+                        Por favor ingresa detalles válidos.
+                    </div>
+                </div>
+                <div class="mb-3">
                     <label for="nombre_curso_asignatura" class="form-label">Nombre del curso:</label>
                     <input type="text" class="form-control" id="nombre_curso_asignatura" name="nombre_curso_asignatura"
                            placeholder="1 de ESO" th:value="${asignatura != null ? asignatura.nombre_curso_asignatura : ''}" required>
@@ -41,6 +57,7 @@
                         Por favor ingresa el nombre del curso.
                     </div>
                 </div>
+
                 <div class="mb-3">
                     <label for="nif_profesor_asignatura" class="form-label">NIF del profesor:</label>
                     <input type="text" class="form-control" id="nif_profesor_asignatura" name="nif_profesor_asignatura"
@@ -49,8 +66,8 @@
                         Por favor ingresa un NIF válido.
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Actualizar asignatura</button>
 
+                <button type="submit" class="btn btn-primary">Actualizar asignatura</button>
             </form>
         </div>
     </div>

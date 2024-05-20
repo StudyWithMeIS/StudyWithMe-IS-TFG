@@ -4,6 +4,7 @@ package com.example.swm.controllers;
 import com.example.swm.repository.*;
 import com.example.swm.services.AlumnosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class AlumnosController {
     @Autowired
     private AlumnosService alumnosService;
 
-    @GetMapping("/homeAsignaturas")
+    @GetMapping("/alumnos/homeAsignaturas")
     public ModelAndView homeAsignaturas(Model model) {
         // Listar las asignaturas del alumno
         return new ModelAndView("pages/alumno/homeAlumno");
@@ -40,10 +41,20 @@ public class AlumnosController {
 
 
 
-    @GetMapping("/perfilAlumno")
-    public ModelAndView perfilAlumno() {
+    @GetMapping("/alumnos/viewPerfilAlumno")
+    public ModelAndView perfilAlumno(Authentication auth) {
         return new ModelAndView("pages/alumno/profileAlumno");
     }
+
+
+
+
+
+
+
+
+
+
 
     //-------------------------------------------
     //--------------ASIGNATURAS------------------

@@ -15,12 +15,9 @@
 
 
 <section class="container-fluid mt-5">
-    <!-- Utiliza Thymeleaf para verificar si hay asignaturas -->
     <div th:if="${not #lists.isEmpty(asignaturas)}" class="visible">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            <!-- Itera sobre las asignaturas -->
             <div class="col" th:each="asignatura : ${asignaturas}">
-                <!-- Card -->
                 <div class="card h-100">
                     <img th:src="@{'/images/' + ${asignatura.imagen}}" class="card-img-top" alt="Imagen asignatura">
                     <div class="card-body">
