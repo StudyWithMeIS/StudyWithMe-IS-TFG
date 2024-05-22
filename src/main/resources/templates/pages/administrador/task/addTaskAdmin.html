@@ -59,27 +59,6 @@
                         La calificacion debe de tener 3 decimales (0.000).
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="nif_profesor_tarea" class="form-label">NIF del profesor:</label>
-                    <input type="text" class="form-control" id="nif_profesor_tarea" name="nif_profesor_tarea"
-                           placeholder="11111111A"
-                           th:value="${tarea != null ? tarea.nif_profesor_tarea : ''}">
-                </div>
-                <div class="mb-3">
-                    <label for="nif_alumno_tarea" class="form-label">NIF del alumno:</label>
-                    <input type="text" class="form-control" id="nif_alumno_tarea" name="nif_alumno_tarea"
-                           placeholder="22222222B"
-                           th:value="${tarea != null ? tarea.nif_alumno_tarea : ''}">
-                </div>
-                <div class="mb-3">
-                    <label for="nombre_asignatura_tarea" class="form-label">Nombre de la asignatura de la tarea:</label>
-                    <input type="text" class="form-control" id="nombre_asignatura_tarea" name="nombre_asignatura_tarea"
-                           placeholder="Lengua - 1 de ESO"
-                           th:value="${alumno != null ? alumno.nombre_asignatura_tarea : ''}">
-                <div th:if="${not #strings.isEmpty(error)}">
-                    <div class="alert alert-danger" role="alert" th:text="${error}"></div>
-                </div>
-                </div>
                 <div class="justify-content-center d-flex">
                     <input type="submit" class="btn btn-primary btn-lg" value="Añadir tarea">
                 </div>

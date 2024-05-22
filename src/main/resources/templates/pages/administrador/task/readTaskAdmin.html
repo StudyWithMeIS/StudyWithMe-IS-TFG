@@ -40,7 +40,6 @@
                     <th>Titulo</th>
                     <th>Descripcion</th>
                     <th>Calificacion</th>
-                    <th>Nombre de la asignatura</th>
                     <th>Editar</th>
                     <th>Eliminar</th>
                 </tr>
@@ -51,7 +50,6 @@
                     <td th:text="${tarea.titulo_tarea}"></td>
                     <td th:text="${tarea.descripcion_tarea}"></td>
                     <td th:text="${tarea.calificacion_tarea}"></td>
-                    <td th:text="${tarea.nombre_asignatura_tarea}"></td>
                     <td>
                         <form th:action="@{/administradores/tarea/viewActualizarTareasAdministradores/{id_tarea}(id_tarea=${tarea.id_tarea})}" method="get">
                             <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>

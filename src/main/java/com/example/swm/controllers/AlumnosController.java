@@ -1,9 +1,10 @@
 package com.example.swm.controllers;
 
 
+import com.example.swm.entity.Alumnos;
 import com.example.swm.repository.*;
-import com.example.swm.services.AlumnosService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,21 +30,45 @@ public class AlumnosController {
     @Autowired
     private ProfesoresRepository profesoresRepository;
 
-    @Autowired
-    private AlumnosService alumnosService;
-
-    @GetMapping("/homeAsignaturas")
+    @GetMapping("/alumnos/homeAlumnos")
     public ModelAndView homeAsignaturas(Model model) {
-        // Listar las asignaturas del alumno
-        return new ModelAndView("pages/alumno/homeAlumno");
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("pages/alumno/homeAlumno");
+        return mv;
     }
 
 
 
-    @GetMapping("/perfilAlumno")
-    public ModelAndView perfilAlumno() {
+    @GetMapping("/alumnos/viewPerfilAlumno")
+    public ModelAndView perfilAlumno(Authentication auth) {
         return new ModelAndView("pages/alumno/profileAlumno");
     }
+
+    @GetMapping("/alumnos/perfilAlumno")
+    public ModelAndView PerfilAlumno(Authentication auth) {
+        ModelAndView mv = new ModelAndView();
+        if (auth != null) {
+            String username = auth.getName();
+            Alumnos alumno = alumnosRepository.findAlumnosByNif(username).orElse(null);
+            if (alumno != null) {
+                mv.addObject("alumno", alumno);
+                mv.setViewName("pages/alumno/profileAlumno");
+                return mv;
+            }
+        }
+        mv.setViewName("redirect:/login");
+        return mv;
+    }
+
+
+
+
+
+
+
+
+
+
 
     //-------------------------------------------
     //--------------ASIGNATURAS------------------

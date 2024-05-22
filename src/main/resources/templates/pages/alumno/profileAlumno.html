@@ -15,39 +15,30 @@
 <div th:insert="~{navbarAlumno :: navbarAlumnoComonente}"></div>
 
 
-<section class="container-fluid lg-5">
-    <!-- Perfil del Alumno -->
-    <div class="container mt-3">
-        <div class="container-fluid custom-margin-top">
-            <h2>Perfil del Alumno</h2>
-            <form th:object="${alumno}" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label for="nif" disabled >NIF:</label>
-                    <input type="text" class="form-control" disabled id="nif" th:value="*{alumno.nif_alumno}" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" class="form-control" id="nombre" th:value="*{alumno.nombre_alumno}" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" class="form-control" id="email" th:value="*{alumno.email_alumno}" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="password">Contraseña:</label>
-                    <input type="password" class="form-control" id="password" th:value="*{alumno.password_alumno}">
-                </div>
-                <div class="form-group">
-                    <label for="nombrePadre">Nombre del Padre:</label>
-                    <input type="text" class="form-control" disabled id="nombrePadre" th:value="*{alumno.nombre_padre_alumno}" readonly>
-                </div>
-                <div class="form-group">
-                    <label for="nombreMadre">Nombre de la Madre:</label>
-                    <input type="text" class="form-control" disabled id="nombreMadre" th:value="*{alumno.nombre_madre_alumno}" readonly>
-                </div>
-                <br>
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-            </form>
+<section class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <h2 class="mb-4">Perfil del alumno:</h2>
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                <tr>
+                    <th>NIF</th>
+                    <th>Nombre completo</th>
+                    <th>Email</th>
+                    <th>Nombre del padre</th>
+                    <th>Nombre de la madre</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td th:text="${alumno != null ? alumno.nif_alumno : 'N/A'}"></td>
+                    <td th:text="${alumno != null ? alumno.nombre_alumno : 'N/A'}"></td>
+                    <td th:text="${alumno != null ? alumno.email_alumno : 'N/A'}"></td>
+                    <td th:text="${alumno != null ? alumno.nombre_padre_alumno : 'N/A'}"></td>
+                    <td th:text="${alumno != null ? alumno.nombre_madre_alumno : 'N/A'}"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </section>

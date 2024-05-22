@@ -14,8 +14,10 @@ public class Cursos implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_curso")
     private int id_curso;
 
+    @Column(name = "nombre_curso", nullable = false)
     private String nombre_curso;
 
     public Cursos() {}
@@ -40,6 +42,7 @@ public class Cursos implements Serializable {
     public void setNombre_curso(String nombre_curso) {
         this.nombre_curso = nombre_curso;
     }
+
 
     @Override
     public String toString() {
