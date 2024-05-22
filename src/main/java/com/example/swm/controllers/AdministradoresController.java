@@ -2,8 +2,6 @@ package com.example.swm.controllers;
 
 import com.example.swm.entity.*;
 import com.example.swm.repository.*;
-import com.example.swm.services.AlumnosService;
-import com.example.swm.services.AsignaturasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.Authentication;
@@ -13,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,11 +39,6 @@ public class AdministradoresController {
     @Autowired
     private TareasRepository tareasRepository;
 
-    @Autowired
-    private AlumnosService alumnosService;
-
-    @Autowired
-    private AsignaturasService asignaturasService;
 
 
     //-------------------------------------------
@@ -191,6 +183,9 @@ public class AdministradoresController {
         }
         return mv;
     }
+
+
+
 
 
 
@@ -721,8 +716,6 @@ public class AdministradoresController {
 
         // Validar campos obligatorios y mostrar errores si los hay
         if (result.hasErrors() || asignatura.getNombre_asignatura().isEmpty()
-                || asignatura.getNombre_curso_asignatura().isEmpty()
-                || asignatura.getNif_profesor_asignatura().isEmpty()
                 || asignatura.getDescripcion_asignatura().isEmpty()
                 || asignatura.getDetalle_asignatura().isEmpty()) {
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
@@ -732,8 +725,6 @@ public class AdministradoresController {
 
         // Convertir los nombres a minúsculas para uniformidad
         String nombreAsignatura = asignatura.getNombre_asignatura().toLowerCase();
-        String nombreCursoAsignatura = asignatura.getNombre_curso_asignatura().toLowerCase();
-        String nifProfesorAsignatura = asignatura.getNif_profesor_asignatura().toLowerCase();
         String imagenAsignatura = asignatura.getImagen_asignatura() != null ? asignatura.getImagen_asignatura() : "";
         String descripcionAsignatura = asignatura.getDescripcion_asignatura().toLowerCase();
         String detalleAsignatura = asignatura.getDetalle_asignatura().toLowerCase();
@@ -747,8 +738,6 @@ public class AdministradoresController {
             // Crear nueva asignatura y guardar en la base de datos
             Asignaturas nuevaAsignatura = new Asignaturas();
             nuevaAsignatura.setNombre_asignatura(nombreAsignatura);
-            nuevaAsignatura.setNombre_curso_asignatura(nombreCursoAsignatura);
-            nuevaAsignatura.setNif_profesor_asignatura(nifProfesorAsignatura);
             nuevaAsignatura.setImagen_asignatura(imagenAsignatura);
             nuevaAsignatura.setDescripcion_asignatura(descripcionAsignatura);
             nuevaAsignatura.setDetalle_asignatura(detalleAsignatura);
@@ -802,8 +791,6 @@ public class AdministradoresController {
     public ModelAndView actualizarAsignatura(@PathVariable("id_asignatura") int id_asignatura, @ModelAttribute("asignatura") Asignaturas asignatura, BindingResult result) {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors() || asignatura.getNombre_asignatura().isEmpty()
-                || asignatura.getNombre_curso_asignatura().isEmpty()
-                || asignatura.getNif_profesor_asignatura().isEmpty()
                 || asignatura.getDescripcion_asignatura().isEmpty()
                 || asignatura.getDetalle_asignatura().isEmpty()) {
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
@@ -814,8 +801,6 @@ public class AdministradoresController {
         if (asignaturasRepository.existsById(id_asignatura)) {
             // Convertir los campos a minúsculas
             String nombreAsignatura = asignatura.getNombre_asignatura().toLowerCase();
-            String nombreCursoAsignatura = asignatura.getNombre_curso_asignatura().toLowerCase();
-            String nifProfesorAsignatura = asignatura.getNif_profesor_asignatura().toLowerCase();
             String imagenAsignatura = asignatura.getImagen_asignatura() != null ? asignatura.getImagen_asignatura() : "";
             String descripcionAsignatura = asignatura.getDescripcion_asignatura().toLowerCase();
             String detalleAsignatura = asignatura.getDetalle_asignatura().toLowerCase();
@@ -823,8 +808,6 @@ public class AdministradoresController {
             // Actualizar los valores de la asignatura
             Asignaturas asignaturaExistente = asignaturasRepository.findById(id_asignatura).orElseThrow(() -> new IllegalArgumentException("Invalid asignatura ID"));
             asignaturaExistente.setNombre_asignatura(nombreAsignatura);
-            asignaturaExistente.setNombre_curso_asignatura(nombreCursoAsignatura);
-            asignaturaExistente.setNif_profesor_asignatura(nifProfesorAsignatura);
             asignaturaExistente.setImagen_asignatura(imagenAsignatura);
             asignaturaExistente.setDescripcion_asignatura(descripcionAsignatura);
             asignaturaExistente.setDetalle_asignatura(detalleAsignatura);
@@ -893,14 +876,11 @@ public class AdministradoresController {
     @RequestMapping("/tareas/guardarTarea")
     public ModelAndView guardarTareas(@ModelAttribute Tareas tarea, @Validated BindingResult result) {
         ModelAndView mv = new ModelAndView();
-        if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0 || tarea.getNif_profesor_tarea().isEmpty() || tarea.getNif_alumno_tarea().isEmpty() || tarea.getNombre_asignatura_tarea().isEmpty()) {
+        if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0 ) {
             System.out.println(tarea.getTipo_tarea());
             System.out.println(tarea.getTitulo_tarea());
             System.out.println(tarea.getDescripcion_tarea());
             System.out.println(tarea.getCalificacion_tarea());
-            System.out.println(tarea.getNif_profesor_tarea());
-            System.out.println(tarea.getNif_alumno_tarea());
-            System.out.println(tarea.getNif_alumno_tarea());
             System.out.println(result.getAllErrors().toString());
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
             try {
@@ -914,9 +894,6 @@ public class AdministradoresController {
             String tipoTarea = tarea.getTipo_tarea().toLowerCase();
             String tituloTarea = tarea.getTitulo_tarea().toLowerCase();
             String descripcionTarea = tarea.getDescripcion_tarea().toLowerCase();
-            String nifProfesorTarea = tarea.getNif_profesor_tarea().toLowerCase();
-            String nifAlumnoTarea = tarea.getNif_alumno_tarea().toLowerCase();
-            String nombreAsignaturaTarea = tarea.getNombre_asignatura_tarea().toLowerCase();
             Optional<Tareas> existingTarea = tareasRepository.findTareasByTitulo(tituloTarea);
             if (existingTarea.isPresent()) {
                 mv.addObject("error", "La tarea ya existe en la base de datos");
@@ -926,9 +903,6 @@ public class AdministradoresController {
                 tareas.setTitulo_tarea(tituloTarea);
                 tareas.setDescripcion_tarea(descripcionTarea);
                 tareas.setCalificacion_tarea(tarea.getCalificacion_tarea());
-                tareas.setNif_profesor_tarea(nifProfesorTarea);
-                tareas.setNif_alumno_tarea(nifAlumnoTarea);
-                tareas.setNombre_asignatura_tarea(nombreAsignaturaTarea);
                 tareasRepository.save(tareas);
                 try {
                     Thread.sleep(1000);
@@ -987,7 +961,7 @@ public class AdministradoresController {
     @PostMapping("/tareas/actualizarTarea/{id_tarea}")
     public ModelAndView actualizarTarea(@PathVariable("id_tarea") int id_tarea, @ModelAttribute("tarea") Tareas tarea, BindingResult result) {
         ModelAndView mv = new ModelAndView();
-        if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0 || tarea.getNif_profesor_tarea().isEmpty() || tarea.getNif_alumno_tarea().isEmpty() || tarea.getNombre_asignatura_tarea().isEmpty()) {
+        if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0) {
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
             mv.setViewName("redirect:/administradores/tarea/viewActualizarTareasAdministradores/{id_tarea}");
             return mv;
@@ -999,17 +973,11 @@ public class AdministradoresController {
             String tipoTarea = tarea.getTipo_tarea().toLowerCase();
             String tituloTarea = tarea.getTitulo_tarea().toLowerCase();
             String descripcionTarea = tarea.getDescripcion_tarea().toLowerCase();
-            String nifProfesorTarea = tarea.getNif_profesor_tarea().toLowerCase();
-            String nifAlumnoTarea = tarea.getNif_alumno_tarea().toLowerCase();
-            String nombreAsignaturaTarea = tarea.getNombre_asignatura_tarea().toLowerCase();
 
             tarea.setTipo_tarea(tipoTarea);
             tarea.setTitulo_tarea(tituloTarea);
             tarea.setDescripcion_tarea(descripcionTarea);
             tarea.setCalificacion_tarea(tarea.getCalificacion_tarea());
-            tarea.setNif_profesor_tarea(nifProfesorTarea);
-            tarea.setNif_alumno_tarea(nifAlumnoTarea);
-            tarea.setNombre_asignatura_tarea(nombreAsignaturaTarea);
 
             tareasRepository.save(tarea);
             mv.setViewName("redirect:/administradores/tareas/viewListarTareasAdministradores");

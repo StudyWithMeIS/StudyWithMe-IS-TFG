@@ -39,9 +39,6 @@
                         <li class="nav-item" th:if="${#authentication.name != 'anonymousUser'}">
                             <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
                         </li>
-                        <li class="nav-item" th:if="${#authentication.name != 'anonymousUser'}">
-                            <a class="nav-link" th:href="@{/administradores/administradores/viewPerfilAdministrador}">Perfil</a>
-                        </li>
                         <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ADMINISTRADOR'')')}">
                             <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Home Administrador</a>
                         </li>
@@ -49,7 +46,7 @@
                             <a class="nav-link" th:href="@{/profesores/viewHomeProfesor}">Home Profesor</a>
                         </li>
                         <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ALUMNO'')')}">
-                            <a class="nav-link" th:href="@{/alumnos/homeAsignaturas}">Home Alumno</a>
+                            <a class="nav-link" th:href="@{/alumnos/alumnos/homeAlumnos}">Home Alumno</a>
                         </li>
                     </ul>
                 </div>

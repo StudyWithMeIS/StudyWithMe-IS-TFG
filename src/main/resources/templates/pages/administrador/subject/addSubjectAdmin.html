@@ -49,22 +49,6 @@
                         Por favor ingresa los detalles adicionales.
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="nombre_curso_asignatura" class="form-label">Nombre del curso:</label>
-                    <input type="text" class="form-control" id="nombre_curso_asignatura" name="nombre_curso_asignatura"
-                           placeholder="1 de ESO" th:value="${asignatura != null ? asignatura.nombre_curso_asignatura : ''}" required>
-                    <div class="invalid-feedback">
-                        Por favor ingresa el nombre del curso.
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="nif_profesor_asignatura" class="form-label">NIF del profesor:</label>
-                    <input type="text" class="form-control" id="nif_profesor_asignatura" name="nif_profesor_asignatura"
-                           placeholder="11111111A" th:value="${asignatura != null ? asignatura.nif_profesor_asignatura : ''}" required>
-                    <div class="invalid-feedback">
-                        Por favor ingresa un NIF válido.
-                    </div>
-                </div>
                 <div class="justify-content-center d-flex">
                     <input type="submit" class="btn btn-primary btn-lg" value="Añadir asignatura">
                 </div>

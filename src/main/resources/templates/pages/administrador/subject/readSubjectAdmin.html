@@ -40,7 +40,6 @@
                 <thead>
                 <tr>
                     <th>Nombre de la Asignatura</th>
-                    <th>Curso</th>
                     <th>Imagen</th>
                     <th>Descripción</th>
                     <th>Detalle</th>
@@ -51,7 +50,6 @@
                 <tbody>
                 <tr th:each="asignatura : ${asignaturas}">
                     <td th:text="${asignatura.nombre_asignatura}"></td>
-                    <td th:text="${asignatura.nombre_curso_asignatura}"></td>
                     <td th:if="${asignatura.imagen_asignatura != null}">
                         <img th:src="@{${asignatura.imagen_asignatura}}" alt="Imagen Asignatura" class="img-thumbnail" style="max-width: 100px;">
                     </td>
@@ -65,6 +63,10 @@
                             <form th:action="@{/administradores/asignatura/viewActualizarAsignaturasAdministradores/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="get" class="d-inline">
                                 <button type="submit" class="btn btn-info"><i class="bi bi-pencil"></i> Actualizar</button>
                             </form>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group" role="group">
                             <form th:action="@{/administradores/asignatura/borrarAsignaturaAdministrador/{id_asignatura}(id_asignatura=${asignatura.id_asignatura})}" method="post" class="d-inline">
                                 <button type="submit" class="btn btn-danger"><i class="bi bi-trash3"></i> Eliminar</button>
                             </form>

@@ -28,22 +28,15 @@ public class Asignaturas implements Serializable {
     @Column(name = "detalle_asignatura", length = 100)
     private String detalle_asignatura;
 
-    @Column(name = "nombre_curso_asignatura", nullable = false)
-    private String nombre_curso_asignatura;
-
-    @Column(name = "nif_profesor_asignatura", nullable = false)
-    private String nif_profesor_asignatura;
 
     public Asignaturas() {}
 
-    public Asignaturas(int id_asignatura, String nombre_asignatura, String imagen_asignatura, String descripcion_asignatura, String detalle_asignatura, String nombre_curso_asignatura, String nif_profesor_asignatura) {
+    public Asignaturas(int id_asignatura, String nombre_asignatura, String imagen_asignatura, String descripcion_asignatura, String detalle_asignatura) {
         this.id_asignatura = id_asignatura;
         this.nombre_asignatura = nombre_asignatura;
         this.imagen_asignatura = imagen_asignatura;
         this.descripcion_asignatura = descripcion_asignatura;
         this.detalle_asignatura = detalle_asignatura;
-        this.nombre_curso_asignatura = nombre_curso_asignatura;
-        this.nif_profesor_asignatura = nif_profesor_asignatura;
     }
 
     public int getId_asignatura() {
@@ -86,21 +79,6 @@ public class Asignaturas implements Serializable {
         this.detalle_asignatura = detalle_asignatura;
     }
 
-    public String getNombre_curso_asignatura() {
-        return nombre_curso_asignatura;
-    }
-
-    public void setNombre_curso_asignatura(String nombre_curso_asignatura) {
-        this.nombre_curso_asignatura = nombre_curso_asignatura;
-    }
-
-    public String getNif_profesor_asignatura() {
-        return nif_profesor_asignatura;
-    }
-
-    public void setNif_profesor_asignatura(String nif_profesor_asignatura) {
-        this.nif_profesor_asignatura = nif_profesor_asignatura;
-    }
 
     @Override
     public String toString() {
@@ -110,8 +88,6 @@ public class Asignaturas implements Serializable {
                 ", imagen_asignatura='" + imagen_asignatura + '\'' +
                 ", descripcion_asignatura='" + descripcion_asignatura + '\'' +
                 ", detalle_asignatura='" + detalle_asignatura + '\'' +
-                ", nombre_curso_asignatura='" + nombre_curso_asignatura + '\'' +
-                ", nif_profesor_asignatura='" + nif_profesor_asignatura + '\'' +
                 '}';
     }
 }
