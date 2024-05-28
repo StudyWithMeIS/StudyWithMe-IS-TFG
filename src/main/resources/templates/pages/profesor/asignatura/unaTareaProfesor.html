@@ -33,7 +33,9 @@
                                 <div class="mb-3">
                                     <input type="file" class="form-control" id="file" name="file">
                                 </div>
-                                <button type="submit" class="btn btn-primary">Entregar</button>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary">Entregar</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -71,7 +73,9 @@
                                     <label for="descripcion_tarea" class="form-label">Descripción:</label>
                                     <textarea class="form-control" id="descripcion_tarea" name="descripcion_tarea" rows="3" th:text="${tarea.descripcion_tarea}"></textarea>
                                 </div>
-                                <button type="submit" class="btn btn-warning">Modificar Tarea</button>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-outline-success btn-lg">Modificar Tarea</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -96,7 +100,9 @@
 <!--                                    <label for="comentarios" class="form-label">Comentarios:</label>-->
 <!--                                    <textarea class="form-control" id="comentarios" name="comentarios" rows="3"></textarea>-->
 <!--                                </div>-->
-                                <button type="submit" class="btn btn-success">Enviar Calificación</button>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-outline-warning  btn-lg">Enviar Calificación</button>
+                                </div>
                             </form>
                         </div>
                     </div>
