@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS tareas (
                                       id_tarea INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                       tipo_tarea VARCHAR(50) NOT NULL,
     titulo_tarea VARCHAR(100) NOT NULL,
-    descripcion_tarea VARCHAR(100) NOT NULL,
+    descripcion_tarea VARCHAR(300) NOT NULL,
     calificacion_tarea DECIMAL(5, 3)
     );
 
@@ -81,83 +81,83 @@ CREATE TABLE IF NOT EXISTS tareas (
 -- TABLAS DE ENLACE ------------------------------------
 -- Tabla de enlace tarea_curso
 CREATE TABLE IF NOT EXISTS tarea_curso (
+                                           id_tarea_curso INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                            id_tarea INT NOT NULL,
                                            id_curso INT NOT NULL,
                                            FOREIGN KEY (id_tarea) REFERENCES tareas(id_tarea),
-    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
-    PRIMARY KEY (id_tarea, id_curso)
+    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
     );
 
 -- Tabla de enlace tarea_asignatura
 CREATE TABLE IF NOT EXISTS tarea_asignatura (
+                                                id_tarea_asignatura INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                                 id_tarea INT NOT NULL,
                                                 id_asignatura INT NOT NULL,
                                                 FOREIGN KEY (id_tarea) REFERENCES tareas(id_tarea),
-    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura),
-    PRIMARY KEY (id_tarea, id_asignatura)
+    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura)
     );
 
 -- Tabla de enlace asignatura_curso
 CREATE TABLE IF NOT EXISTS asignatura_curso (
+                                                id_asignatura_curso INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                                 id_asignatura INT NOT NULL,
                                                 id_curso INT NOT NULL,
                                                 FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura),
-    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
-    PRIMARY KEY (id_asignatura, id_curso)
+    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
     );
 
 -- Tabla de enlace alumnos_tarea
 CREATE TABLE IF NOT EXISTS alumnos_tarea (
+                                             id_alumnos_tarea INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                              id_alumno INT NOT NULL,
                                              id_tarea INT NOT NULL,
                                              FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno),
-    FOREIGN KEY (id_tarea) REFERENCES tareas(id_tarea),
-    PRIMARY KEY (id_alumno, id_tarea)
+    FOREIGN KEY (id_tarea) REFERENCES tareas(id_tarea)
     );
 
 -- Tabla de enlace profesor_tarea
 CREATE TABLE IF NOT EXISTS profesor_tarea (
+                                              id_profesor_tarea INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                               id_profesor INT NOT NULL,
                                               id_tarea INT NOT NULL,
                                               FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor),
-    FOREIGN KEY (id_tarea) REFERENCES tareas(id_tarea),
-    PRIMARY KEY (id_profesor, id_tarea)
+    FOREIGN KEY (id_tarea) REFERENCES tareas(id_tarea)
     );
 
 -- Tabla de enlace alumno_curso
 CREATE TABLE IF NOT EXISTS alumno_curso (
+                                            id_alumno_curso INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                             id_alumno INT NOT NULL,
                                             id_curso INT NOT NULL,
                                             FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno),
-    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
-    PRIMARY KEY (id_alumno, id_curso)
+    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
     );
 
 -- Tabla de enlace profesor_curso
 CREATE TABLE IF NOT EXISTS profesor_curso (
+                                              id_profesor_curso INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                               id_profesor INT NOT NULL,
                                               id_curso INT NOT NULL,
                                               FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor),
-    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso),
-    PRIMARY KEY (id_profesor, id_curso)
+    FOREIGN KEY (id_curso) REFERENCES cursos(id_curso)
     );
 
 -- Tabla de enlace alumno_asignatura
 CREATE TABLE IF NOT EXISTS alumno_asignatura (
+                                                 id_alumno_asignatura INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                                  id_alumno INT NOT NULL,
                                                  id_asignatura INT NOT NULL,
                                                  FOREIGN KEY (id_alumno) REFERENCES alumnos(id_alumno),
-    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura),
-    PRIMARY KEY (id_alumno, id_asignatura)
+    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura)
     );
 
 -- Tabla de enlace profesor_asignatura
 CREATE TABLE IF NOT EXISTS profesor_asignatura (
+                                                   id_profesor_asignatura INT AUTO_INCREMENT NOT NULL UNIQUE PRIMARY KEY,
                                                    id_profesor INT NOT NULL,
                                                    id_asignatura INT NOT NULL,
                                                    FOREIGN KEY (id_profesor) REFERENCES profesores(id_profesor),
-    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura),
-    PRIMARY KEY (id_profesor, id_asignatura)
+    FOREIGN KEY (id_asignatura) REFERENCES asignaturas(id_asignatura)
     );
 
 

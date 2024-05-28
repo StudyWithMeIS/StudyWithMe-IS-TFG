@@ -15,4 +15,5 @@ import java.util.Optional;
 public interface TareasRepository extends JpaRepository<Tareas, Integer> {
     @Query("SELECT t FROM Tareas t WHERE t.titulo_tarea = :titulo_tarea")
     Optional<Tareas> findTareasByTitulo(@Param("titulo_tarea") String titulo_tarea);
+
 }
