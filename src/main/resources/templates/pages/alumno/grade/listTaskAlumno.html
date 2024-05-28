@@ -19,33 +19,11 @@
 <section class="container-fluid lg-5">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-
+            <h2 class="row">Tareas</h2>
             <!-- Iterar sobre los anuncios de la clase -->
-            <div class="card" th:each="tarea : ${tareas}">
-                <div class="card-body">
-                    <div class="d-flex text-body-secondary pt-3 align-items-center">
-                        <!-- Agregado "align-items-center" -->
-                        <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32"
-                             xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32"
-                             preserveAspectRatio="xMidYMid slice" focusable="false">
-                            <title>Placeholder</title>
-                            <rect width="100%" height="100%" fill="#e83e8c"></rect>
-                            <text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text>
-                        </svg>
-                        <div class="d-flex flex-column">
-                            <p class="pb-3 mb-0 small lh-sm">
-                                <strong class="d-block text-gray-dark" th:text="${tarea.getNombreProfesor}"></strong>
-                            </p>
-                            <div class="pb-3 mb-0 small lh-sm" th:text="${tarea.titulo_tarea}"></div>
-                        </div>
-                        <div class="text-center ms-auto">
-                            <a th:href="@{/alumnos/verTareaAlumno/{idTarea}(idTarea=${tarea.id_tarea})}"
-                               class="btn btn-primary">Ver tarea</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <ul class="list-group list-group-flush" th:each="tarea : ${tareas}">
+                <li class="pb-3 mb-0 small lh-sm" th:text="${tarea.titulo_tarea}"></li>
+            </ul>
         </div>
     </div>
 
