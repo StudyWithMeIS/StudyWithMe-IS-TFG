@@ -12,19 +12,17 @@
 <body>
 
 <!-- Navbar -->
-<div th:insert="~{navbarAlumno :: navbarAlumnoComonente}"></div>
+<div th:insert="~{navbarProfesor :: navbarProfesorComonente}"></div>
 
 
 <section class="container mt-5">
     <div class="row">
         <div class="col-lg-8 offset-lg-2">
-            <h2 class="mb-4">Perfil del alumno:</h2>
+            <h2 class="mb-4">Perfil del profesor:</h2>
             <table class="table">
-                <tr><th>NIF</th><td th:text="${alumno != null ? alumno.nif_alumno : 'N/A'}"></td></tr>
-                <tr><th>Nombre completo</th><td th:text="${alumno != null ? alumno.nombre_alumno : 'N/A'}"></td></tr>
-                <tr><th>Email</th><td th:text="${alumno != null ? alumno.email_alumno : 'N/A'}"></td></tr>
-                <tr><th>Nombre del padre</th><td th:text="${alumno != null ? alumno.nombre_padre_alumno : 'N/A'}"></td></tr>
-                <tr><th>Nombre de la madre</th><td th:text="${alumno != null ? alumno.nombre_madre_alumno : 'N/A'}"></td></tr>
+                <tr><th>NIF</th><td th:text="${profesor != null ? profesor.nif_profesor : 'N/A'}"></td></tr>
+                <tr><th>Nombre completo</th><td th:text="${profesor != null ? profesor.nombre_profesor : 'N/A'}"></td></tr>
+                <tr><th>Email</th><td th:text="${profesor != null ? profesor.email_profesor : 'N/A'}"></td></tr>
             </table>
         </div>
     </div>
