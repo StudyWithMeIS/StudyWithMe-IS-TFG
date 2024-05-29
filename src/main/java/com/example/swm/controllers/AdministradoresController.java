@@ -203,11 +203,30 @@ public class AdministradoresController {
     //---------------ADMINSTRADOR----------------
     //-------------------------------------------
     @GetMapping("/administradores/viewHomeAdministrador")
-    public ModelAndView mostrarPaginaHomeAdministrador() {
+    public ModelAndView mostrarPaginaHomeAdministrador(Authentication auth) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("pages/administrador/homeAdministrador");
+        mv.addObject("admin", homeAdministrador(auth).getModel().get("admin"));
         return mv;
     }
+
+
+    @RequestMapping("/administradores/homeAdministrador")
+    public ModelAndView homeAdministrador(Authentication auth) {
+        ModelAndView mv = new ModelAndView();
+        if (auth != null) {
+            String username = auth.getName();
+            Administradores admin = administradoresRepository.findAdministradorByNif(username).orElse(null);
+            if (admin != null) {
+                mv.addObject("admin", admin);
+                mv.setViewName("redirect:/administradores/administradores/homeAdministrador");
+                return mv;
+            }
+        }
+        mv.setViewName("redirect:/login");
+        return mv;
+    }
+
 
 
 
