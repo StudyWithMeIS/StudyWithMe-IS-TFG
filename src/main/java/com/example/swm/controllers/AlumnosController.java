@@ -54,7 +54,10 @@ public class AlumnosController {
 
     @GetMapping("/alumnos/viewPerfilAlumno")
     public ModelAndView perfilAlumno(Authentication auth) {
-        return new ModelAndView("pages/alumno/profileAlumno");
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("alumno", PerfilAlumno(auth).getModel().get("alumno"));
+        mv.setViewName("pages/alumno/profileAlumno");
+        return mv;
     }
 
     @GetMapping("/alumnos/perfilAlumno")

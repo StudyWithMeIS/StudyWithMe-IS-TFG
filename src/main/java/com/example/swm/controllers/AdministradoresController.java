@@ -352,6 +352,10 @@ public class AdministradoresController {
         }
         return mv;
     }
+    
+    
+    
+    //------------PERFIL ADMINISTRADOR------------
 
     @GetMapping("/administradores/viewPerfilAdministrador")
     public ModelAndView viewPerfilAdministrador(Authentication auth) {
