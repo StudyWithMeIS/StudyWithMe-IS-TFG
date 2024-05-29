@@ -34,14 +34,14 @@
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" th:href="@{/alumnos/alumnos/calendario}"><i class="bi bi-calendar-check"></i> Calendario</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#"> <i class="bi bi-journal-bookmark"></i> Asignaturas </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li th:each="asignatura : ${asignaturas}">
-                                        <a class="dropdown-item" th:href="@{/alumnos}" th:text="${asignatura.nombre}"></a>
-                                    </li>
-                                </ul>
-                            </li>
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link active" aria-current="page" href="#"> <i class="bi bi-journal-bookmark"></i> Asignaturas </a>-->
+<!--                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                                    <li th:each="asignatura : ${asignaturas}">-->
+<!--                                        <a class="dropdown-item" th:href="@{/alumnos}" th:text="${asignatura.nombre_asignatura}"></a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" th:href="@{/alumnos/alumnos/viewPerfilAlumno}"><i class="bi bi-gear"></i> Ajustes de Perfil</a>
                             </li>

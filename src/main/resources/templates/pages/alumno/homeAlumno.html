@@ -15,22 +15,23 @@
 
 
 <section class="container-fluid mt-5">
-    <div th:if="${not #lists.isEmpty(tareas)}" class="visible">
+    <div th:if="${not #lists.isEmpty(asignaturas)}" class="visible">
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            <div class="col" th:each="alumnoTarea : ${tareas}">
+            <div class="col" th:each="asignatura : ${asignaturas}">
                 <div class="card h-100">
+<!--                    <img th:src="@{'/images/' + (${#strings.isEmpty(asignatura.imagen) ? 'default-image.jpg' : asignatura.imagen})}" class="card-img-top" alt="Imagen asignatura">-->
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${alumnoTarea.tarea.titulo_tarea}"></h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${alumnoTarea.tarea.tipo_tarea}"></h6>
-                        <p class="card-text" th:text="${alumnoTarea.tarea.descripcion_tarea}"></p>
-                        <p class="card-text" th:text="'Calificación: ' + ${alumnoTarea.tarea.calificacion_tarea}"></p>
+                        <!-- Utiliza los nombres de los métodos para acceder a los atributos -->
+                        <h5 class="card-title" th:text="${asignatura.getNombre_asignatura()}"></h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${asignatura.getDescripcion_asignatura()}"></h6>
+                        <p class="card-text" th:text="${asignatura.getDetalle_asignatura()}"></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div th:if="${#lists.isEmpty(asignaturas)}" class="visible">
-        <h3> Actualmente no tienes ninguna asignatura </h3>
+        <h3>Actualmente no tienes ninguna asignatura</h3>
     </div>
 </section>
 

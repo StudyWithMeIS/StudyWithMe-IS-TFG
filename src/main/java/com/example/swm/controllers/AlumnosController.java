@@ -1,9 +1,12 @@
 package com.example.swm.controllers;
 
 
+import com.example.swm.entity.AlumnoAsignatura;
 import com.example.swm.entity.AlumnoTarea;
 import com.example.swm.entity.Alumnos;
+import com.example.swm.entity.Asignaturas;
 import com.example.swm.repository.*;
+import com.example.swm.services.AlumnoAsignaturaService;
 import com.example.swm.services.AlumnoTareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,14 +42,26 @@ public class AlumnosController {
     @Autowired
     private AlumnoTareaService alumnoTareaService;
 
+    @Autowired
+    private AlumnoAsignaturaService alumnoAsignaturaService;
+
+
+
     @GetMapping("/alumnos/homeAlumnos")
     public ModelAndView homeAsignaturas(Model model, Authentication auth) {
         ModelAndView mv = new ModelAndView();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         String nifAlumno = userDetails.getUsername();
 
-        List<AlumnoTarea> tareas = alumnoTareaService.findTareasByNifAlumno(nifAlumno);
-        mv.addObject("tareas", tareas);
+        List<AlumnoAsignatura> asignaturasAlumno = alumnoAsignaturaService.findAsignaturasByNifAlumno(nifAlumno);
+        List<Asignaturas> asignaturas = new ArrayList<>();
+
+        for (AlumnoAsignatura alumnoAsignatura : asignaturasAlumno) {
+            Asignaturas asignatura = alumnoAsignatura.getAsignatura();
+            asignaturas.add(asignatura);
+        }
+
+        mv.addObject("asignaturas", asignaturas);
         mv.setViewName("pages/alumno/homeAlumno");
         return mv;
     }
