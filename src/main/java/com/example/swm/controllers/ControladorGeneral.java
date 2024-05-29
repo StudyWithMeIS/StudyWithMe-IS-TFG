@@ -53,10 +53,10 @@ public class ControladorGeneral {
                 System.out.println("ROLE ADMIN");
             } else if (alumno_user != null) {
                 mv.addObject("user", alumno_user);
-                System.out.println("ROLE PROFESOR");
+                System.out.println("ROLE ALUMNO");
             } else if (profesor_user != null) {
                 mv.addObject("user", profesor_user);
-                System.out.println("ROLE ALUMNO");
+                System.out.println("ROLE PROFESOR");
             }
             System.out.println("USUARIO INICIÓ SESIÓN: " + username);
             mv.addObject("userAuthenticated", isAuthenticated(auth));

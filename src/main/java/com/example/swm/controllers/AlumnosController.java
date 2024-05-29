@@ -1,15 +1,20 @@
 package com.example.swm.controllers;
 
 
+import com.example.swm.entity.AlumnoTarea;
 import com.example.swm.entity.Alumnos;
 import com.example.swm.repository.*;
+import com.example.swm.services.AlumnoTareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/alumnos")
@@ -30,9 +35,17 @@ public class AlumnosController {
     @Autowired
     private ProfesoresRepository profesoresRepository;
 
+    @Autowired
+    private AlumnoTareaService alumnoTareaService;
+
     @GetMapping("/alumnos/homeAlumnos")
-    public ModelAndView homeAsignaturas(Model model) {
+    public ModelAndView homeAsignaturas(Model model, Authentication auth) {
         ModelAndView mv = new ModelAndView();
+        UserDetails userDetails = (UserDetails) auth.getPrincipal();
+        String nifAlumno = userDetails.getUsername();
+
+        List<AlumnoTarea> tareas = alumnoTareaService.findTareasByNifAlumno(nifAlumno);
+        mv.addObject("tareas", tareas);
         mv.setViewName("pages/alumno/homeAlumno");
         return mv;
     }
@@ -41,7 +54,10 @@ public class AlumnosController {
 
     @GetMapping("/alumnos/viewPerfilAlumno")
     public ModelAndView perfilAlumno(Authentication auth) {
-        return new ModelAndView("pages/alumno/profileAlumno");
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("alumno", PerfilAlumno(auth).getModel().get("alumno"));
+        mv.setViewName("pages/alumno/profileAlumno");
+        return mv;
     }
 
     @GetMapping("/alumnos/perfilAlumno")
