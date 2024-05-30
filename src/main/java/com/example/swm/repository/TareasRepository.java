@@ -16,4 +16,6 @@ public interface TareasRepository extends JpaRepository<Tareas, Integer> {
     @Query("SELECT t FROM Tareas t WHERE t.titulo_tarea = :titulo_tarea")
     Optional<Tareas> findTareasByTitulo(@Param("titulo_tarea") String titulo_tarea);
 
+    @Query("SELECT t FROM Tareas t JOIN TareaAsignatura ta ON t.id_tarea = ta.idTarea WHERE ta.idAsignatura = :idAsignatura")
+    List<Tareas> findByAsignaturaId(int idAsignatura);
 }

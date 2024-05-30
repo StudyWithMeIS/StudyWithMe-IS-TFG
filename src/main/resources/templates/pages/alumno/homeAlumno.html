@@ -19,10 +19,12 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <div class="col" th:each="asignatura : ${asignaturas}">
                 <div class="card h-100">
-<!--                    <img th:src="@{'/images/' + (${#strings.isEmpty(asignatura.imagen) ? 'default-image.jpg' : asignatura.imagen})}" class="card-img-top" alt="Imagen asignatura">-->
                     <div class="card-body">
-                        <!-- Utiliza los nombres de los métodos para acceder a los atributos -->
-                        <h5 class="card-title" th:text="${asignatura.getNombre_asignatura()}"></h5>
+                        <h5 class="card-title">
+                            <a th:href="@{'/alumnos/asignatura/' + ${asignatura.getId_asignatura()}}">
+                                <span th:text="${asignatura.getNombre_asignatura()}"></span>
+                            </a>
+                        </h5>
                         <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${asignatura.getDescripcion_asignatura()}"></h6>
                         <p class="card-text" th:text="${asignatura.getDetalle_asignatura()}"></p>
                     </div>

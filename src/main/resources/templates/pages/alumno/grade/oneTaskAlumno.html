@@ -17,35 +17,36 @@
 <div th:insert="~{navbarAlumno :: navbarAlumnoComonente}"></div>
 
 
-<section class="container-fluid lg-5">
-    <div class="container mt-3">
-        <div class="container-fluid custom-margin-top">
-            <div class="row" th:each="tarea : ${tarea.id_tareas}">
-                <h2 th:text="${tarea.titulo_tarea}"></h2>
-                <p th:text="${tarea.tipo_tarea}"></p>
-                <hr>
-                <div class="col-md-9">
-                    <p th:text="${tarea.descripcion_tarea}"></p>
-                </div>
-                <div class="col-md-3">
-                    <div class="card-body">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Tu trabajo</h5>
-                                <form th:action="@{/alumno/subirTrabajo}" method="post" enctype="multipart/form-data">
-                                    <div class="mb-3">
-                                        <input type="file" class="form-control" id="file" name="file">
-                                    </div>
-                                    <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-primary">Entregar</button>
-                                    </div>
-                                </form>
-                            </div>
+<section class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            Detalles de la Tarea
+        </div>
+        <div class="card-body">
+            <h2 th:text="${tarea.titulo_tarea}"></h2>
+            <p th:text="'Tipo: ' + ${tarea.tipo_tarea}"></p>
+            <hr>
+            <p th:text="${tarea.descripcion_tarea}"></p>
+            <div class="col-md-3">
+                <div class="card-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Tu trabajo</h5>
+                            <form th:action="@{/alumno/subirTrabajo}" method="post" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <input type="file" class="form-control" id="file" name="file">
+                                </div>
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary">Entregar</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
-
+            <div class="text-center mt-3">
+                <a th:href="@{/alumnos/asignaturas}" class="btn btn-secondary">Volver</a>
+            </div>
         </div>
     </div>
 </section>
