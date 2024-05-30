@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig{
+public class SecurityConfig {
     @Autowired
     private DataSource dataSource;
 
@@ -55,15 +55,15 @@ public class SecurityConfig{
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeRequests(auth -> auth
-               .requestMatchers("templates/**", "static/**", "/styles/**", "/scripts/**", "/images/**", "/pages/**", "/vendor/**", "/join", "knowUs").permitAll()
-               .requestMatchers("/", "/login", "/signup").permitAll()
-               .requestMatchers("/profesor/**").hasAuthority("ROLE_PROFESOR")
-               .requestMatchers("/administradores/**").hasAuthority("ROLE_ADMINISTRADOR")
-               .requestMatchers("/alumno/**").hasAuthority("ROLE_ALUMNO")
-               .anyRequest().authenticated())
-            .formLogin(formLogin -> formLogin.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
-            .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll())
-            .exceptionHandling((exception) -> exception.accessDeniedPage("/denegado"));
+                        .requestMatchers("templates/**", "static/**", "/styles/**", "/scripts/**", "/images/**", "/pages/**", "/vendor/**", "/join", "knowUs").permitAll()
+                        .requestMatchers("/", "/login", "/signup").permitAll()
+                        .requestMatchers("/profesor/**").hasAuthority("ROLE_PROFESOR")
+                        .requestMatchers("/administradores/**").hasAuthority("ROLE_ADMINISTRADOR")
+                        .requestMatchers("/alumno/**").hasAuthority("ROLE_ALUMNO")
+                        .anyRequest().authenticated())
+                .formLogin(formLogin -> formLogin.loginPage("/login").defaultSuccessUrl("/", true).permitAll())
+                .logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true).deleteCookies("JSESSIONID").permitAll())
+                .exceptionHandling((exception) -> exception.accessDeniedPage("/denegado"));
 
         return http.build();
     }
