@@ -1,19 +1,26 @@
 package com.example.swm.controllers;
 
 
-import com.example.swm.entity.AlumnoTarea;
+import com.example.swm.entity.AlumnoAsignatura;
 import com.example.swm.entity.Alumnos;
+import com.example.swm.entity.Asignaturas;
+import com.example.swm.entity.Tareas;
 import com.example.swm.repository.*;
+import com.example.swm.services.AlumnoAsignaturaService;
 import com.example.swm.services.AlumnoTareaService;
+import com.example.swm.services.AsignaturaService;
+import com.example.swm.services.TareaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -38,14 +45,32 @@ public class AlumnosController {
     @Autowired
     private AlumnoTareaService alumnoTareaService;
 
+    @Autowired
+    private AlumnoAsignaturaService alumnoAsignaturaService;
+
+    @Autowired
+    private AsignaturaService asignaturaService;
+
+    @Autowired
+    private TareaService tareaService;
+
+
+
     @GetMapping("/alumnos/homeAlumnos")
     public ModelAndView homeAsignaturas(Model model, Authentication auth) {
         ModelAndView mv = new ModelAndView();
         UserDetails userDetails = (UserDetails) auth.getPrincipal();
         String nifAlumno = userDetails.getUsername();
 
-        List<AlumnoTarea> tareas = alumnoTareaService.findTareasByNifAlumno(nifAlumno);
-        mv.addObject("tareas", tareas);
+        List<AlumnoAsignatura> asignaturasAlumno = alumnoAsignaturaService.findAsignaturasByNifAlumno(nifAlumno);
+        List<Asignaturas> asignaturas = new ArrayList<>();
+
+        for (AlumnoAsignatura alumnoAsignatura : asignaturasAlumno) {
+            Asignaturas asignatura = alumnoAsignatura.getAsignatura();
+            asignaturas.add(asignatura);
+        }
+
+        mv.addObject("asignaturas", asignaturas);
         mv.setViewName("pages/alumno/homeAlumno");
         return mv;
     }
@@ -73,6 +98,22 @@ public class AlumnosController {
             }
         }
         mv.setViewName("redirect:/login");
+        return mv;
+    }
+
+
+
+    //---------MOSTRAR ASIGNATURA-----------
+    @GetMapping("/asignatura/{id}")
+    public ModelAndView mostrarTablonClase(@PathVariable("id") int id) {
+        ModelAndView mv = new ModelAndView();
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(id);
+        mv.addObject("asignatura", asignatura);
+
+        List<Tareas> tareas = tareaService.obtenerTareasPorAsignatura(id);
+        mv.addObject("tareas", tareas);
+
+        mv.setViewName("pages/alumno/grade/listBoardTaskAlumno");
         return mv;
     }
 
@@ -109,9 +150,23 @@ public class AlumnosController {
     }
 
     //VER UNA TAREA DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verUnaTarea")
-    public ModelAndView verUnaAsignatura() {
-        return new ModelAndView("pages/alumno/grade/unaTareaAlumno");
+    @GetMapping("/asignaturas/verUnaTarea/{idTarea}")
+    public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea) {
+        ModelAndView mv = new ModelAndView();
+
+        Tareas tarea = tareaService.obtenerTareaPorId(idTarea);
+        mv.addObject("tarea", tarea);
+
+        System.out.println("Detalles de la tarea:");
+        System.out.println("ID: " + tarea.getId_tarea());
+        System.out.println("Tipo: " + tarea.getTipo_tarea());
+        System.out.println("Título: " + tarea.getTitulo_tarea());
+        System.out.println("Descripción: " + tarea.getDescripcion_tarea());
+        System.out.println("Calificación: " + tarea.getCalificacion_tarea());
+
+        mv.setViewName("pages/alumno/grade/oneTaskAlumno");
+
+        return mv;
     }
 
     //VER TABLON
