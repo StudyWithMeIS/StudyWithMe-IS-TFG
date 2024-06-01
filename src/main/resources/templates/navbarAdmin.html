@@ -76,8 +76,16 @@
                             <li><a class="dropdown-item" th:href="@{/administradores/administradores/viewListarAdministradores}">Mostrar administradores</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/administradores/administradores/viewPerfilAdministrador}">Perfil</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            PERFIL
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLinkAdministradores">
+                            <li><a class="nav-link" th:href="@{/administradores/administradores/viewPerfilAdministrador}">Perfil</a></li>
+                            <li class="nav-item" th:if="${#authentication.name != 'anonymousUser'}">
+                                <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

@@ -157,13 +157,6 @@ public class AlumnosController {
         Tareas tarea = tareaService.obtenerTareaPorId(idTarea);
         mv.addObject("tarea", tarea);
 
-        System.out.println("Detalles de la tarea:");
-        System.out.println("ID: " + tarea.getId_tarea());
-        System.out.println("Tipo: " + tarea.getTipo_tarea());
-        System.out.println("Título: " + tarea.getTitulo_tarea());
-        System.out.println("Descripción: " + tarea.getDescripcion_tarea());
-        System.out.println("Calificación: " + tarea.getCalificacion_tarea());
-
         mv.setViewName("pages/alumno/grade/oneTaskAlumno");
 
         return mv;

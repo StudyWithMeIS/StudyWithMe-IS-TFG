@@ -20,7 +20,6 @@
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
             <h2 class="row">Tareas</h2>
-            <!-- Iterar sobre los anuncios de la clase -->
             <ul class="list-group list-group-flush" th:each="tarea : ${tareas}">
                 <li class="pb-3 mb-0 small lh-sm" th:text="${tarea.titulo_tarea}"></li>
             </ul>
