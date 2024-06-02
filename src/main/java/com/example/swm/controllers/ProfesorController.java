@@ -82,7 +82,7 @@ public class ProfesorController {
 
 
     //---------MOSTRAR ASIGNATURA-----------
-    @GetMapping("/profesor/{id}")
+    @GetMapping("/asignatura/{id}")
     public ModelAndView mostrarTablonClase(@PathVariable("id") int id) {
         ModelAndView mv = new ModelAndView();
         Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(id);

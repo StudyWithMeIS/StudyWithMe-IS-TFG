@@ -29,27 +29,19 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/profesor/profesor/homeProfesor}"><i class="bi bi-house"></i>
-                                Inicio</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/profesor/profesor/homeProfesor}"><i class="bi bi-house"></i> Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/profesor/asignaturas/calendario}"> <i
-                                    class="bi bi-calendar-check"></i>
-                                Calendario</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/profesor/asignaturas/calendario}"><i class="bi bi-calendar-check"></i> Calendario</a>
                         </li>
-<!--                        <li class="nav-item">-->
-<!--                            <a class="nav-link active" aria-current="page" href="#"> <i-->
-<!--                                    class="bi bi-journal-bookmark"></i>-->
-<!--                                Asignaturas </a>-->
-<!--                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-<!--                                &lt;!&ndash; Iterar sobre las asignaturas del usuario &ndash;&gt;-->
-<!--                                <li th:each="asignatura : ${asignaturas}">-->
-<!--                                    <a class="dropdown-item" href="#" th:text="${asignatura.nombre}"></a>-->
-<!--                                </li>-->
-<!--                            </ul>-->
-<!--                        </li>-->
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/profesor/profesor/viewPerfilProfesor}"><i class="bi bi-gear"></i> Ajustes de Perfil</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/profesor/profesor/viewPerfilProfesor}"><i class="bi bi-person-circle"></i> Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" th:href="@{/}"><i class="bi bi-globe2"></i> Web</a>
+                        </li>
+                        <li class="nav-item" th:if="${#authentication.name != 'anonymousUser'}">
+                            <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -58,27 +50,22 @@
         <div class="container-fluid justify-content-center">
             <ul class="nav nav-underline">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" th:href="@{/profesor/asignaturas/verTablon}">Tablón</a>
+                    <a class="nav-link" aria-current="page" th:href="@{'/profesor/asignatura/' + ${asignatura.getId_asignatura()}}">Tablón</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/profesor/asignaturas/verTareas}">Trabajo de clase</a>
+                    <a class="nav-link" th:href="@{/profesor/asignaturas/listarTareas}">Trabajo de clase</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/profesor/asignaturas/verPersonas}">Personas</a>
                 </li>
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" th:href="@{/Profesores/asignaturas/verCalificaciones}">Nueva tarea</a>-->
-<!--                </li>-->
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/}"><i class="bi bi-globe2"></i> Web</a>
-                </li>
-                <li class="nav-item" th:if="${#authentication.name != 'anonymousUser'}">
-                    <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
+                    <a class="nav-link" th:href="@{/profesor/asignaturas/anadirTarea}">Nueva tarea</a>
                 </li>
             </ul>
         </div>
     </nav>
 </div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
