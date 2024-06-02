@@ -1,15 +1,9 @@
 package com.example.swm.controllers;
 
 
-import com.example.swm.entity.AlumnoAsignatura;
-import com.example.swm.entity.Alumnos;
-import com.example.swm.entity.Asignaturas;
-import com.example.swm.entity.Tareas;
+import com.example.swm.entity.*;
 import com.example.swm.repository.*;
-import com.example.swm.services.AlumnoAsignaturaService;
-import com.example.swm.services.AlumnoTareaService;
-import com.example.swm.services.AsignaturaService;
-import com.example.swm.services.TareaService;
+import com.example.swm.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -53,6 +47,12 @@ public class AlumnosController {
 
     @Autowired
     private TareaService tareaService;
+
+    @Autowired
+    private AlumnoService alumnoService;
+
+    @Autowired
+    private ProfesorService profesorService;
 
 
 
@@ -132,25 +132,51 @@ public class AlumnosController {
     //-------------------------------------------
 
     //CALENDARIO
-    @GetMapping("/asignaturas/calendario")
-    public ModelAndView calendario() {
-        return new ModelAndView("pages/alumno/grade/calendarAlumno");
+    @GetMapping("/asignatura/calendario/{idAsignatura}")
+    public ModelAndView calendario(@PathVariable("idAsignatura") int idAsignatura) {
+        ModelAndView mv = new ModelAndView();
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+        mv.setViewName("pages/alumno/grade/calendarAlumno");
+        return mv;
     }
 
     //VER PERSONAS DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verPersonas")
-    public ModelAndView verAsignatura() {
-        return new ModelAndView("pages/alumno/grade/verPersonasAlumno");
+    @GetMapping("/asignatura/verPersonas/{idAsignatura}")
+    public ModelAndView verAsignatura(@PathVariable("idAsignatura") int idAsignatura) {
+        ModelAndView mv = new ModelAndView();
+
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        List<Profesores> profesores = profesorService.obtenerProfesoresPorAsignatura(idAsignatura);
+        mv.addObject("profesores", profesores);
+
+        List<Alumnos> alumnos = alumnoService.obtenerAlumnosPorAsignatura(idAsignatura);
+        mv.addObject("alumnos", alumnos);
+
+
+        mv.setViewName("pages/alumno/grade/listPersonsSubjectAlumno");
+        return mv;
     }
 
-    //VER TAREAS DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verTareas")
-    public ModelAndView verTareas() {
-        return new ModelAndView("pages/alumno/grade/tareasAlumno");
+    //VER TAREAS DE UNA ASIGNATURA (TRABAJO DE CLASE)
+    @GetMapping("/asignatura/verTareas/{idAsignatura}")
+    public ModelAndView verTareas(@PathVariable("idAsignatura") int idAsignatura) {
+        ModelAndView mv = new ModelAndView();
+
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        List<Tareas> tareas = tareaService.obtenerTareasPorAsignatura(idAsignatura);
+        mv.addObject("tareas", tareas);
+
+        mv.setViewName("pages/alumno/grade/listTaskAlumno");
+        return mv;
     }
 
     //VER UNA TAREA DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verUnaTarea/{idTarea}")
+    @GetMapping("/asignatura/verUnaTarea/{idTarea}")
     public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea) {
         ModelAndView mv = new ModelAndView();
 
@@ -162,13 +188,4 @@ public class AlumnosController {
         return mv;
     }
 
-    //VER TABLON
-    @GetMapping("/asignaturas/verTablon")
-    public ModelAndView verTablon() {
-        return new ModelAndView("pages/alumno/grade/tablonAlumno");
-    }
-
-
-
-
-}
+}//CLOSE ALUMNOSCONTROLLER

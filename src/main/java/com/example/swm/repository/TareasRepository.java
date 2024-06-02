@@ -18,4 +18,10 @@ public interface TareasRepository extends JpaRepository<Tareas, Integer> {
 
     @Query("SELECT t FROM Tareas t JOIN TareaAsignatura ta ON t.id_tarea = ta.idTarea WHERE ta.idAsignatura = :idAsignatura")
     List<Tareas> findByAsignaturaId(int idAsignatura);
+
+    @Query("SELECT t FROM Tareas t JOIN TareaAsignatura ta ON t.id_tarea = ta.idTarea WHERE ta.idAsignatura = :id_asignatura")
+    List<Tareas> findTareasByAsignaturaId(@Param("id_asignatura") int idAsignatura);
+
+
+
 }
