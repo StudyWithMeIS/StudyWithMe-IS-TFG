@@ -1,7 +1,7 @@
 package com.example.swm.entity;
 
-import jakarta.persistence.*;
 
+import jakarta.persistence.*;
 import java.io.Serializable;
 
 
@@ -21,6 +21,7 @@ public class ProfesorAsignatura  implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "id_asignatura", referencedColumnName = "id_asignatura")
+
     private Asignaturas asignatura;
 
     public ProfesorAsignatura() {}
@@ -37,6 +38,7 @@ public class ProfesorAsignatura  implements Serializable {
 
     public void setIdProfesorAsignatura(int idProfesorAsignatura) {
         this.idProfesorAsignatura = idProfesorAsignatura;
+
     }
 
     public Profesores getProfesor() {
