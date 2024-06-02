@@ -40,13 +40,13 @@
                             <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
                         </li>
                         <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ADMINISTRADOR'')')}">
-                            <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Home Administrador</a>
+                            <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Plataforma de estudio</a>
                         </li>
                         <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_PROFESOR'')')}">
-                            <a class="nav-link" th:href="@{/profesores/viewHomeProfesor}">Home Profesor</a>
+                            <a class="nav-link" th:href="@{/profesores/viewHomeProfesor}">Plataforma de estudio</a>
                         </li>
                         <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ALUMNO'')')}">
-                            <a class="nav-link" th:href="@{/alumnos/alumnos/homeAlumnos}">Home Alumno</a>
+                            <a class="nav-link" th:href="@{/alumnos/alumnos/homeAlumnos}">Plataforma de estudio</a>
                         </li>
                     </ul>
                 </div>
