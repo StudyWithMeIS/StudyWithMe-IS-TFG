@@ -91,7 +91,7 @@ public class ProfesorController {
         List<Tareas> tareas = tareaService.obtenerTareasPorAsignatura(id);
         mv.addObject("tareas", tareas);
 
-        mv.setViewName("pages/profesor/asignatura/tareasProfesor");
+        mv.setViewName("pages/profesor/asignatura/tablonTareasProfesor");
         return mv;
     }
 
@@ -114,10 +114,10 @@ public class ProfesorController {
         return new ModelAndView("pages/profesor/asignatura/leerGenteAsiganaturaProfeor");
     }
 
-    //VER TAREAS DE UNA ASIGNATURA
+    //VER TAREAS DE UNA ASIGNATURA (tablon
     @GetMapping("/asignaturas/verTareas")
     public ModelAndView verTareas(){
-        return new ModelAndView("pages/profesor/asignatura/tareasProfesor");
+        return new ModelAndView("pages/profesor/asignatura/tablonTareasProfesor");
     }
 
     //VER TAREAS DE UNA ASIGNATURA
@@ -132,10 +132,19 @@ public class ProfesorController {
         return mv;
     }
 
-    //VER TABLON
-    @GetMapping("/asignaturas/verTablon")
-    public ModelAndView verTablon(){
-        return new ModelAndView("pages/profesor/asignatura/tareasProfesor");
+    //LISTAR TAREAS
+    @GetMapping("/asignaturas/listarTareas")
+    public ModelAndView listarTareas(){
+        return new ModelAndView("pages/profesor/asignatura/listarTareaProfesor");
     }
+
+
+
+    //AÑADIR TAREAS
+    @GetMapping("/asignaturas/anadirTarea")
+    public ModelAndView anadirTarea(){
+        return new ModelAndView("pages/profesor/asignatura/anadirTareaProfesor");
+    }
+
 
 }

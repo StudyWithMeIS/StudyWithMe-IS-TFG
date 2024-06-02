@@ -15,7 +15,7 @@
 <div th:fragment="navbarProfesorComonente">
     <nav class="navbar  bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/profesores/profesores/homeAsignaturas}">Study With Me</a>
+            <a class="navbar-brand" th:href="@{/profesor/profesor/homeProfesor}">Study With Me</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                     aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,21 +29,21 @@
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" th:href="@{/profesores/profesores/homeAsignaturas}"><i class="bi bi-house"></i> Inicio</a>
+                                <a class="nav-link active" aria-current="page" th:href="@{/profesor/profesor/homeProfesor}"><i class="bi bi-house"></i> Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" th:href="@{/profesores/profesores/calendario}"><i class="bi bi-calendar-check"></i> Calendario</a>
+                                <a class="nav-link active" aria-current="page" th:href="@{/profesor/asignaturas/calendario}"><i class="bi bi-calendar-check"></i> Calendario</a>
                             </li>
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link active" aria-current="page" href="#"> <i class="bi bi-journal-bookmark"></i> Asignaturas </a>-->
+<!--                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                                    <li th:each="asignatura : ${asignaturas}">-->
+<!--                                        <a class="dropdown-item" th:href="@{/profesores}" th:text="${profesores.nombre}"></a>-->
+<!--                                    </li>-->
+<!--                                </ul>-->
+<!--                            </li>-->
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#"> <i class="bi bi-journal-bookmark"></i> Asignaturas </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li th:each="asignatura : ${asignaturas}">
-                                        <a class="dropdown-item" th:href="@{/profesores}" th:text="${profesores.nombre}"></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" th:href="@{/profesores/profesores/viewPerfilprofesor}"><i class="bi bi-gear"></i> Ajustes de Perfil</a>
+                                <a class="nav-link active" aria-current="page" th:href="@{/profesor/profesor/viewPerfilProfesor}"><i class="bi bi-gear"></i> Ajustes de Perfil</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" th:href="@{/}"><i class="bi bi-globe2"></i> Web</a>

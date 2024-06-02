@@ -43,7 +43,7 @@
                             <a class="nav-link" th:href="@{/administradores/administradores/viewHomeAdministrador}">Plataforma de estudio</a>
                         </li>
                         <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_PROFESOR'')')}">
-                            <a class="nav-link" th:href="@{/profesores/viewHomeProfesor}">Plataforma de estudio</a>
+                            <a class="nav-link" th:href="@{/profesor/profesor/homeProfesor}">Plataforma de estudio</a>
                         </li>
                         <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_ALUMNO'')')}">
                             <a class="nav-link" th:href="@{/alumnos/alumnos/homeAlumnos}">Plataforma de estudio</a>
