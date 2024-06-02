@@ -59,7 +59,7 @@ public class ProfesorController {
     @GetMapping("/profesor/viewPerfilProfesor")
     public ModelAndView perfilProfesor(Authentication auth) {
         ModelAndView mv = new ModelAndView();
-        mv.addObject("profesor", PerfilProfersor(auth).getModel().get("profesor");
+        mv.addObject("profesor", PerfilProfersor(auth).getModel().get("profesor"));
         mv.setViewName("pages/profesor/profileProfesor");
         return mv;
     }
@@ -91,8 +91,51 @@ public class ProfesorController {
         List<Tareas> tareas = tareaService.obtenerTareasPorAsignatura(id);
         mv.addObject("tareas", tareas);
 
-        mv.setViewName("pages/profesor/asignatura/");
+        mv.setViewName("pages/profesor/asignatura/tareasProfesor");
         return mv;
+    }
+
+
+
+    //-------------------------------------------
+    //--------------ASIGNATURAS------------------
+    //-------------------------------------------
+
+
+    //CALENDARIO
+    @GetMapping("/asignaturas/calendario")
+    public ModelAndView calendario(){
+        return new ModelAndView("pages/profesor/asignatura/calendarioProfesor");
+    }
+
+    //VER PERSONAS DE UNA ASIGNATURA
+    @GetMapping("/asignaturas/verPersonas")
+    public ModelAndView verPersonas(){
+        return new ModelAndView("pages/profesor/asignatura/leerGenteAsiganaturaProfeor");
+    }
+
+    //VER TAREAS DE UNA ASIGNATURA
+    @GetMapping("/asignaturas/verTareas")
+    public ModelAndView verTareas(){
+        return new ModelAndView("pages/profesor/asignatura/tareasProfesor");
+    }
+
+    //VER TAREAS DE UNA ASIGNATURA
+    @GetMapping("/asignaturas/verUnaTarea/{idTarea}")
+    public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea){
+        ModelAndView mv = new ModelAndView();
+
+        Tareas tarea = tareaService.obtenerTareaPorId(idTarea);
+        mv.addObject("tarea", tarea);
+
+        mv.setViewName("pages/profesor/asignatura/unaTareaProfesor");
+        return mv;
+    }
+
+    //VER TABLON
+    @GetMapping("/asignaturas/verTablon")
+    public ModelAndView verTablon(){
+        return new ModelAndView("pages/profesor/asignatura/tareasProfesor");
     }
 
 }
