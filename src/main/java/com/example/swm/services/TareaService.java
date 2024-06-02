@@ -24,4 +24,12 @@ public class TareaService {
     public List<Tareas> obtenerTareasPorAsignatura(int idAsignatura) {
         return tareaRepository.findTareasByAsignaturaId(idAsignatura);
     }
+
+    public List<Tareas> obtenerTodasLasTareas() {
+        return tareaRepository.findAll();
+    }
+
+    public Tareas guardarTarea(Tareas tarea) {
+        return tareaRepository.save(tarea);
+    }
 }
