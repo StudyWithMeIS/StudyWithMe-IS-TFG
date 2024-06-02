@@ -16,7 +16,7 @@
 <div th:fragment="navbarAlumnoComponenet">
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/alumnos/homeAsignaturas}">Study With Me</a>
+            <a class="navbar-brand" th:href="@{/alumnos/alumnos/homeAlumnos}">Study With Me</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
                     aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,28 +29,23 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/alumnos/homeAsignaturas}"><i class="bi bi-house"></i>
+                            <a class="nav-link active" aria-current="page" th:href="@{/alumnos/alumnos/homeAlumnos}"><i class="bi bi-house"></i>
                                 Inicio</a>
                         </li>
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active" aria-current="page" th:href="@{/alumnos/asignatura/calendario}"> <i-->
+<!--                                    class="bi bi-calendar-check"></i>-->
+<!--                                Calendario</a>-->
+<!--                        </li>-->
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/alumnos/asignaturas/calendario}"> <i
-                                    class="bi bi-calendar-check"></i>
-                                Calendario</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/alumnos/alumnos/viewPerfilAlumno}"><i class="bi bi-person-circle"></i>
+                                Perfil</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#"> <i
-                                    class="bi bi-journal-bookmark"></i>
-                                Asignaturas </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <!-- Iterar sobre las asignaturas del usuario -->
-                                <li th:each="asignatura : ${asignaturas}">
-                                    <a class="dropdown-item" href="#" th:text="${asignatura.nombre}"></a>
-                                </li>
-                            </ul>
+                            <a class="nav-link active" aria-current="page" th:href="@{/}"><i class="bi bi-globe2"></i> Web</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-gear"></i>
-                                Ajustes</a>
+                        <li class="nav-item" th:if="${#authentication.name != 'anonymousUser'}">
+                            <a class="nav-link" th:href="@{/logout}">Cerrar sesión</a>
                         </li>
                     </ul>
                 </div>
@@ -59,13 +54,13 @@
         <div class="container-fluid justify-content-center">
             <ul class="nav nav-underline">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" th:href="@{/alumnos/asignaturas/verTablon}">Tablón</a>
+                    <a class="nav-link" aria-current="page" th:href="@{'/alumnos/asignatura/' + ${asignatura.getId_asignatura()}}">Tablón</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/alumnos/asignaturas/verTareas}">Trabajo de clase</a>
+                    <a class="nav-link" th:href="@{'/alumnos/asignatura/verTareas/' + ${asignatura.getId_asignatura()}}">Trabajo de clase</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/alumnos/asignaturas/verPersonas}">Personas</a>
+                    <a class="nav-link" th:href="@{'/alumnos/asignatura/verPersonas/' + ${asignatura.getId_asignatura()}}">Personas</a>
                 </li>
             </ul>
         </div>

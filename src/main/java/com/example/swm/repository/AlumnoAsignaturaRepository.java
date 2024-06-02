@@ -1,6 +1,7 @@
 package com.example.swm.repository;
 
 import com.example.swm.entity.AlumnoAsignatura;
+import com.example.swm.entity.Alumnos;
 import com.example.swm.entity.Asignaturas;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,7 @@ public interface AlumnoAsignaturaRepository extends JpaRepository<AlumnoAsignatu
 
     @Query("SELECT aa.asignatura FROM AlumnoAsignatura aa JOIN aa.alumno a WHERE a.nif_alumno = :nif_alumno")
     List<Asignaturas> findAsignaturasNavbarByNifAlumno(@Param("nif_alumno") String nif_alumno);
+
+    @Query("SELECT aa.alumno FROM AlumnoAsignatura aa WHERE aa.asignatura.id_asignatura = :idAsignatura")
+    List<Alumnos> findAlumnosByAsignaturaId(@Param("idAsignatura") int idAsignatura);
 }

@@ -13,16 +13,20 @@
 <body>
 
 <!-- Navbar -->
-<div th:insert="~{navbarAlumno :: navbarAlumnoComonente}"></div>
+<div th:insert="~{navbarAlumnoGrade :: navbarAlumnoComponenet}"></div>
 
 <section class="container-fluid lg-5">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <div class="row" th:each="asignatura : ${asignatura.is_asignatura}">
+            <div class="row" th:each="asignatura : ${asignatura.id_asignatura}">
                 <h2>Profesores</h2><hr>
-                <p th:text="${asignatura.getNombreProfesor}"></p>
+                <div th:each="profesor : ${profesores}">
+                    <p th:text="${profesor.nombre_profesor}"></p>
+                </div>
                 <h2>Alumnos</h2><hr>
-                <p th:text="${asignatura.getNombreAlumno}"></p>
+                <div th:each="alumno : ${alumnos}">
+                    <p th:text="${alumno.nombre_alumno}"></p>
+                </div>
             </div>
         </div>
     </div>

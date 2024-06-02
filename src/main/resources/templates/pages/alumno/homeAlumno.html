@@ -19,13 +19,20 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <div class="col" th:each="asignatura : ${asignaturas}">
                 <div class="card h-100">
-                    <div class="card-body">
+                    <div th:href="@{'/alumnos/asignatura/' + ${asignatura.getId_asignatura()}}">
+                        <img th:src="@{/images/clase.webp}" alt="Asignatura" class="card-img">
+                    </div>
+                    <div class="card-img-overlay">
+
                         <h5 class="card-title">
-                            <a th:href="@{'/alumnos/asignatura/' + ${asignatura.getId_asignatura()}}">
+                            <p><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" th:href="@{'/alumnos/asignatura/' + ${asignatura.getId_asignatura()}}">
                                 <span th:text="${asignatura.getNombre_asignatura()}"></span>
-                            </a>
+                            </a></p>
                         </h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary" th:text="${asignatura.getDescripcion_asignatura()}"></h6>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-subtitle mb-2 text-body-secondary"
+                            th:text="${asignatura.getDescripcion_asignatura()}"></h6>
                         <p class="card-text" th:text="${asignatura.getDetalle_asignatura()}"></p>
                     </div>
                 </div>
@@ -36,8 +43,6 @@
         <h3>Actualmente no tienes ninguna asignatura</h3>
     </div>
 </section>
-
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
