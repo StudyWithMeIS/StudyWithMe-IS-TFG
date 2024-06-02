@@ -27,35 +27,36 @@
 
 <section class="container-fluid lg-5">
     <div class="container mt-3">
-            <div class="card-body">
-                <div class="card" th:each="tarea : ${tareas}">
-                    <div class="card-body">
-                        <div class="pb-3 mb-0 small lh-sm">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                            aria-controls="flush-collapseOne">
-                                        <strong th:text="${tarea.titulo_tarea +' - '+tarea.tipo_tarea}"></strong><br>
-                                    </button>
-                                </h2>
-                                <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                     data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body">
-                                        <p th:text="${tarea.descripcion_tarea}"></p>
-                                    </div>
-                                </div>
-                                <div class="text-center ms-auto">
-                                    <a th:href="@{/profesor/asignaturas/verUnaTarea/{idTarea}(idTarea=${tarea.id_tarea})}"
-                                       class="btn btn-primary">Ver tarea</a>
+        <div class="card-body">
+            <div class="card" th:each="tarea : ${tareas}">
+                <div class="card-body">
+                    <div class="pb-3 mb-0 small lh-sm">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                        aria-controls="flush-collapseOne">
+                                    <strong th:text="${tarea.titulo_tarea +' - '+tarea.tipo_tarea}"></strong><br>
+                                </button>
+                            </h2>
+                            <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                 data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <p th:text="${tarea.descripcion_tarea}"></p>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
+                        <div class="text-center ms-auto">
+                            <a th:href="@{'/profesor/asignatura/verUnaTarea/' + ${tarea.id_tarea}}"
+                               class="btn btn-primary">Ver tarea</a>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </div>
+    </div>
 </section>
 
 

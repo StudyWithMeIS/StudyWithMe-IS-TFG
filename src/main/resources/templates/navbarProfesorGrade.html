@@ -32,7 +32,7 @@
                             <a class="nav-link active" aria-current="page" th:href="@{/profesor/profesor/homeProfesor}"><i class="bi bi-house"></i> Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/profesor/asignaturas/calendario}"><i class="bi bi-calendar-check"></i> Calendario</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/profesor/asignatura/calendario}"><i class="bi bi-calendar-check"></i> Calendario</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" th:href="@{/profesor/profesor/viewPerfilProfesor}"><i class="bi bi-person-circle"></i> Perfil</a>
@@ -53,13 +53,13 @@
                     <a class="nav-link" aria-current="page" th:href="@{'/profesor/asignatura/' + ${asignatura.getId_asignatura()}}">Tablón</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/profesor/asignaturas/listarTareas}">Trabajo de clase</a>
+                    <a class="nav-link" th:href="@{'/profesor/asignatura/listarTareas/' + ${asignatura.getId_asignatura()}}">Trabajo de clase</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/profesor/asignaturas/verPersonas}">Personas</a>
+                    <a class="nav-link" th:href="@{'/profesor/asignatura/verPersonas/' + ${asignatura.getId_asignatura()}}">Personas</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/profesor/asignaturas/anadirTarea}">Nueva tarea</a>
+                    <a class="nav-link" th:href="@{'/profesor/asignatura/anadirTarea/' + ${asignatura.getId_asignatura()}}">Nueva tarea</a>
                 </li>
             </ul>
         </div>

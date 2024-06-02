@@ -115,7 +115,7 @@ public class ProfesorController {
     }
 
     //VER PERSONAS DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verPersonas/{idAsignatura}")
+    @GetMapping("/asignaturas/verPersona/{idAsignatura}")
     public ModelAndView verPersonas(@PathVariable("idAsignatura") int idAsignatura){
         ModelAndView mv = new ModelAndView();
         Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
@@ -147,7 +147,7 @@ public class ProfesorController {
     }
 
     //VER TAREAS DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verUnaTarea/{idTarea}")
+    @GetMapping("/asignatura/verUnaTarea/{idTarea}")
     public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea){
         ModelAndView mv = new ModelAndView();
 
@@ -158,18 +158,31 @@ public class ProfesorController {
         return mv;
     }
 
-    //LISTAR TAREAS
-    @GetMapping("/asignaturas/listarTareas")
-    public ModelAndView listarTareas(){
+    //LISTAR TAREAS (trabajo de clase)
+    @GetMapping("/asignatura/listarTareas/{idAsignatura}")
+    public ModelAndView listarTareas(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
-        List<Tareas> tareas = tareaService.obtenerTodasLasTareas();
+
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        List<Tareas> tareas = tareaService.obtenerTareasPorAsignatura(idAsignatura);
         mv.addObject("tareas", tareas);
-        mv.setViewName("pages/profesor/asignatura/listarTareasProfesor");
+
+        mv.setViewName("pages/profesor/asignatura/listarTareaProfesor");
         return mv;
     }
 
     //AÑADIR TAREAS
-    @PostMapping("/asignaturas/anadirTarea")
+    @GetMapping("/asignatura/anadirTarea")
+    public ModelAndView anadirTarea(){
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("tarea", new Tareas());
+        mv.setViewName("pages/profesor/asignatura/anadirTareaProfesor");
+        return mv;
+    }
+
+    @PostMapping("/asignatura/anadirTarea")
     public ModelAndView anadirTarea(@ModelAttribute Tareas tarea){
         tareaService.guardarTarea(tarea);
         return new ModelAndView("redirect:/profesor/asignaturas/listarTareas");

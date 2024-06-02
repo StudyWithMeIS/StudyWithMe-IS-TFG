@@ -18,7 +18,7 @@
 <section class="container-fluid lg-5">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <div class="row" th:each="tarea : ${tarea.id_tareas}">
+            <div class="row" th:each="tarea : ${tarea.id_tarea}">
                 <div class="col-md-9">
                     <h2 th:text="${tarea.titulo_tarea}"></h2>
                     <p th:text="${tarea.tipo_tarea}"></p>
