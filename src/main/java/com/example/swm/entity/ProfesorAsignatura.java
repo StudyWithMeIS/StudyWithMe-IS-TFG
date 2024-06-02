@@ -2,41 +2,43 @@ package com.example.swm.entity;
 
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
+
 
 @Entity
 @Table(name = "profesor_asignatura")
-public class ProfesorAsignatura implements Serializable {
-
+public class ProfesorAsignatura  implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id_profesor_asignatura;
+    @Column(name = "id_profesor_asignatura")
+    private int idProfesorAsignatura;
 
     @ManyToOne
-    @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor", nullable = false)
+    @JoinColumn(name = "id_profesor", referencedColumnName = "id_profesor")
     private Profesores profesor;
 
     @ManyToOne
-    @JoinColumn(name = "id_asignatura", referencedColumnName = "id_asignatura", nullable = false)
+    @JoinColumn(name = "id_asignatura", referencedColumnName = "id_asignatura")
+
     private Asignaturas asignatura;
 
     public ProfesorAsignatura() {}
 
-    public ProfesorAsignatura(Integer id_profesor_asignatura, Profesores profesor, Asignaturas asignatura) {
-        this.id_profesor_asignatura = id_profesor_asignatura;
+    public ProfesorAsignatura(int idProfesorAsignatura, Profesores profesor, Asignaturas asignatura) {
+        this.idProfesorAsignatura = idProfesorAsignatura;
         this.profesor = profesor;
         this.asignatura = asignatura;
     }
 
-    public Integer getId_profesor_asignatura() {
-        return id_profesor_asignatura;
+    public int getIdProfesorAsignatura() {
+        return idProfesorAsignatura;
     }
 
-    public void setId_profesor_asignatura(Integer id_profesor_asignatura) {
-        this.id_profesor_asignatura = id_profesor_asignatura;
+    public void setIdProfesorAsignatura(int idProfesorAsignatura) {
+        this.idProfesorAsignatura = idProfesorAsignatura;
+
     }
 
     public Profesores getProfesor() {
@@ -58,10 +60,9 @@ public class ProfesorAsignatura implements Serializable {
     @Override
     public String toString() {
         return "ProfesorAsignatura{" +
-                "id_profesor_asignatura=" + id_profesor_asignatura +
+                "idProfesorAsignatura=" + idProfesorAsignatura +
                 ", profesor=" + profesor +
                 ", asignatura=" + asignatura +
                 '}';
     }
-
 }

@@ -19,7 +19,9 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
             <div class="col" th:each="asignatura : ${asignaturas}">
                 <div class="card h-100">
-                    <div th:href="@{'/alumnos/asignatura/' + ${asignatura.getId_asignatura()}}"><img th:src="@{/images/clase.webp}" alt="Asignatura" class="card-img"></div>
+                    <div th:href="@{'/alumnos/asignatura/' + ${asignatura.getId_asignatura()}}">
+                        <img th:src="@{/images/clase.webp}" alt="Asignatura" class="card-img">
+                    </div>
                     <div class="card-img-overlay">
 
                         <h5 class="card-title">
