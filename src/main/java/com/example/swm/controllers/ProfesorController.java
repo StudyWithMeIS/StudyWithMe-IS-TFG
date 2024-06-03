@@ -2,24 +2,18 @@ package com.example.swm.controllers;
 
 import com.example.swm.entity.*;
 import com.example.swm.repository.ProfesoresRepository;
-import com.example.swm.services.AsignaturaService;
-import com.example.swm.services.ProfesorAsignaturaService;
-import com.example.swm.services.ProfesorService;
-import com.example.swm.services.TareaService;
+import com.example.swm.services.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/profesor")
@@ -39,6 +33,9 @@ public class ProfesorController {
 
     @Autowired
     private ProfesorService profesorService;
+
+    @Autowired
+    private AlumnoService alumnoService;
 
 
     @GetMapping("/profesor/homeProfesor")
@@ -125,10 +122,10 @@ public class ProfesorController {
         List<Profesores> profesores = profesorService.obtenerProfesoresPorAsignatura(idAsignatura);
         mv.addObject("profesores", profesores);
 
-        List<Tareas> tareas = tareaService.obtenerTareasPorAsignatura(idAsignatura);
-        mv.addObject("tareas", tareas);
+        List<Alumnos> alumnos = alumnoService.obtenerAlumnosPorAsignatura(idAsignatura);
+        mv.addObject("alumnos", alumnos);
 
-        mv.setViewName("pages/profesor/asignatura/leerGenteAsiganaturaProfeor");
+        mv.setViewName("pages/profesor/asignatura/leerGenteAsiganaturaProfesor");
         return mv;
     }
 
