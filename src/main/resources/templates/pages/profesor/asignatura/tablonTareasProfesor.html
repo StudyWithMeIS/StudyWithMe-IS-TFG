@@ -67,7 +67,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center ms-auto">
-                                    <a th:href="@{/profesor/asignatura/verUnaTarea/{idTarea}(idTarea=${tarea.id_tarea})}" class="btn btn-primary">Ver tarea</a>
+                                    <a th:href="@{'/profesor/asignatura/verUnaTarea/' + ${asignatura.id_asignatura} + '/' + ${tarea.id_tarea}}" class="btn btn-primary">Ver tarea</a>
                                 </div>
                             </div>
                         </div>

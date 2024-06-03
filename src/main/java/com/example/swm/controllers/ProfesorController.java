@@ -155,8 +155,8 @@ public class ProfesorController {
         Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
         mv.addObject("asignatura", asignatura);
 
-        Tareas tarea = tareaService.obtenerTareaPorId(idTarea);
-        mv.addObject("tarea", tarea);
+        Tareas tareas = tareaService.obtenerTareaPorId(idTarea);
+        mv.addObject("tareas", tareas);
 
         mv.setViewName("pages/profesor/asignatura/unaTareaProfesor");
         return mv;
