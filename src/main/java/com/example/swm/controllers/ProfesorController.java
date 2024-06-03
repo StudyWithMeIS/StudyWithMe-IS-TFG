@@ -106,7 +106,7 @@ public class ProfesorController {
 
 
     //CALENDARIO
-    @GetMapping("/asignaturas/calendario/{idAsignatura}")
+    @GetMapping("/asignatura/calendario/{idAsignatura}")
     public ModelAndView calendario(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
         Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
@@ -116,7 +116,7 @@ public class ProfesorController {
     }
 
     //VER PERSONAS DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verPersonas/{idAsignatura}")
+    @GetMapping("/asignatura/verPersonas/{idAsignatura}")
     public ModelAndView verPersonas(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
         Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
@@ -148,12 +148,14 @@ public class ProfesorController {
     }
 
     //VER TAREAS DE UNA ASIGNATURA
-    @GetMapping("/asignatura/verUnaTarea/{idTarea}")
-    public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea, Model model) {
+    @GetMapping("/asignatura/verUnaTarea/{idAsignatura}/{idTarea}")
+    public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea, @PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
 
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
         Tareas tarea = tareaService.obtenerTareaPorId(idTarea);
-        model.addAttribute("tarea", tarea);
         mv.addObject("tarea", tarea);
 
         mv.setViewName("pages/profesor/asignatura/unaTareaProfesor");
