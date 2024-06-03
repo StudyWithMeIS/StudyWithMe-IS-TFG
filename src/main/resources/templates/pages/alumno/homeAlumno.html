@@ -14,10 +14,11 @@
 <div th:insert="~{navbarAlumno :: navbarAlumnoComonente}"></div>
 
 
+
 <section class="container-fluid mt-5">
     <div th:if="${not #lists.isEmpty(asignaturas)}" class="visible">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-            <div class="col" th:each="asignatura : ${asignaturas}">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <div class="col-10" th:each="asignatura : ${asignaturas}">
                 <div class="card h-100">
                     <div th:href="@{'/alumnos/asignatura/' + ${asignatura.getId_asignatura()}}">
                         <img th:src="@{/images/clase.webp}" alt="Asignatura" class="card-img">

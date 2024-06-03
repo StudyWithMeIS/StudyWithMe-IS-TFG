@@ -1,25 +1,22 @@
 package com.example.swm.controllers;
 
-import com.example.swm.entity.Asignaturas;
-import com.example.swm.entity.ProfesorAsignatura;
-import com.example.swm.entity.Profesores;
-import com.example.swm.entity.Tareas;
+import com.example.swm.entity.*;
 import com.example.swm.repository.ProfesoresRepository;
-import com.example.swm.services.AsignaturaService;
-import com.example.swm.services.ProfesorAsignaturaService;
-import com.example.swm.services.TareaService;
+import com.example.swm.repository.TareasRepository;
+import com.example.swm.services.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/profesor")
@@ -33,8 +30,18 @@ public class ProfesorController {
 
     @Autowired
     private AsignaturaService asignaturaService;
+
     @Autowired
     private TareaService tareaService;
+
+    @Autowired
+    private ProfesorService profesorService;
+
+    @Autowired
+    private AlumnoService alumnoService;
+
+    @Autowired
+    private TareasRepository tareasRepository;
 
 
     @GetMapping("/profesor/homeProfesor")
@@ -82,7 +89,7 @@ public class ProfesorController {
 
 
     //---------MOSTRAR ASIGNATURA-----------
-    @GetMapping("/profesor/{id}")
+    @GetMapping("/asignatura/{id}")
     public ModelAndView mostrarTablonClase(@PathVariable("id") int id) {
         ModelAndView mv = new ModelAndView();
         Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(id);
@@ -91,10 +98,9 @@ public class ProfesorController {
         List<Tareas> tareas = tareaService.obtenerTareasPorAsignatura(id);
         mv.addObject("tareas", tareas);
 
-        mv.setViewName("pages/profesor/asignatura/tareasProfesor");
+        mv.setViewName("pages/profesor/asignatura/tablonTareasProfesor");
         return mv;
     }
-
 
 
     //-------------------------------------------
@@ -103,39 +109,171 @@ public class ProfesorController {
 
 
     //CALENDARIO
-    @GetMapping("/asignaturas/calendario")
-    public ModelAndView calendario(){
-        return new ModelAndView("pages/profesor/asignatura/calendarioProfesor");
+    @GetMapping("/asignatura/calendario/{idAsignatura}")
+    public ModelAndView calendario(@PathVariable("idAsignatura") int idAsignatura) {
+        ModelAndView mv = new ModelAndView();
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+        mv.setViewName("pages/profesor/asignatura/calendarioProfesor");
+        return mv;
     }
 
     //VER PERSONAS DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verPersonas")
-    public ModelAndView verPersonas(){
-        return new ModelAndView("pages/profesor/asignatura/leerGenteAsiganaturaProfeor");
+    @GetMapping("/asignatura/verPersonas/{idAsignatura}")
+    public ModelAndView verPersonas(@PathVariable("idAsignatura") int idAsignatura) {
+        ModelAndView mv = new ModelAndView();
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        List<Profesores> profesores = profesorService.obtenerProfesoresPorAsignatura(idAsignatura);
+        mv.addObject("profesores", profesores);
+
+        List<Alumnos> alumnos = alumnoService.obtenerAlumnosPorAsignatura(idAsignatura);
+        mv.addObject("alumnos", alumnos);
+
+        mv.setViewName("pages/profesor/asignatura/leerGenteAsiganaturaProfesor");
+        return mv;
     }
 
-    //VER TAREAS DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verTareas")
-    public ModelAndView verTareas(){
-        return new ModelAndView("pages/profesor/asignatura/tareasProfesor");
-    }
-
-    //VER TAREAS DE UNA ASIGNATURA
-    @GetMapping("/asignaturas/verUnaTarea/{idTarea}")
-    public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea){
+    //VER TAREAS DE UNA ASIGNATURA (tablon)
+    @GetMapping("/asignaturas/{idAsignatura}")
+    public ModelAndView verTareas(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
 
-        Tareas tarea = tareaService.obtenerTareaPorId(idTarea);
-        mv.addObject("tarea", tarea);
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        List<Tareas> tareas = tareaService.obtenerTareasPorAsignatura(idAsignatura);
+        mv.addObject("tareas", tareas);
+
+        mv.setViewName("pages/profesor/asignatura/tablonTareasProfesor");
+        return mv;
+    }
+
+    //VER TAREAS DE UNA ASIGNATURA
+    @GetMapping("/asignatura/verUnaTarea/{idAsignatura}/{idTarea}")
+    public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea, @PathVariable("idAsignatura") int idAsignatura) {
+        ModelAndView mv = new ModelAndView();
+
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        Tareas tareas = tareaService.obtenerTareaPorId(idTarea);
+        mv.addObject("tareas", tareas);
 
         mv.setViewName("pages/profesor/asignatura/unaTareaProfesor");
         return mv;
     }
 
-    //VER TABLON
-    @GetMapping("/asignaturas/verTablon")
-    public ModelAndView verTablon(){
-        return new ModelAndView("pages/profesor/asignatura/tareasProfesor");
+    @PostMapping("/tareas/{id}/subirTrabajo")
+    public String subirTrabajo(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file, Model model) {
+        if (file.isEmpty()) {
+            model.addAttribute("error", "Por favor, sube un archivo.");
+            return "redirect:/profesores/tareas/" + id;
+        }
+
+        tareaService.guardarArchivo(id, file);
+
+        return "redirect:/profesores/tareas/" + id;
     }
+
+    @PostMapping("/tareas/modificarTarea")
+    public String modificarTarea(@ModelAttribute("tarea") Tareas tarea, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("error", "Por favor, corrige los errores en el formulario.");
+            return "redirect:/profesores/tareas/" + tarea.getId_tarea();
+        }
+
+        tareaService.actualizarTarea(tarea);
+        return "redirect:/profesores/tareas/" + tarea.getId_tarea();
+    }
+
+    @PostMapping("/tareas/calificarTarea")
+    public String calificarTarea(@RequestParam("id") Long id, @RequestParam("calificacion") int calificacion, Model model) {
+        Tareas tarea = tareaService.obtenerTareaPorId(id.intValue());
+        if (tarea == null) {
+            model.addAttribute("error", "Tarea no encontrada.");
+            return "redirect:/profesores/tareas/" + id;
+        }
+
+        tarea.setCalificacion_tarea(calificacion); // Corrected method name
+        tareaService.actualizarTarea(tarea);
+        return "redirect:/profesores/tareas/" + id;
+    }
+
+
+    //LISTAR TAREAS (trabajo de clase)
+    @GetMapping("/asignatura/listarTareas/{idAsignatura}")
+    public ModelAndView listarTareas(@PathVariable("idAsignatura") int idAsignatura) {
+        ModelAndView mv = new ModelAndView();
+
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        List<Tareas> tareas = tareaService.obtenerTareasPorAsignatura(idAsignatura);
+        mv.addObject("tareas", tareas);
+
+        mv.setViewName("pages/profesor/asignatura/listarTareaProfesor");
+        return mv;
+    }
+
+    //AÑADIR TAREAS
+    @GetMapping("/tareas/viewCrearTarea/{idAsignatura}")
+    public ModelAndView mostrarPaginaAddTarea(@PathVariable("idAsignatura") int idAsignatura) {
+        ModelAndView mv = new ModelAndView();
+
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        mv.setViewName("pages/profesor/asignatura/anadirTareaProfesor");
+        return mv;
+    }
+
+    @RequestMapping("/tareas/crearTarea/{idAsignatura}")
+    public ModelAndView guardarTareas(@PathVariable("idAsignatura") int idAsignatura, @ModelAttribute Tareas tarea, @Validated BindingResult result) {
+        ModelAndView mv = new ModelAndView();
+
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0 ) {
+            System.out.println(tarea.getTipo_tarea());
+            System.out.println(tarea.getTitulo_tarea());
+            System.out.println(tarea.getDescripcion_tarea());
+            System.out.println(tarea.getCalificacion_tarea());
+            System.out.println(result.getAllErrors().toString());
+            mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mv.setViewName("redirect:/profesor/tareas/viewCrearTarea/{idAsignatura}");
+            return mv;
+        }else{
+            String tipoTarea = tarea.getTipo_tarea().toLowerCase();
+            String tituloTarea = tarea.getTitulo_tarea().toLowerCase();
+            String descripcionTarea = tarea.getDescripcion_tarea().toLowerCase();
+            Optional<Tareas> existingTarea = tareasRepository.findTareasByTitulo(tituloTarea);
+            if (existingTarea.isPresent()) {
+                mv.addObject("error", "La tarea ya existe en la base de datos");
+            } else {
+                Tareas tareas = new Tareas();
+                tareas.setTipo_tarea(tipoTarea);
+                tareas.setTitulo_tarea(tituloTarea);
+                tareas.setDescripcion_tarea(descripcionTarea);
+                tareas.setCalificacion_tarea(tarea.getCalificacion_tarea());
+                tareasRepository.save(tareas);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            mv.setViewName("redirect:/profesor/tareas/viewCrearTarea/{idAsignatura}");
+            return mv;
+        }
+    }
+
 
 }

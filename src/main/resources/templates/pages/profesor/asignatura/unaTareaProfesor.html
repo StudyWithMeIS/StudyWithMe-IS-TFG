@@ -18,12 +18,12 @@
 <section class="container-fluid lg-5">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <div class="row" th:each="tarea : ${tarea.id_tareas}">
+            <div class="row">
                 <div class="col-md-9">
-                    <h2 th:text="${tarea.titulo_tarea}"></h2>
-                    <p th:text="${tarea.tipo_tarea}"></p>
+                    <h2 th:text="${tareas.titulo_tarea}"></h2>
+                    <p th:text="'Tipo: ' + ${tareas.tipo_tarea}"></p>
                     <hr>
-                    <p th:text="${tarea.descripcion_tarea}"></p>
+                    <p th:text="${tareas.descripcion_tarea}"></p>
                 </div>
                 <div class="col-md-3 d-flex flex-column align-items-end">
                     <div class="card mb-3">
@@ -60,18 +60,18 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form th:action="@{/profesores/profesores/modificarTarea}" method="post">
+                            <form th:action="@{/profesor/tareas/modificarTarea}" method="post">
                                 <div class="mb-3">
                                     <label for="tipo_tarea" class="form-label">Tipo:</label>
-                                    <input type="text" class="form-control" id="tipo_tarea" name="tipo_tarea" th:value="${tarea.tipo_tarea}">
+                                    <input type="text" class="form-control" id="tipo_tarea" name="tipo_tarea" th:value="${tareas.tipo_tarea}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="titulo_tarea" class="form-label">Título:</label>
-                                    <input type="text" class="form-control" id="titulo_tarea" name="titulo_tarea" th:value="${tarea.titulo_tarea}">
+                                    <input type="text" class="form-control" id="titulo_tarea" name="titulo_tarea" th:value="${tareas.titulo_tarea}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="descripcion_tarea" class="form-label">Descripción:</label>
-                                    <textarea class="form-control" id="descripcion_tarea" name="descripcion_tarea" rows="3" th:text="${tarea.descripcion_tarea}"></textarea>
+                                    <textarea class="form-control" id="descripcion_tarea" name="descripcion_tarea" rows="3" th:text="${tareas.descripcion_tarea}"></textarea>
                                 </div>
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" class="btn btn-outline-success btn-lg">Modificar Tarea</button>
@@ -91,7 +91,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form th:action="@{/profesores/profesores/calificarTarea}" method="post">
+                            <form th:action="@{/profesor/tareas/calificarTarea}" method="post">
                                 <div class="mb-3">
                                     <label for="calificacion" class="form-label">Calificación:</label>
                                     <input type="number" class="form-control" id="calificacion" name="calificacion" min="0" max="10">
