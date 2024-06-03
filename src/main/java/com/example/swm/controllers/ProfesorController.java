@@ -2,18 +2,21 @@ package com.example.swm.controllers;
 
 import com.example.swm.entity.*;
 import com.example.swm.repository.ProfesoresRepository;
+import com.example.swm.repository.TareasRepository;
 import com.example.swm.services.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/profesor")
@@ -36,6 +39,9 @@ public class ProfesorController {
 
     @Autowired
     private AlumnoService alumnoService;
+
+    @Autowired
+    private TareasRepository tareasRepository;
 
 
     @GetMapping("/profesor/homeProfesor")
@@ -212,19 +218,61 @@ public class ProfesorController {
     }
 
     //AÑADIR TAREAS
-    @GetMapping("/asignatura/viewAnadirTarea")
-    public ModelAndView anadirTarea() {
+    @GetMapping("/tareas/viewCrearTarea/{idAsignatura}")
+    public ModelAndView mostrarPaginaAddTarea(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
+
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
         mv.setViewName("pages/profesor/asignatura/anadirTareaProfesor");
         return mv;
     }
 
-    @RequestMapping("/asignatura/anadirTarea")
-    public ModelAndView guardarAnadirTarea(@ModelAttribute Tareas tarea, BindingResult result) {
+    @RequestMapping("/tareas/crearTarea/{idAsignatura}")
+    public ModelAndView guardarTareas(@PathVariable("idAsignatura") int idAsignatura, @ModelAttribute Tareas tarea, @Validated BindingResult result) {
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("redirect:/profesor/asignatura/listarTareas");
-        return mv;
+        Asignaturas asignatura = asignaturaService.obtenerAsignaturaPorId(idAsignatura);
+        mv.addObject("asignatura", asignatura);
+
+        if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0 ) {
+            System.out.println(tarea.getTipo_tarea());
+            System.out.println(tarea.getTitulo_tarea());
+            System.out.println(tarea.getDescripcion_tarea());
+            System.out.println(tarea.getCalificacion_tarea());
+            System.out.println(result.getAllErrors().toString());
+            mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            mv.setViewName("redirect:/profesor/tareas/viewCrearTarea/{idAsignatura}");
+            return mv;
+        }else{
+            String tipoTarea = tarea.getTipo_tarea().toLowerCase();
+            String tituloTarea = tarea.getTitulo_tarea().toLowerCase();
+            String descripcionTarea = tarea.getDescripcion_tarea().toLowerCase();
+            Optional<Tareas> existingTarea = tareasRepository.findTareasByTitulo(tituloTarea);
+            if (existingTarea.isPresent()) {
+                mv.addObject("error", "La tarea ya existe en la base de datos");
+            } else {
+                Tareas tareas = new Tareas();
+                tareas.setTipo_tarea(tipoTarea);
+                tareas.setTitulo_tarea(tituloTarea);
+                tareas.setDescripcion_tarea(descripcionTarea);
+                tareas.setCalificacion_tarea(tarea.getCalificacion_tarea());
+                tareasRepository.save(tareas);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            mv.setViewName("redirect:/profesor/tareas/viewCrearTarea/{idAsignatura}");
+            return mv;
+        }
     }
 
 

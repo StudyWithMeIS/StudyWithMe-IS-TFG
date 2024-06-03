@@ -15,24 +15,49 @@
 <!-- Navbar -->
 <div th:insert="~{navbarProfesorGrade :: navbarProfesorComponenet}"></div>
 
-<section class="container-fluid lg-5">
+<section class="container-fluid lg-5 content-container">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-            <form th:action="@{/profesor/modificarTarea}" method="post">
+            <h3>Crear una nueva tarea</h3>
+            <form id="alumnoForm" th:action="@{'/profesor/tareas/crearTarea/' + ${asignatura.getId_asignatura()}}" method="post" th:object="${tarea}" onsubmit="return validarFormulario()"
+                  class="needs-validation" novalidate>
+                <input type="hidden" id="id" name="id" th:value="${tarea != null ? tarea.id_tarea : ''}">
                 <div class="mb-3">
-                    <label for="titulo_tarea" class="form-label">Título:</label>
-                    <input type="text" class="form-control" id="titulo_tarea" name="titulo_tarea" th:value="${tarea.titulo_tarea}">
+                    <label for="tipo_tarea" class="form-label">Tipo de tarea:</label>
+                    <input type="text" class="form-control" id="tipo_tarea" name="tipo_tarea"
+                           placeholder="Examen" th:value="${tarea != null ? tarea.tipo_tarea : ''}" required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa el tipo de tarea.
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="tipo_tarea" class="form-label">Tipo:</label>
-                    <input type="text" class="form-control" id="tipo_tarea" name="tipo_tarea" th:value="${tarea.tipo_tarea}">
+                    <label for="titulo_tarea" class="form-label">Título de la tarea:</label>
+                    <input type="text" class="form-control" id="titulo_tarea" name="titulo_tarea"
+                           placeholder="Examen trimestre 1" th:value="${tarea != null ? tarea.titulo_tarea : ''}" required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa el titulo de la tarea.
+                    </div>
                 </div>
                 <div class="mb-3">
-                    <label for="descripcion_tarea" class="form-label">Descripción:</label>
-                    <textarea class="form-control" id="descripcion_tarea" name="descripcion_tarea" rows="3" th:text="${tarea.descripcion_tarea}"></textarea>
+                    <label for="descripcion_tarea" class="form-label">Descripción de la tarea:</label>
+                    <input type="text" class="form-control" id="descripcion_tarea" name="descripcion_tarea"
+                           placeholder="Descripción del examen" th:value="${tarea != null ? tarea.descripcion_tarea : ''}" required>
+                    <div class="invalid-feedback">
+                        Por favor ingresa una descripción válida.
+                    </div>
                 </div>
-                <br>
-                <div class="d-flex justify-content-center"><button type="submit" class="btn btn-outline-primary btn-lg">Añadir Tarea</button></div>
+                <div class="mb-3">
+                    <label for="calificacion_tarea" class="form-label">Calificación del alumno:</label>
+                    <input type="number" step="0.001" class="form-control" id="calificacion_tarea" name="calificacion_tarea"
+                           placeholder="10.000" th:value="${tarea != null ? tarea.calificacion_tarea : ''}"
+                           required>
+                    <div class="invalid-feedback">
+                        La calificacion debe de tener 3 decimales (0.000).
+                    </div>
+                </div>
+                <div class="justify-content-center d-flex">
+                    <input type="submit" class="btn btn-primary btn-lg" value="Añadir tarea">
+                </div>
             </form>
         </div>
     </div>
