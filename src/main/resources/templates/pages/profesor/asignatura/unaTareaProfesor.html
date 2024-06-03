@@ -60,7 +60,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form th:action="@{/profesores/profesores/modificarTarea}" method="post">
+                            <form th:action="@{/profesor/tareas/modificarTarea}" method="post">
                                 <div class="mb-3">
                                     <label for="tipo_tarea" class="form-label">Tipo:</label>
                                     <input type="text" class="form-control" id="tipo_tarea" name="tipo_tarea" th:value="${tarea.tipo_tarea}">
@@ -91,7 +91,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form th:action="@{/profesores/profesores/calificarTarea}" method="post">
+                            <form th:action="@{/profesor/tareas/calificarTarea}" method="post">
                                 <div class="mb-3">
                                     <label for="calificacion" class="form-label">Calificación:</label>
                                     <input type="number" class="form-control" id="calificacion" name="calificacion" min="0" max="10">
