@@ -148,8 +148,8 @@ public class ProfesorController {
     }
 
     //VER TAREAS DE UNA ASIGNATURA
-    @GetMapping("/asignatura/verUnaTarea/{idTarea}")
-    public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea, Model model) {
+    @GetMapping("/asignatura/verUnaTarea/{idAsignatura}/{idTarea}")
+    public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea, @PathVariable("idAsignatura") int idAsignatura, Model model) {
         ModelAndView mv = new ModelAndView();
 
         Tareas tarea = tareaService.obtenerTareaPorId(idTarea);
