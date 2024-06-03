@@ -15,17 +15,15 @@
 <!-- Navbar -->
 <div th:insert="~{navbarProfesorGrade :: navbarProfesorComponenet}"></div>
 
-
 <section class="container-fluid lg-5">
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
             <div class="row">
-                <h2>Tareas</h2>
-                <div class="list-group list-group-flush" th:each="tarea : ${tareas}">
-                    <p class="pb-3 mb-0 small lh-sm" th:text="${tarea.titulo_tarea}"></p>
+                <h2>Tareas</h2><hr>
+                <div th:each="tarea : ${tareas}">
+                    <p th:text="${tarea.titulo_tarea}"></p>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
