@@ -36,17 +36,15 @@ public class ControladorGeneral {
     @Autowired
     private ProfesoresRepository profesoresRepo;
 
+    //---------HOME DE LA APLICACION-----------
     @RequestMapping("/")
     public ModelAndView index(Authentication auth) {
         ModelAndView mv = new ModelAndView();
         if (auth != null) {
             String username = auth.getName();
-            //Representa al cliente  que ha iniciado sesion.
             Administradores admin_user = adminRepo.findAdministradorByNif(username).orElse(null);
             Alumnos alumno_user = alumnosRepo.findAlumnosByNif(username).orElse(null);
             Profesores profesor_user = profesoresRepo.findProfesoresByNif(username).orElse(null);
-
-            System.out.println("AUTH HECHO");
 
             if (admin_user != null) {
                 mv.addObject("user", admin_user);
@@ -58,7 +56,6 @@ public class ControladorGeneral {
                 mv.addObject("user", profesor_user);
                 System.out.println("ROLE PROFESOR");
             }
-            System.out.println("USUARIO INICIÓ SESIÓN: " + username);
             mv.addObject("userAuthenticated", isAuthenticated(auth));
         }else{
             System.out.println("AUTH NO HECHO");
@@ -67,6 +64,9 @@ public class ControladorGeneral {
         return mv;
     }
 
+
+
+    //---------MOSTRAR JOIN-----------
     @RequestMapping("/join")
     public ModelAndView join(Authentication auth) {
         ModelAndView mv = new ModelAndView();
@@ -75,6 +75,8 @@ public class ControladorGeneral {
         return mv;
     }
 
+
+    //---------MOSTRAR KNOWNUS-----------
     @RequestMapping("/knowUs")
     public ModelAndView knowUs(Authentication auth) {
         ModelAndView mv = new ModelAndView();
@@ -83,10 +85,13 @@ public class ControladorGeneral {
         return mv;
     }
 
+
+    //---------AUTENTICAR USUARIO-----------
     private boolean isAuthenticated(Authentication authentication) {
         return authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof UserDetails;
     }
 
+    //---------LOGIN-----------
     @RequestMapping("/login")
     public ModelAndView login(Authentication auth) {
         ModelAndView mv = new ModelAndView();
@@ -94,6 +99,8 @@ public class ControladorGeneral {
         return mv;
     }
 
+
+    //---------CERRAR SESION-----------
     @RequestMapping("/logout")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
@@ -107,6 +114,8 @@ public class ControladorGeneral {
         return null;
     }
 
+
+    //---------ERROR DE LOGIN-----------
     @RequestMapping("/login-error")
     public ModelAndView loginError() {
         ModelAndView mv = new ModelAndView();
