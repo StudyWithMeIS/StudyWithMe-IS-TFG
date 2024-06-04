@@ -44,6 +44,7 @@ public class ProfesorController {
     private TareasRepository tareasRepository;
 
 
+    //---------MOSTRAR HOME PROFESOR-----------
     @GetMapping("/profesor/homeProfesor")
     public ModelAndView homeAsignaturas(Model model, Authentication auth) {
         ModelAndView mv = new ModelAndView();
@@ -63,6 +64,7 @@ public class ProfesorController {
         return mv;
     }
 
+    //---------CARGAR VISTA PERFIL PROFESOR-----------
     @GetMapping("/profesor/viewPerfilProfesor")
     public ModelAndView perfilProfesor(Authentication auth) {
         ModelAndView mv = new ModelAndView();
@@ -71,6 +73,8 @@ public class ProfesorController {
         return mv;
     }
 
+
+    //---------MOSTRAR PERFIL PROFESOR-----------
     @GetMapping("/profesor/perfilProfesor")
     public ModelAndView PerfilProfersor(Authentication auth) {
         ModelAndView mv = new ModelAndView();
@@ -103,12 +107,21 @@ public class ProfesorController {
     }
 
 
+
+
+
+
+
+
+
+
+
     //-------------------------------------------
     //--------------ASIGNATURAS------------------
     //-------------------------------------------
 
 
-    //CALENDARIO
+    //---------MOSTRAR CALENDARIO-----------
     @GetMapping("/asignatura/calendario/{idAsignatura}")
     public ModelAndView calendario(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
@@ -118,7 +131,7 @@ public class ProfesorController {
         return mv;
     }
 
-    //VER PERSONAS DE UNA ASIGNATURA
+    //---------MOSTRAR PERSONAS DE LA ASIGNATURA-----------
     @GetMapping("/asignatura/verPersonas/{idAsignatura}")
     public ModelAndView verPersonas(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
@@ -135,7 +148,7 @@ public class ProfesorController {
         return mv;
     }
 
-    //VER TAREAS DE UNA ASIGNATURA (tablon)
+    //---------MOSTRAR TAREAS DE UNA ASIGNATURA-----------
     @GetMapping("/asignaturas/{idAsignatura}")
     public ModelAndView verTareas(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
@@ -150,7 +163,7 @@ public class ProfesorController {
         return mv;
     }
 
-    //VER TAREAS DE UNA ASIGNATURA
+    //---------MOSTRAR TAREA EN DETALLE-----------
     @GetMapping("/asignatura/verUnaTarea/{idAsignatura}/{idTarea}")
     public ModelAndView verUnaTarea(@PathVariable("idTarea") int idTarea, @PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
@@ -165,6 +178,8 @@ public class ProfesorController {
         return mv;
     }
 
+
+    //---------SUBIR ARCHIVOS-----------
     @PostMapping("/tareas/{id}/subirTrabajo")
     public String subirTrabajo(@PathVariable("id") Long id, @RequestParam("file") MultipartFile file, Model model) {
         if (file.isEmpty()) {
@@ -177,6 +192,8 @@ public class ProfesorController {
         return "redirect:/profesores/tareas/" + id;
     }
 
+
+    //---------MODIFICAR TAREA-----------
     @PostMapping("/tareas/modificarTarea")
     public String modificarTarea(@ModelAttribute("tarea") Tareas tarea, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -188,6 +205,8 @@ public class ProfesorController {
         return "redirect:/profesores/tareas/" + tarea.getId_tarea();
     }
 
+
+    //---------CALIFICAR TAREA-----------
     @PostMapping("/tareas/calificarTarea")
     public String calificarTarea(@RequestParam("id") Long id, @RequestParam("calificacion") int calificacion, Model model) {
         Tareas tarea = tareaService.obtenerTareaPorId(id.intValue());
@@ -202,7 +221,7 @@ public class ProfesorController {
     }
 
 
-    //LISTAR TAREAS (trabajo de clase)
+    //---------LISTAR TAREAS (Trabajo de clase)-----------
     @GetMapping("/asignatura/listarTareas/{idAsignatura}")
     public ModelAndView listarTareas(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
@@ -217,7 +236,7 @@ public class ProfesorController {
         return mv;
     }
 
-    //AÑADIR TAREAS
+    //---------AÑADIR TAREA-----------
     @GetMapping("/tareas/viewCrearTarea/{idAsignatura}")
     public ModelAndView mostrarPaginaAddTarea(@PathVariable("idAsignatura") int idAsignatura) {
         ModelAndView mv = new ModelAndView();
@@ -229,6 +248,9 @@ public class ProfesorController {
         return mv;
     }
 
+
+
+    //---------CREAR TAREA-----------
     @RequestMapping("/tareas/crearTarea/{idAsignatura}")
     public ModelAndView guardarTareas(@PathVariable("idAsignatura") int idAsignatura, @ModelAttribute Tareas tarea, @Validated BindingResult result) {
         ModelAndView mv = new ModelAndView();
@@ -237,11 +259,6 @@ public class ProfesorController {
         mv.addObject("asignatura", asignatura);
 
         if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0 ) {
-            System.out.println(tarea.getTipo_tarea());
-            System.out.println(tarea.getTitulo_tarea());
-            System.out.println(tarea.getDescripcion_tarea());
-            System.out.println(tarea.getCalificacion_tarea());
-            System.out.println(result.getAllErrors().toString());
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
             try {
                 Thread.sleep(1000);
@@ -274,6 +291,4 @@ public class ProfesorController {
             return mv;
         }
     }
-
-
-}
+}//CLOSE PROFESOR CONTROLADOR

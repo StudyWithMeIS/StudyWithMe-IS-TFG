@@ -900,11 +900,6 @@ public class AdministradoresController {
     public ModelAndView guardarTareas(@ModelAttribute Tareas tarea, @Validated BindingResult result) {
         ModelAndView mv = new ModelAndView();
         if (result.hasErrors() || tarea.getTipo_tarea().isEmpty() || tarea.getTitulo_tarea().isEmpty() || tarea.getDescripcion_tarea().isEmpty() || tarea.getCalificacion_tarea() < 0 ) {
-            System.out.println(tarea.getTipo_tarea());
-            System.out.println(tarea.getTitulo_tarea());
-            System.out.println(tarea.getDescripcion_tarea());
-            System.out.println(tarea.getCalificacion_tarea());
-            System.out.println(result.getAllErrors().toString());
             mv.addObject("error", "Por favor, completa todos los campos obligatorios.");
             try {
                 Thread.sleep(1000);
@@ -1041,4 +1036,3 @@ public class AdministradoresController {
 
 
 }// CLOSE CLASS ADMINSTRADORCONTROLLER
-
