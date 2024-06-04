@@ -1,5 +1,9 @@
 .custom-margin-top {
-    margin-top: 6rem ; /* Puedes ajustar el valor según tus necesidades */
+    margin-top: 6rem ;
+}
+
+.margin-top-custom {
+    margin-top: 3rem;
 }
 
 #video-welcome {
