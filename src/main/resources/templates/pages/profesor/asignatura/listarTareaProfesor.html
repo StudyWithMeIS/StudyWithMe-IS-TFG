@@ -16,12 +16,27 @@
 <div th:insert="~{navbarProfesorGrade :: navbarProfesorComponenet}"></div>
 
 <section class="container-fluid lg-5">
-    <div class="container mt-3">
-        <div class="container-fluid custom-margin-top">
-            <div class="row">
-                <h2>Tareas</h2><hr>
+    <div class="container mt-sm-0 mt-md-3 mt-lg-4">
+        <div class="row">
+            <h2>Tareas</h2>
+            <hr>
+            <div class="container mt-sm-0 mt-md-3 mt-lg-4">
                 <div th:each="tarea : ${tareas}">
-                    <p th:text="${tarea.titulo_tarea}"></p>
+                    <div class="row">
+                        <div class="col-1">
+                            <button type="button" class="btn btn-sm active rounded-circle" data-bs-toggle="button"
+                                    aria-pressed="true"
+                                    th:href="@{'/profesor/asignatura/verUnaTarea/' + ${asignatura.id_asignatura} + '/' + ${tarea.id_tarea}}">
+                                <i class="bi bi-journal-bookmark-fill"></i></button>
+                        </div>
+                        <div class="col-9">
+                            <h6>
+                                <a class="link-dark link-offset-1 link-underline-opacity-0 link-underline-opacity-25-hover"
+                                   th:text="${tarea.titulo_tarea +' - '+tarea.tipo_tarea}"
+                                   th:href="@{'/profesor/asignatura/verUnaTarea/' + ${asignatura.id_asignatura} + '/' + ${tarea.id_tarea}}"></a>
+                            </h6>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

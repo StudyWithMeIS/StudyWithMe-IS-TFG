@@ -15,9 +15,10 @@
 
 
 
-<section class="container-fluid mt-5">
+<section class="container-fluid lg-5">
+    <div class="container mt-sm-0 mt-md-2 mt-lg-3">
     <div th:if="${not #lists.isEmpty(asignaturas)}" class="visible">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="row row-cols-1 row-cols-md-1 row-cols-lg-3 g-4">
             <div class="col-10" th:each="asignatura : ${asignaturas}">
                 <div class="card h-100">
                     <div th:href="@{'/alumnos/asignatura/' + ${asignatura.getId_asignatura()}}">
@@ -42,6 +43,7 @@
     </div>
     <div th:if="${#lists.isEmpty(asignaturas)}" class="visible">
         <h3>Actualmente no tienes ninguna asignatura</h3>
+    </div>
     </div>
 </section>
 

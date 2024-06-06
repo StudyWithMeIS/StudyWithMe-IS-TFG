@@ -15,30 +15,35 @@
 <!-- Navbar -->
 <div th:insert="~{navbarProfesor :: navbarProfesorComonente}"></div>
 
-<section class="container-fluid mt-5">
-    <div th:if="${not #lists.isEmpty(asignaturas)}" class="visible">
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            <div class="col-10" th:each="asignatura : ${asignaturas}">                <div class="card h-100">
-                    <div th:href="@{'/profesor/asignatura/' + ${asignatura.getId_asignatura()}}"><img th:src="@{/images/clase.webp}" alt="Asignatura" class="card-img"></div>
-                    <div class="card-img-overlay">
+<section class="container-fluid lg-5">
+    <div class="container mt-sm-0 mt-md-2 mt-lg-3">
+        <div th:if="${not #lists.isEmpty(asignaturas)}" class="visible">
+            <div class="row row-cols-1 row-cols-md-1 row-cols-lg-3 g-4">
+                <div class="col-10" th:each="asignatura : ${asignaturas}">
+                    <div class="card h-100">
+                        <div th:href="@{'/profesor/asignatura/' + ${asignatura.getId_asignatura()}}"><img
+                                th:src="@{/images/clase.webp}" alt="Asignatura" class="card-img"></div>
+                        <div class="card-img-overlay">
 
-                        <h5 class="card-title">
-                            <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" th:href="@{'/profesor/asignatura/' + ${asignatura.getId_asignatura()}}">
-                                <span th:text="${asignatura.getNombre_asignatura()}"></span>
-                            </a>
-                        </h5>
-                    </div>
-                    <div class="card-body">
-                        <h6 class="card-subtitle mb-2 text-body-secondary"
-                            th:text="${asignatura.getDescripcion_asignatura()}"></h6>
-                        <p class="card-text" th:text="${asignatura.getDetalle_asignatura()}"></p>
+                            <h5 class="card-title">
+                                <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                                   th:href="@{'/profesor/asignatura/' + ${asignatura.getId_asignatura()}}">
+                                    <span th:text="${asignatura.getNombre_asignatura()}"></span>
+                                </a>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-body-secondary"
+                                th:text="${asignatura.getDescripcion_asignatura()}"></h6>
+                            <p class="card-text" th:text="${asignatura.getDetalle_asignatura()}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div th:if="${#lists.isEmpty(asignaturas)}" class="visible">
-        <h3>Actualmente no tienes ninguna asignatura</h3>
+        <div th:if="${#lists.isEmpty(asignaturas)}" class="visible">
+            <h3>Actualmente no tienes ninguna asignatura</h3>
+        </div>
     </div>
 </section>
 
