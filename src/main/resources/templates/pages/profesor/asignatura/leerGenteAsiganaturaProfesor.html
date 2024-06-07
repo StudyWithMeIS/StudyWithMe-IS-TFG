@@ -21,11 +21,35 @@
             <div class="row" th:each="asignatura : ${asignatura.id_asignatura}">
                 <h2>Profesores</h2><hr>
                 <div th:each="profesor : ${profesores}">
-                    <p th:text="${profesor.nombre_profesor}"></p>
+                    <div class="row">
+                        <div class="col-1">
+                            <button type="button" class="btn btn-sm active rounded-circle" data-bs-toggle="button"
+                                    aria-pressed="true"><i class="bi bi-person-fill"></i></button>
+                        </div>
+                        <div class="col-9">
+                            <h6>
+                                <a class="link-dark link-offset-1 link-underline-opacity-0 link-underline-opacity-25-hover" th:text="${profesor.nombre_profesor}"></a>
+                            </h6>
+                        </div>
+                        <br>
+                    </div>
+<!--                    <p th:text="${profesor.nombre_profesor}"></p>-->
                 </div>
-                <h2>Alumnos</h2><hr>
+                <br><br><h2>Alumnos</h2><hr>
                 <div th:each="alumno : ${alumnos}">
-                    <p th:text="${alumno.nombre_alumno}"></p>
+                    <div class="row">
+                        <div class="col-1">
+                            <button type="button" class="btn btn-sm active rounded-circle" data-bs-toggle="button"
+                                    aria-pressed="true"><i class="bi bi-person-fill"></i></button>
+                        </div>
+                        <div class="col-9">
+                            <h6>
+                                <a class="link-dark link-offset-1 link-underline-opacity-0 link-underline-opacity-25-hover" th:text="${alumno.nombre_alumno}"></a>
+                            </h6>
+                        </div>
+                        <br>
+                    </div>
+<!--                    <p th:text="${alumno.nombre_alumno}"></p>-->
                 </div>
             </div>
         </div>

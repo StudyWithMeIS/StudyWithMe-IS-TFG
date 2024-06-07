@@ -17,28 +17,38 @@
 <div th:insert="~{navbarAdmin :: navbarComponenetAdministrador}"></div>
 
 
-
-
 <section class="container-fluid lg-5">
     <!-- Home -->
     <div class="container mt-3">
         <div class="container-fluid custom-margin-top">
-        <div class="col-lg-8 offset-lg-2">
+            <div class="col-lg-8 offset-lg-2">
 
-            <h2 class="mb-4">Perfil del Administrador</h2>
-            <table class="table">
-                <tr><th>NIF</th><td th:text="${admin != null ? admin.nif_admin : 'N/A'}"></td></tr>
-                <tr><th>Nombre completo</th><td th:text="${admin != null ? admin.nombre_admin : 'N/A'}"></td></tr>
-                <tr><th>Email</th><td th:text="${admin != null ? admin.email_admin : 'N/A'}"></td></tr>
-            </table>
-            <br>
-            <div class="d-flex justify-content-center">
-                <form th:action="@{/administradores/administradores/viewActualizarAdministradores/{id_admin}(id_admin=${admin.id_admin})}" method="get">
-                    <button type="submit" class="btn btn-info">
-                        <i class="bi bi-pencil"></i> Actualizar
-                    </button>
-                </form>
-            </div>        </div>
+                <h2 class="mb-4">Perfil del Administrador</h2>
+                <table class="table">
+                    <tr>
+                        <th>NIF</th>
+                        <td th:text="${admin != null ? admin.nif_admin : 'N/A'}"></td>
+                    </tr>
+                    <tr>
+                        <th>Nombre completo</th>
+                        <td th:text="${admin != null ? admin.nombre_admin : 'N/A'}"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td th:text="${admin != null ? admin.email_admin : 'N/A'}"></td>
+                    </tr>
+                </table>
+                <br>
+                <div class="d-flex justify-content-center">
+                    <form th:action="@{/administradores/administradores/viewActualizarAdministradores/{id_admin}(id_admin=${admin.id_admin})}"
+                          method="get">
+                        <button type="submit" class="btn btn-info">
+                            <i class="bi bi-pencil"></i> Actualizar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
